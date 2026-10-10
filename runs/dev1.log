@@ -3,3 +3,6 @@ self-test ok
 round 1: reusing 9 stored teacher batches
 round 1: 866 units, 1635 candidate entries
   dropped 68 operations that do not apply
+  bulk of 1567 entries: delta -26784398 bits
+  bulk of 317 entries: delta -1174410 bits
+round 1 done in 979s: held-out {"babylm": 4.227184006179869}, train total 4.1815 bpb, BLiMP 55.4, entries 1250, concepts 911

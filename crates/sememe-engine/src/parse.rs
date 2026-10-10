@@ -654,7 +654,11 @@ impl<'m> Parser<'m> {
                 );
             }
         }
-        let n_unknown = if m.by_form.contains_key(form) { cost::UNKNOWN_CATS_KNOWN } else { usize::MAX };
+        let n_unknown = if m.by_form.contains_key(form) {
+            cost::UNKNOWN_CATS_KNOWN
+        } else {
+            usize::MAX
+        };
         for u in m.unknown_cats.iter().take(n_unknown) {
             push(
                 u.cat.clone(),
@@ -899,7 +903,10 @@ impl<'m> Parser<'m> {
         // number of attempts even if the beam is not full.
         let mut attempts = 0;
         let mut di = done.into_iter().take_while(|d| d.score <= limit).peekable();
-        let mut ci = cands.into_iter().take_while(|c| c.score <= limit).peekable();
+        let mut ci = cands
+            .into_iter()
+            .take_while(|c| c.score <= limit)
+            .peekable();
         while out.len() < BEAM && attempts < 3 * BEAM {
             let take_done = match (di.peek(), ci.peek()) {
                 (Some(d), Some(c)) => d.score <= c.score,

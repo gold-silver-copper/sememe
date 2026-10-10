@@ -1,0 +1,1906 @@
+# sememe program: the ontology (concepts, roles, meaning features).
+
+/// Anything at all: the top of the type hierarchy.
+c0 concept Thing < Thing  @0 seed
+/// A participant in a conversation, introduced by a speaker tag or as the narrator of written text.
+c1 concept Speaker < Thing  @0 seed
+/// Something that happens.
+c2 concept Event < Thing  @1
+/// Something that holds over time.
+c3 concept State < Thing  @1
+/// A quality of a thing.
+c4 concept Property < Thing  @1
+/// Interjections, discourse markers and speech acts.
+c5 concept Discourse < Thing  @1
+/// A living being.
+c6 concept Animate < Thing  @1
+/// A human being.
+c7 concept Person < Animate  @1
+/// A non-human animal.
+c8 concept Animal < Animate  @1
+/// A physical, countable thing.
+c9 concept Object < Thing  @1
+/// A location.
+c10 concept Place < Thing  @1
+/// A mass material.
+c11 concept Substance < Thing  @1
+/// A time or period.
+c12 concept Time < Thing  @1
+/// An amount or number.
+c13 concept Quantity < Thing  @1
+/// A cardinal number.
+c14 concept Number < Quantity  @1
+/// A position in a sequence.
+c15 concept Ordinal < Quantity  @1
+/// How much of a property.
+c16 concept Degree < Property  @1
+/// An idea or abstract entity.
+c17 concept Abstract < Thing  @1
+/// A linking of parts.
+c18 concept Coordination < Thing  @1
+/// Conjunction: and.
+c19 concept And < Coordination  @1
+/// Contrast: but.
+c20 concept But < Coordination  @1
+/// Sense something.
+c21 concept Perceive < Event  @1
+/// Perceive with the eyes.
+c22 concept See < Perceive  @1
+/// Convey information.
+c23 concept Communicate < Event  @1
+/// Utter words.
+c24 concept Say < Communicate  @1
+/// Say suddenly and with feeling.
+c25 concept Exclaim < Say  @1
+/// Communicate something to someone.
+c26 concept Tell < Communicate  @1
+/// Ask someone to do something.
+c27 concept Request < Communicate  @1
+/// Go on and on talking, nagging or grumbling.
+c28 concept Complain < Communicate  @1
+/// Converse.
+c29 concept Talk < Communicate  @1
+/// Talk back, answer.
+c30 concept Reply < Communicate  @1
+/// Change of position.
+c31 concept Move < Event  @1
+/// Move away from the deictic center.
+c32 concept Go < Move  @1
+/// Move toward the deictic center.
+c33 concept Come < Move  @1
+/// Go away from a place or person.
+c34 concept Leave < Move  @1
+/// Move on foot.
+c35 concept Walk < Move  @1
+/// Move house or home.
+c36 concept Relocate < Move  @1
+/// Move hurriedly with short steps.
+c37 concept Scurry < Move  @1
+/// Move confusedly and hurriedly.
+c38 concept Scuffle < Move  @1
+/// Move suddenly and quickly.
+c39 concept Dart < Move  @1
+/// Move in an arc.
+c40 concept Swing < Move  @1
+/// Move hastily and awkwardly.
+c41 concept Scramble < Move  @1
+/// Lower or let fall.
+c42 concept Drop < Move  @1
+/// Remain in a place.
+c43 concept Stay < Event  @1
+/// Progress in rank or career.
+c44 concept Advance < Event  @1
+/// Go out romantically with someone.
+c45 concept Date < Event  @1
+/// Mental activity.
+c46 concept Cognition < Event  @1
+/// Believe or consider.
+c47 concept Think < Cognition  @1
+/// Judge something to be so.
+c48 concept Find < Think  @1
+/// Have knowledge.
+c49 concept Know < Cognition  @1
+/// A hypothetical condition (standalone if-clause).
+c50 concept Suppose < Cognition  @1
+/// Wanting or needing.
+c51 concept Desire < Event  @1
+/// Wish to have or do.
+c52 concept Want < Desire  @1
+/// Require.
+c53 concept Need < Desire  @1
+/// Want rather than something else.
+c54 concept Prefer < Want  @1
+/// Find pleasant.
+c55 concept Like < Event  @1
+/// Perform an action.
+c56 concept Do < Event  @1
+/// Bring into being.
+c57 concept Create < Event  @1
+/// Produce, prepare.
+c58 concept Make < Create  @1
+/// Bring about a state or event.
+c59 concept Cause < Event  @1
+/// Bring back to a former place or state.
+c60 concept Restore < Cause  @1
+/// Wear someone out.
+c61 concept Exhaust < Cause  @1
+/// Get in the way of.
+c62 concept Hinder < Event  @1
+/// Make open.
+c63 concept Open < Event  @1
+/// Shoot a weapon.
+c64 concept Fire < Event  @1
+/// Ruin completely.
+c65 concept Destroy < Event  @1
+/// Blast apart.
+c66 concept Blow < Destroy  @1
+/// Undo a knot or tie.
+c67 concept Untie < Event  @1
+/// Make less tight.
+c68 concept Loosen < Event  @1
+/// Put in as an ingredient or extra.
+c69 concept Add < Event  @1
+/// Make clean.
+c70 concept Clean < Event  @1
+/// Do one's job.
+c71 concept Work < Event  @1
+/// Leave behind, give up.
+c72 concept Abandon < Event  @1
+/// Acquire for money.
+c73 concept Buy < Event  @1
+/// Buy on credit.
+c74 concept Charge < Buy  @1
+/// Give money for something.
+c75 concept Pay < Event  @1
+/// Transfer to someone.
+c76 concept Give < Event  @1
+/// Transfer custody of someone.
+c77 concept HandOver < Give  @1
+/// Take place.
+c78 concept Happen < Event  @1
+/// Beginning.
+c79 concept Start < Event  @1
+/// Vanish.
+c80 concept Disappear < Event  @1
+/// Come up, present itself.
+c81 concept Arise < Event  @1
+/// Laughter.
+c82 concept Laugh < Event  @1
+/// Armed conflict.
+c83 concept War < Event  @1
+/// An electric flash in a storm.
+c84 concept Lightning < Event  @1
+/// Simultaneous firing of a ship's guns.
+c85 concept Broadside < Event  @1
+/// Give off a bad smell.
+c86 concept Stink < State  @1
+/// Be at a place.
+c87 concept Located < State  @1
+/// There is.
+c88 concept Exist < State  @1
+/// Have, own.
+c89 concept Possess < State  @1
+/// Take part in or be connected with.
+c90 concept Involved < State  @1
+/// One thing is the same as another.
+c91 concept Identical < State  @1
+/// Easing of distress.
+c92 concept Relief < State  @1
+/// Pleasant, kind.
+c93 concept Nice < Property  @1
+/// Sad from lack of company.
+c94 concept Lonely < Property  @1
+/// Difficult.
+c95 concept Hard < Property  @1
+/// Acceptable.
+c96 concept Okay < Property  @1
+/// Needing rest.
+c97 concept Tired < Property  @1
+/// Very tired.
+c98 concept Exhausted < Tired  @1
+/// Fast.
+c99 concept Quick < Property  @1
+/// Strange.
+c100 concept Weird < Property  @1
+/// Able to be enforced.
+c101 concept Enforceable < Property  @1
+/// Excellent.
+c102 concept Great < Property  @1
+/// Arousing interest.
+c103 concept Interesting < Property  @1
+/// Not difficult.
+c104 concept Easy < Property  @1
+/// Relating to grammar.
+c105 concept Grammatical < Property  @1
+/// Good.
+c106 concept Good < Property  @1
+/// From Spain.
+c107 concept Spanish < Property  @1
+/// Fascist.
+c108 concept Fascist < Property  @1
+/// Actual, true.
+c109 concept Real < Property  @1
+/// Genuine, real.
+c110 concept Proper < Property  @1
+/// Worried, apprehensive.
+c111 concept Anxious < Property  @1
+/// Degree of certainty.
+c112 concept Certainty < Property  @1
+/// Certainly.
+c113 concept Definitely < Certainty  @1
+/// Perhaps.
+c114 concept Possibly < Certainty  @1
+/// To a high degree.
+c115 concept Very < Degree  @1
+/// Somewhat, kind of.
+c116 concept SortOf < Degree  @1
+/// Merely, simply, only.
+c117 concept Just < Degree  @1
+/// Excessively.
+c118 concept Too < Degree  @1
+/// Affirmation.
+c119 concept Yes < Discourse  @1
+/// Negation, denial or self-correction.
+c120 concept No < Discourse  @1
+/// Surprise or reaction.
+c121 concept Oh < Discourse  @1
+/// Realization or reaction.
+c122 concept Ah < Discourse  @1
+/// Acknowledgment.
+c123 concept Aha < Discourse  @1
+/// Hedging discourse marker.
+c124 concept Well < Discourse  @1
+/// Consequence or topic resumption.
+c125 concept So < Discourse  @1
+/// As a result.
+c126 concept Therefore < Discourse  @1
+/// Introduces a reason.
+c127 concept Because < Discourse  @1
+/// In addition.
+c128 concept Also < Discourse  @1
+/// Reformulation marker.
+c129 concept IMean < Discourse  @1
+/// Filler: er, erm.
+c130 concept Hesitate < Discourse  @1
+/// Listener signal: mm, uhhuh.
+c131 concept Backchannel < Discourse  @1
+/// Term of endearment addressing the hearer.
+c132 concept Darling < Discourse  @1
+/// Polite address to a man.
+c133 concept Sir < Discourse  @1
+/// 'The thing is': introduces the main point.
+c134 concept MainPoint < Discourse  @1
+/// Unintelligible speech.
+c135 concept Unclear < Discourse  @1
+/// Male parent.
+c136 concept Father < Person  @1
+/// Male child.
+c137 concept Boy < Person  @1
+/// Young person.
+c138 concept Child < Person  @1
+/// Person in charge.
+c139 concept Manager < Person  @1
+/// Police officer.
+c140 concept Cop < Person  @1
+/// A collection of members.
+c141 concept Group < Thing  @1
+/// An institution.
+c142 concept Organization < Thing  @1
+/// Governing officials.
+c143 concept Authority < Organization  @1
+/// Wolf.
+c144 concept Wolf < Animal  @1
+/// Ostrich.
+c145 concept Ostrich < Animal  @1
+/// Room.
+c146 concept Room < Place  @1
+/// Bathroom.
+c147 concept Bathroom < Room  @1
+/// Part of a space.
+c148 concept Side < Place  @1
+/// Upper surface.
+c149 concept Top < Place  @1
+/// That place.
+c150 concept There < Place  @1
+/// This place.
+c151 concept Here < Place  @1
+/// A direction.
+c152 concept Direction < Place  @1
+/// Outward.
+c153 concept Out < Direction  @1
+/// Downward.
+c154 concept Down < Direction  @1
+/// Street.
+c155 concept Street < Place  @1
+/// City.
+c156 concept City < Place  @1
+/// Hotel.
+c157 concept Hotel < Place  @1
+/// Restaurant.
+c158 concept Restaurant < Place  @1
+/// Work site.
+c159 concept Site < Place  @1
+/// Door.
+c160 concept Door < Object  @1
+/// Document file.
+c161 concept File < Object  @1
+/// Knot.
+c162 concept Knot < Object  @1
+/// Rope.
+c163 concept Rope < Object  @1
+/// Boat for escaping a ship.
+c164 concept Lifeboat < Object  @1
+/// Tiny fragments.
+c165 concept Smithereens < Object  @1
+/// Image, photo.
+c166 concept Picture < Object  @1
+/// Cabinet for files.
+c167 concept FilingCabinet < Object  @1
+/// Credit card.
+c168 concept CreditCard < Object  @1
+/// Money.
+c169 concept Money < Object  @1
+/// Food.
+c170 concept Food < Substance  @1
+/// Unleavened bread.
+c171 concept Matzo < Food  @1
+/// Bread.
+c172 concept Bread < Food  @1
+/// Meal.
+c173 concept Meal < Food  @1
+/// Salt.
+c174 concept Salt < Substance  @1
+/// Beverage.
+c175 concept Drink < Substance  @1
+/// Water.
+c176 concept Water < Substance  @1
+/// Sports/work season.
+c177 concept Season < Time  @1
+/// Month.
+c178 concept Month < Time  @1
+/// Day.
+c179 concept Day < Time  @1
+/// The present.
+c180 concept Now < Time  @1
+/// Preceding, gone by.
+c181 concept Past < Time  @1
+/// Evening.
+c182 concept Evening < Time  @1
+/// This evening.
+c183 concept Tonight < Time  @1
+/// Clock hour before noon.
+c184 concept AM < Time  @1
+/// Earlier than.
+c185 concept Before < Time  @1
+/// Later than.
+c186 concept After < Time  @1
+/// A period of time.
+c187 concept While < Time  @1
+/// Next, after that.
+c188 concept Then < Time  @1
+/// On some occasions.
+c189 concept Sometimes < Time  @1
+/// From now on (with negation).
+c190 concept Anymore < Time  @1
+/// All things.
+c191 concept Everything < Quantity  @1
+/// Any amount, anything.
+c192 concept Anything < Quantity  @1
+/// An unspecified amount.
+c193 concept Some < Quantity  @1
+/// A small amount.
+c194 concept Little < Quantity  @1
+/// A large amount.
+c195 concept Much < Quantity  @1
+/// Sufficient amount.
+c196 concept Enough < Quantity  @1
+/// Alternate ones.
+c197 concept EveryOther < Quantity  @1
+/// Allotted portion.
+c198 concept Share < Quantity  @1
+/// A portion of something.
+c199 concept Piece < Quantity  @1
+/// 1.
+c200 concept One < Number  @1
+/// 2.
+c201 concept Two < Number  @1
+/// 3.
+c202 concept Three < Number  @1
+/// 6.
+c203 concept Six < Number  @1
+/// 1st.
+c204 concept First < Ordinal  @1
+/// 2nd.
+c205 concept Second < Ordinal  @1
+/// Exertion.
+c206 concept Effort < Abstract  @1
+/// Cause of ruin.
+c207 concept Downfall < Abstract  @1
+/// Why something is so.
+c208 concept Reason < Abstract  @1
+/// An answer.
+c209 concept Response < Abstract  @1
+/// A question.
+c210 concept Question < Abstract  @1
+/// Mistake.
+c211 concept Error < Abstract  @1
+/// Topic of discussion.
+c212 concept Subject < Abstract  @1
+/// A period of sixty seconds.
+c213 concept Minute < Time  @1
+/// Have in mind, plan to do.
+c214 concept Intend < Desire  @1
+/// A word joining parts of discourse (and, or, but, so).
+c215 concept Connective < Thing  @1
+/// Alternative coordination.
+c216 concept Or < Connective  @1
+/// A feeling.
+c217 concept Emotion < State  @1
+/// A part of a body.
+c218 concept BodyPart < Object  @1
+/// A plant.
+c219 concept Plant < Object  @1
+/// How big something is.
+c220 concept Size < Property  @1
+/// A colour as a property.
+c221 concept Hue < Property  @1
+/// Something heard.
+c222 concept Sound < Event  @1
+/// Get away from someone or something.
+c223 concept Escape < Move  @1
+/// A stupid person; used as an insult.
+c224 concept Fool < Person  @1
+/// The number 4.
+c225 concept Four < Number  @1
+/// The number 5.
+c226 concept Five < Number  @1
+/// The number 7.
+c227 concept Seven < Number  @1
+/// The number 9.
+c228 concept Nine < Number  @1
+/// The number 10.
+c229 concept Ten < Number  @1
+/// The number 15.
+c230 concept Fifteen < Number  @1
+/// A large amount ('a lot of').
+c231 concept Many < Quantity  @1
+/// A small number ('a few').
+c232 concept Few < Quantity  @1
+/// The whole amount; every one.
+c233 concept All < Quantity  @1
+/// One of two equal parts.
+c234 concept Half < Quantity  @1
+/// A unit of land area.
+c235 concept Acre < Quantity  @1
+/// The early part of the day.
+c236 concept Morning < Time  @1
+/// By this time, sooner than expected.
+c237 concept Already < Time  @1
+/// A long time.
+c238 concept Long < Time  @1
+/// A calendar year.
+c239 concept Year < Time  @1
+/// Up to the moment when an event happens.
+c240 concept Until < Time  @1
+/// An instant.
+c241 concept Moment < Time  @1
+/// Just now, a short time ago.
+c242 concept Recent < Time  @1
+/// Once more.
+c243 concept Again < Time  @1
+/// At any time.
+c244 concept Ever < Time  @1
+/// From then on (with negation: no longer).
+c245 concept AnyMore < Time  @1
+/// No more than; just; merely.
+c246 concept Only < Degree  @1
+/// Nearly.
+c247 concept Almost < Degree  @1
+/// To a greater degree (comparative).
+c248 concept More < Degree  @1
+/// To the greatest degree (superlative).
+c249 concept Most < Degree  @1
+/// Fill a picture with colours.
+c250 concept ColorIn < Event  @1
+/// Direct one's eyes at something.
+c251 concept Look < Perceive  @1
+/// Look fixedly.
+c252 concept Stare < Look  @1
+/// Look at something attentively over time.
+c253 concept Watch < Perceive  @1
+/// Someone's field of vision.
+c254 concept Sight < Perceive  @1
+/// A book.
+c255 concept Book < Object  @1
+/// Attach with glue.
+c256 concept Stick < Event  @1
+/// Being the one in charge of or accountable for something.
+c257 concept Responsible < Property  @1
+/// A written message sent to someone.
+c258 concept Letter < Object  @1
+/// A letter of the alphabet.
+c259 concept Character < Thing  @1
+/// A person who directs an organisation.
+c260 concept Director < Person  @1
+/// The head of an organisation.
+c261 concept DirectorGeneral < Person  @1
+/// An official.
+c262 concept Officer < Person  @1
+/// A person who assists another.
+c263 concept Assistant < Person  @1
+/// Transmit by radio or television.
+c264 concept Broadcast < Communicate  @1
+/// Cause someone or something to come to a place.
+c265 concept Bring < Move  @1
+/// A telephone.
+c266 concept Phone < Object  @1
+/// Utter words.
+c267 concept Speak < Communicate  @1
+/// A command or charge given to someone.
+c268 concept Order < Communicate  @1
+/// Give a sign for something to happen.
+c269 concept Signal < Communicate  @1
+/// Call someone or something by a name.
+c270 concept Label < Communicate  @1
+/// An utterance expressing feeling.
+c271 concept Expression < Communicate  @1
+/// 'Come on': urging someone to act.
+c272 concept Urge < Discourse  @1
+/// Grasp the meaning of something.
+c273 concept Understand < State  @1
+/// Worth.
+c274 concept Value < Property  @1
+/// A dollar.
+c275 concept Dollar < Money  @1
+/// One fact entails or justifies another.
+c276 concept Imply < State  @1
+/// Require or anticipate that something be done.
+c277 concept Expect < State  @1
+/// A female child or young woman.
+c278 concept Girl < Person  @1
+/// An adult male.
+c279 concept Man < Person  @1
+/// A courteous man.
+c280 concept Gentleman < Man  @1
+/// An adult female.
+c281 concept Woman < Person  @1
+/// How old someone is.
+c282 concept Age < Property  @1
+/// A turnip (Scots 'neep').
+c283 concept Turnip < Plant  @1
+/// Get on with; continue doing something.
+c284 concept Proceed < Event  @1
+/// Cope as well as possible with a bad situation.
+c285 concept MakeBest < Event  @1
+/// Construct.
+c286 concept Build < Event  @1
+/// A dwelling building.
+c287 concept House < Place  @1
+/// Think about something, try to recall.
+c288 concept Consider < Event  @1
+/// Backchannel assent ('okay', 'mhm').
+c289 concept Agree < Discourse  @1
+/// Expressing gratitude.
+c290 concept Thank < Discourse  @1
+/// Little in size.
+c291 concept Small < Size  @1
+/// Large in size or importance.
+c292 concept Big < Size  @1
+/// A corner.
+c293 concept Corner < Place  @1
+/// The rear part of something.
+c294 concept Back < Place  @1
+/// A public house.
+c295 concept Pub < Place  @1
+/// Move by stepping.
+c296 concept Step < Move  @1
+/// Not fast.
+c297 concept Slow < Property  @1
+/// With care.
+c298 concept Careful < Property  @1
+/// A walking stick.
+c299 concept Cane < Object  @1
+/// A hand.
+c300 concept Hand < BodyPart  @1
+/// A foot.
+c301 concept Foot < BodyPart  @1
+/// A head.
+c302 concept Head < BodyPart  @1
+/// An arm.
+c303 concept Arm < BodyPart  @1
+/// A waist.
+c304 concept Waist < BodyPart  @1
+/// A body.
+c305 concept Body < Object  @1
+/// A colonel.
+c306 concept Colonel < Person  @1
+/// The brink of a drop.
+c307 concept Edge < Place  @1
+/// A narrow shelf on a cliff.
+c308 concept Ledge < Place  @1
+/// A position over something.
+c309 concept Above < Place  @1
+/// A position under something.
+c310 concept Below < Place  @1
+/// A particular place.
+c311 concept Spot < Place  @1
+/// A sloping raised ground.
+c312 concept Bank < Place  @1
+/// A mountain.
+c313 concept Mountain < Place  @1
+/// Upward.
+c314 concept Up < Direction  @1
+/// Ahead.
+c315 concept Forward < Direction  @1
+/// Little by little ('step by step', 'inch by inch').
+c316 concept Gradual < Property  @1
+/// Excluding something.
+c317 concept Except < Property  @1
+/// Be in a lying position.
+c318 concept Lie < State  @1
+/// Be on one's knees.
+c319 concept Kneel < State  @1
+/// God.
+c320 concept God < Animate  @1
+/// Hope.
+c321 concept Hope < Emotion  @1
+/// Worry.
+c322 concept Anxiety < Emotion  @1
+/// Marvel at something.
+c323 concept Wonder < Emotion  @1
+/// Pleased with an achievement.
+c324 concept Proud < Emotion  @1
+/// Causing sick dread.
+c325 concept Sickening < Property  @1
+/// Break into small pieces.
+c326 concept Crumble < Event  @1
+/// Move smoothly downward.
+c327 concept Slide < Move  @1
+/// Lose footing.
+c328 concept Slip < Move  @1
+/// Earth.
+c329 concept Soil < Substance  @1
+/// Not firmly fixed.
+c330 concept Loose < Property  @1
+/// Take hold.
+c331 concept Grip < Event  @1
+/// Seize firmly.
+c332 concept Grasp < Event  @1
+/// Uncovered.
+c333 concept Bare < Property  @1
+/// Make skilled by practice.
+c334 concept Train < Event  @1
+/// Go up something.
+c335 concept Climb < Move  @1
+/// A sort or type.
+c336 concept Kind < Thing  @1
+/// Not heavy.
+c337 concept Light < Property  @1
+/// Of great weight.
+c338 concept Heavy < Property  @1
+/// Lean and strong.
+c339 concept Sinewy < Property  @1
+/// Lose strength or steadiness.
+c340 concept Falter < Event  @1
+/// Regaining a safe state.
+c341 concept Recovery < Event  @1
+/// A shoe.
+c342 concept Shoe < Object  @1
+/// Arrive at.
+c343 concept Reach < Move  @1
+/// Approach.
+c344 concept Near < Move  @1
+/// Not likely to stumble.
+c345 concept SureFooted < Property  @1
+/// A goat.
+c346 concept Goat < Animal  @1
+/// A sheep.
+c347 concept Sheep < Animal  @1
+/// A cow.
+c348 concept Cow < Animal  @1
+/// Firm, not shaking.
+c349 concept Steady < Property  @1
+/// Nerve, bravery.
+c350 concept Courage < Property  @1
+/// Heedless of danger.
+c351 concept Reckless < Property  @1
+/// Risk of harm.
+c352 concept Danger < Thing  @1
+/// Good judgment.
+c353 concept Sense < Property  @1
+/// Keep in mind.
+c354 concept Remember < Event  @1
+/// Release from something.
+c355 concept Free < Event  @1
+/// Clothing.
+c356 concept Clothes < Object  @1
+/// A shrub.
+c357 concept Bush < Plant  @1
+/// Hold on tightly.
+c358 concept Cling < Event  @1
+/// Unwind something rolled.
+c359 concept Unroll < Event  @1
+/// Fix something securely.
+c360 concept Fasten < Event  @1
+/// A shawl.
+c361 concept Shawl < Object  @1
+/// Senseless, not awake.
+c362 concept Unconscious < Property  @1
+/// Carefulness.
+c363 concept Care < Property  @1
+/// Causing great suffering.
+c364 concept Agonizing < Property  @1
+/// Lift up.
+c365 concept Raise < Move  @1
+/// Draw toward oneself.
+c366 concept Pull < Move  @1
+/// Move upward.
+c367 concept Lift < Move  @1
+/// Move downward.
+c368 concept Lower < Move  @1
+/// Place something somewhere.
+c369 concept Put < Move  @1
+/// Remove something from a place.
+c370 concept Take < Move  @1
+/// Drop down.
+c371 concept Fall < Move  @1
+/// Lean over.
+c372 concept Bend < Move  @1
+/// Spring.
+c373 concept Jump < Move  @1
+/// Come or go out.
+c374 concept Exit < Move  @1
+/// Dearly valued.
+c375 concept Precious < Property  @1
+/// A married man.
+c376 concept Husband < Person  @1
+/// A married woman.
+c377 concept Wife < Person  @1
+/// A male child of someone.
+c378 concept Son < Person  @1
+/// A daughter of one's sibling.
+c379 concept Niece < Person  @1
+/// An uncle.
+c380 concept Uncle < Person  @1
+/// Out of danger.
+c381 concept Safe < Property  @1
+/// White, pale.
+c382 concept White < Hue  @1
+/// Not moving.
+c383 concept Still < Property  @1
+/// Covered with grass.
+c384 concept Grassy < Property  @1
+/// A long narrow strip.
+c385 concept Ribbon < Object  @1
+/// Red in the face.
+c386 concept Flushed < Property  @1
+/// Exulting in success.
+c387 concept Triumphant < Property  @1
+/// Not injured.
+c388 concept Unhurt < Property  @1
+/// An achievement.
+c389 concept Feat < Event  @1
+/// Carry out.
+c390 concept Perform < Event  @1
+/// Rightly so.
+c391 concept Justified < Property  @1
+/// Burst into (speech).
+c392 concept BreakOut < Event  @1
+/// Of great volume.
+c393 concept Loud < Property  @1
+/// Joyfully triumphant.
+c394 concept Exultant < Property  @1
+/// Restrain someone.
+c395 concept Check < Event  @1
+/// Remove a covering.
+c396 concept Uncover < Event  @1
+/// A word or utterance.
+c397 concept Word < Thing  @1
+/// Compassionate deliverance.
+c398 concept Mercy < Thing  @1
+/// Inspiring wonder.
+c399 concept Wonderful < Property  @1
+/// Sincere.
+c400 concept Earnest < Property  @1
+/// Grave and formal.
+c401 concept Solemn < Property  @1
+/// Make evident to someone.
+c402 concept Show < Event  @1
+/// With the mouth open.
+c403 concept OpenMouthed < Property  @1
+/// Permit.
+c404 concept Allow < Event  @1
+/// Do someone a favour ('do a good turn').
+c405 concept Help < Event  @1
+/// Get something.
+c406 concept Obtain < Event  @1
+/// An opportunity.
+c407 concept Chance < Thing  @1
+/// A chair.
+c408 concept Chair < Object  @1
+/// Of course; evident.
+c409 concept Obvious < Property  @1
+/// Different, not this one.
+c410 concept Other < Property  @1
+/// Tactile surface quality.
+c411 concept Texture < Property  @1
+/// Suppose without proof.
+c412 concept Assume < Think  @1
+/// Start with something.
+c413 concept Begin < Event  @1
+/// A narrative.
+c414 concept Story < Thing  @1
+/// The remaining part.
+c415 concept Rest < Thing  @1
+/// Without help ('by yourself').
+c416 concept Alone < Property  @1
+/// Absent; at a distance.
+c417 concept Away < Property  @1
+/// Shut noisily.
+c418 concept Slam < Event  @1
+/// A bag.
+c419 concept Bag < Object  @1
+/// A bag for carrying books.
+c420 concept BookBag < Bag  @1
+/// Slur for a gay man.
+c421 concept Faggot < Person  @1
+/// A man performing in women's clothing.
+c422 concept DragQueen < Person  @1
+/// A detail.
+c423 concept Point < Thing  @1
+/// Subtle, detailed.
+c424 concept Fine < Property  @1
+/// Identical.
+c425 concept Same < Property  @1
+/// Increase the volume ('turn up').
+c426 concept MakeLouder < Event  @1
+/// Decrease the volume ('turn down').
+c427 concept MakeQuieter < Event  @1
+/// Music.
+c428 concept Music < Thing  @1
+/// A page.
+c429 concept Page < Object  @1
+/// Apart from others.
+c430 concept Separate < Property  @1
+/// The police.
+c431 concept Police < Person  @1
+/// A noise (transcript annotation).
+c432 concept Noise < Sound  @1
+/// Sing (transcript annotation).
+c433 concept Sing < Event  @1
+/// A fact.
+c434 concept Fact < Thing  @1
+/// At a great distance.
+c435 concept Far < Property  @1
+/// Able to be done.
+c436 concept Possible < Property  @1
+/// Reject, ignore ('turn one's back on').
+c437 concept Shun < Event  @1
+/// Life.
+c438 concept Life < Thing  @1
+/// Without fault.
+c439 concept Perfect < Property  @1
+/// A doctor.
+c440 concept Doctor < Person  @1
+/// Ill.
+c441 concept Sick < Property  @1
+/// A coordination of parts.
+c442 concept Conjunction < Thing  @1
+/// Something worn.
+c443 concept Clothing < Object  @1
+/// How far apart things are.
+c444 concept Distance < Property  @1
+/// Being somewhere.
+c445 concept Locate < State  @1
+/// Know something again on perceiving it.
+c446 concept Recognize < Cognition  @1
+/// A large amount.
+c447 concept Lot < Quantity  @1
+/// Zero amount.
+c448 concept None < Quantity  @1
+/// The number 12.
+c449 concept Twelve < Number  @1
+/// The number 20.
+c450 concept Twenty < Number  @1
+/// At all times.
+c451 concept Always < Time  @1
+/// At a later time.
+c452 concept Afterwards < Time  @1
+/// The day of Christmas, 25 December.
+c453 concept ChristmasDay < Time  @1
+/// The beginning, as of a day or era.
+c454 concept Dawn < Time  @1
+/// A place of learning.
+c455 concept School < Place  @1
+/// Filler 'you know'.
+c456 concept YouKnow < Discourse  @1
+/// Filler 'you see'.
+c457 concept YouSee < Discourse  @1
+/// 'then again': introducing a counterpoint.
+c458 concept ThenAgain < Discourse  @1
+/// 'to be honest'.
+c459 concept Frankly < Discourse  @1
+/// A tag question seeking agreement.
+c460 concept Confirm < Discourse  @1
+/// 'in other words'.
+c461 concept Rephrase < Discourse  @1
+/// Concessive 'though'.
+c462 concept Though < Discourse  @1
+/// Be understandable or logical.
+c463 concept MakeSense < State  @1
+/// Fully, all the way.
+c464 concept Completely < Degree  @1
+/// Roughly, 'or so'.
+c465 concept Approximately < Degree  @1
+/// No thing.
+c466 concept Nothing < Thing  @1
+/// Some unspecified thing.
+c467 concept Something < Thing  @1
+/// Any thing at all that fits.
+c468 concept Whatever < Thing  @1
+/// A state of affairs.
+c469 concept Situation < Thing  @1
+/// How things actually are.
+c470 concept Reality < Thing  @1
+/// Help someone learn.
+c471 concept Teach < Communicate  @1
+/// Speak very loudly.
+c472 concept Shout < Communicate  @1
+/// Name something.
+c473 concept Call < Communicate  @1
+/// Feel love for.
+c474 concept Love < Emotion  @1
+/// Feel sorry for.
+c475 concept Pity < Emotion  @1
+/// The one person meant for someone.
+c476 concept RightOne < Person  @1
+/// Take one number away from another.
+c477 concept Subtract < Event  @1
+/// No person.
+c478 concept Nobody < Person  @1
+/// Some person.
+c479 concept Somebody < Person  @1
+/// All people present.
+c480 concept Everyone < Person  @1
+/// Put into writing.
+c481 concept Write < Event  @1
+/// The mouth.
+c482 concept Mouth < BodyPart  @1
+/// A tooth.
+c483 concept Tooth < BodyPart  @1
+/// Come to have a property.
+c484 concept Become < Event  @1
+/// Fortunate.
+c485 concept Lucky < Property  @1
+/// A homeless wanderer.
+c486 concept Tramp < Person  @1
+/// A lawbreaker.
+c487 concept Criminal < Person  @1
+/// Like something else.
+c488 concept Similar < Property  @1
+/// Better than all others.
+c489 concept Best < Good  @1
+/// Cause something to leave a place.
+c490 concept Remove < Move  @1
+/// Washing one's body in a tub.
+c491 concept Bath < Event  @1
+/// Following in order.
+c492 concept Next < Property  @1
+/// Break in on someone.
+c493 concept Interrupt < Event  @1
+/// Engage in play.
+c494 concept Play < Event  @1
+/// A game.
+c495 concept Game < Event  @1
+/// Rise from bed.
+c496 concept GetUp < Move  @1
+/// Reside somewhere.
+c497 concept Live < State  @1
+/// Look like, seem.
+c498 concept Appear < State  @1
+/// Simple, fundamental.
+c499 concept Basic < Property  @1
+/// Suitable, correct.
+c500 concept Right < Property  @1
+/// A bag for carrying books.
+c501 concept Bookbag < Bag  @1
+/// A pipe carrying away water.
+c502 concept Drain < Object  @1
+/// Principal.
+c503 concept Main < Property  @1
+/// Start all over again.
+c504 concept Restart < Event  @1
+/// Go about, move around.
+c505 concept Roam < Move  @1
+/// A swimsuit.
+c506 concept Bikini < Clothing  @1
+/// Short trousers.
+c507 concept Shorts < Clothing  @1
+/// A sock.
+c508 concept Sock < Clothing  @1
+/// A coat.
+c509 concept Coat < Clothing  @1
+/// Hard to do.
+c510 concept Difficult < Property  @1
+/// Get to a place or point.
+c511 concept Arrive < Move  @1
+/// Get down.
+c512 concept Descend < Move  @1
+/// Hold something in a position.
+c513 concept Keep < Event  @1
+/// Take off clothing.
+c514 concept Undress < Event  @1
+/// Enjoyable.
+c515 concept Fun < Property  @1
+/// A male sibling.
+c516 concept Brother < Person  @1
+/// Young, younger.
+c517 concept Young < Property  @1
+/// Giving something up.
+c518 concept Sacrifice < Event  @1
+/// Come back.
+c519 concept Return < Move  @1
+/// The final part.
+c520 concept End < Thing  @1
+/// New.
+c521 concept New < Property  @1
+/// Clear away, remove from a surface.
+c522 concept Clear < Event  @1
+/// Original, first.
+c523 concept Original < Property  @1
+/// A dog.
+c524 concept Dog < Animal  @1
+/// A means of transport.
+c525 concept Vehicle < Object  @1
+/// Dress oneself in clothing.
+c526 concept PutOn < Event  @1
+/// A badge or sticker.
+c527 concept Badge < Object  @1
+/// A bear (incl. a toy bear).
+c528 concept Bear < Animal  @1
+/// Discourse marker resuming a topic.
+c529 concept Anyway < Discourse  @1
+/// Discourse marker adding a further reason.
+c530 concept Besides < Discourse  @1
+/// Request to repeat what was said.
+c531 concept Pardon < Discourse  @1
+/// Likely, probably.
+c532 concept Probable < Property  @1
+/// Believe or feel that something is so.
+c533 concept Feel < State  @1
+/// Any amount.
+c534 concept Any < Quantity  @1
+/// One time.
+c535 concept Once < Quantity  @1
+/// A newborn.
+c536 concept Baby < Person  @1
+/// A nurse.
+c537 concept Nurse < Person  @1
+/// A police detective.
+c538 concept Detective < Person  @1
+/// A family.
+c539 concept Family < Group  @1
+/// Clear and direct.
+c540 concept Explicit < Property  @1
+/// Vivid.
+c541 concept Colourful < Property  @1
+/// Make known publicly.
+c542 concept Announce < Communicate  @1
+/// Question intensely, grill.
+c543 concept Interrogate < Communicate  @1
+/// A way of speaking.
+c544 concept Language < Abstract  @1
+/// Take on board, accept.
+c545 concept Accept < Event  @1
+/// An idea.
+c546 concept Idea < Abstract  @1
+/// An arrangement of parts.
+c547 concept Structure < Abstract  @1
+/// Come out of something.
+c548 concept Emerge < Move  @1
+/// A store.
+c549 concept Shop < Place  @1
+/// In any degree (with negation).
+c550 concept AtAll < Degree  @1
+/// Rather, pretty.
+c551 concept Fairly < Degree  @1
+/// Truly, really.
+c552 concept Really < Degree  @1
+/// A part of a whole.
+c553 concept Part < Abstract  @1
+/// Put together.
+c554 concept Assemble < Event  @1
+/// Gain knowledge.
+c555 concept Learn < Event  @1
+/// Fail to remember.
+c556 concept Forget < Event  @1
+/// Be certain.
+c557 concept Sure < State  @1
+/// Know of something.
+c558 concept Aware < State  @1
+/// Be afraid (incl. polite regret).
+c559 concept Fear < State  @1
+/// Feel regret.
+c560 concept Sorry < State  @1
+/// Perceive by ear.
+c561 concept Hear < State  @1
+/// A kindergarten.
+c562 concept Kindergarten < Place  @1
+/// The start.
+c563 concept Beginning < Time  @1
+/// Cause to go somewhere.
+c564 concept Send < Event  @1
+/// A banana.
+c565 concept Banana < Food  @1
+/// Morning meal.
+c566 concept Breakfast < Food  @1
+/// Wine.
+c567 concept Wine < Food  @1
+/// An eye.
+c568 concept Eye < BodyPart  @1
+/// Backside.
+c569 concept Buttocks < BodyPart  @1
+/// Greedy.
+c570 concept Greedy < Property  @1
+/// Experience by taste.
+c571 concept Taste < Event  @1
+/// Tasting very good.
+c572 concept Delicious < Property  @1
+/// Sigh.
+c573 concept Sigh < Event  @1
+/// Rotate.
+c574 concept Turn < Event  @1
+/// A barrel.
+c575 concept Barrel < Object  @1
+/// Verify facts.
+c576 concept CheckFacts < Event  @1
+/// Stay in contact.
+c577 concept KeepInTouch < Event  @1
+/// Have a baby.
+c578 concept GiveBirth < Event  @1
+/// A tree.
+c579 concept Tree < Plant  @1
+/// Low temperature.
+c580 concept Cold < Property  @1
+/// A slipper.
+c581 concept Slipper < Clothing  @1
+/// Wait.
+c582 concept Wait < Event  @1
+/// Absurd.
+c583 concept Ridiculous < Property  @1
+/// A decision.
+c584 concept Decision < Abstract  @1
+/// Early.
+c585 concept Early < Property  @1
+/// Suitable, fitting in.
+c586 concept Fit < Property  @1
+/// Do without someone.
+c587 concept Spare < Event  @1
+/// Become full.
+c588 concept Fill < Event  @1
+/// Fresh.
+c589 concept Fresh < Property  @1
+/// Remove, get out.
+c590 concept TakeOut < Event  @1
+/// Smile.
+c591 concept Smile < Event  @1
+/// Move restlessly.
+c592 concept Fidget < Event  @1
+/// A seat.
+c593 concept Seat < Object  @1
+/// A method.
+c594 concept Procedure < Abstract  @1
+/// Concerning quality.
+c595 concept Qualitative < Property  @1
+/// Design.
+c596 concept Design < Abstract  @1
+/// Cut, reduce.
+c597 concept Cut < Event  @1
+/// Intend to say.
+c598 concept Mean < Event  @1
+/// Have to do with.
+c599 concept Relate < State  @1
+/// Develop through evolution.
+c600 concept Evolve < Event  @1
+/// Biological evolution.
+c601 concept Evolution < Abstract  @1
+/// The planet Earth.
+c602 concept Earth < Place  @1
+/// Cutting edge, leading position.
+c603 concept Forefront < Place  @1
+/// Current.
+c604 concept Present < Property  @1
+/// Unavoidable.
+c605 concept Inevitable < Property  @1
+/// Deal with.
+c606 concept Handle < Event  @1
+/// Eat.
+c607 concept Eat < Event  @1
+/// Pour.
+c608 concept Pour < Event  @1
+/// Wax.
+c609 concept Wax < Substance  @1
+/// Employment.
+c610 concept Job < Abstract  @1
+/// A linking of clauses or things (coordination, consequence).
+c611 concept Relation < Thing  @1
+/// A state of mind: thinking, knowing, wanting.
+c612 concept Mental < State  @1
+/// Take in or voice written text.
+c613 concept Read < Perceive  @1
+/// The dark part of the day.
+c614 concept Night < Time  @1
+/// Exclamation of surprise or amusement.
+c615 concept Ho < Discourse  @1
+/// Exclamation of amazement.
+c616 concept Wow < Discourse  @1
+/// Speak very softly.
+c617 concept Whisper < Speak  @1
+/// Ask pardon.
+c618 concept Apologize < Speak  @1
+/// Commit to doing something.
+c619 concept Promise < Speak  @1
+/// A friend or mate.
+c620 concept Friend < Person  @1
+/// A mother.
+c621 concept Mother < Person  @1
+/// A person who lights street lamps (proverbially fast).
+c622 concept Lamplighter < Person  @1
+/// Make up after a quarrel.
+c623 concept Reconcile < Event  @1
+/// The manner in which something is or happens.
+c624 concept Way < Thing  @1
+/// Calm, quick thinking in an emergency.
+c625 concept PresenceOfMind < Property  @1
+/// Rescue from harm.
+c626 concept Save < Event  @1
+/// A small river.
+c627 concept Stream < Place  @1
+/// Rude, impertinent.
+c628 concept Saucy < Property  @1
+/// Touch with the lips.
+c629 concept Kiss < Event  @1
+/// Every one taken singly.
+c630 concept Each < Quantity  @1
+/// Take pictures.
+c631 concept Photograph < Create  @1
+/// Cause to die.
+c632 concept Kill < Event  @1
+/// Have its proper place somewhere.
+c633 concept Belong < State  @1
+/// Be needed for a purpose.
+c634 concept Require < State  @1
+/// An unspecified state (elided predicate).
+c635 concept Be < State  @1
+/// Get through to the end of something.
+c636 concept Complete < Event  @1
+/// A course of study or route.
+c637 concept Course < Thing  @1
+/// A small settlement.
+c638 concept Village < Place  @1
+/// An automobile or toy car.
+c639 concept Car < Object  @1
+/// Unwilling to work.
+c640 concept Lazy < Property  @1
+/// Feeling owed privileges.
+c641 concept Entitled < Property  @1
+/// The scrotum.
+c642 concept Scrotum < BodyPart  @1
+/// A referent named by a cut-off or unintelligible word.
+c643 concept Unknown < Thing  @1
+/// The month of March.
+c644 concept March < Time  @1
+/// The month of October.
+c645 concept October < Time  @1
+/// The present day.
+c646 concept Today < Time  @1
+/// Shortly, presently.
+c647 concept Soon < Time  @1
+/// Make use of.
+c648 concept Use < Event  @1
+/// Become or make greater.
+c649 concept Increase < Event  @1
+/// Go to see someone.
+c650 concept Visit < Event  @1
+/// Mark with a tick.
+c651 concept Tick < Event  @1
+/// A container box.
+c652 concept Box < Object  @1
+/// At ease, chilled out.
+c653 concept Relaxed < Property  @1
+/// The degree to which (how much).
+c654 concept Extent < Degree  @1
+/// Collide or fall destructively.
+c655 concept Crash < Event  @1
+/// An aeroplane.
+c656 concept Plane < Object  @1
+/// Throw away.
+c657 concept Discard < Event  @1
+/// Giving help.
+c658 concept Helpful < Property  @1
+/// A class of things.
+c659 concept Category < Thing  @1
+/// Not the same.
+c660 concept Different < Property  @1
+/// Land surrounded by water.
+c661 concept Island < Place  @1
+/// Of the nearby area.
+c662 concept Local < Property  @1
+/// Be on guard against.
+c663 concept Beware < Event  @1
+/// An optical illusion.
+c664 concept Mirage < Object  @1
+/// The edge of the sea or lake.
+c665 concept Shore < Place  @1
+/// A small hut.
+c666 concept Cabin < Place  @1
+/// Have fun with.
+c667 concept Enjoy < Emotion  @1
+/// Wanting to attend to something.
+c668 concept Interested < Emotion  @1
+/// Amuse.
+c669 concept Entertain < Event  @1
+/// Attempt.
+c670 concept Try < Event  @1
+/// Empty, without content.
+c671 concept Blank < Property  @1
+/// One's home.
+c672 concept Home < Place  @1
+/// The region beneath something.
+c673 concept Under < Place  @1
+/// The sea.
+c674 concept Sea < Place  @1
+/// A fish.
+c675 concept Fish < Animal  @1
+/// A flat to live in.
+c676 concept Apartment < Place  @1
+/// A hospital.
+c677 concept Hospital < Place  @1
+/// From China.
+c678 concept Chinese < Property  @1
+/// Take legal action against.
+c679 concept Sue < Event  @1
+/// Confront.
+c680 concept Face < Event  @1
+/// A situation one is in.
+c681 concept Position < Thing  @1
+/// Very bad.
+c682 concept Terrible < Property  @1
+/// A bag for mail.
+c683 concept Postbag < Object  @1
+/// With much rain.
+c684 concept Rainy < Property  @1
+/// Pay out money.
+c685 concept Spend < Event  @1
+/// Be seated.
+c686 concept Sit < Event  @1
+/// A sandy shore.
+c687 concept Beach < Place  @1
+/// A mental event or state.
+c688 concept Cognize < Event  @1
+/// An emotional state.
+c689 concept Feeling < Property  @1
+/// A colour.
+c690 concept Color < Property  @1
+/// A mechanical device.
+c691 concept Machine < Object  @1
+/// A hand implement.
+c692 concept Tool < Object  @1
+/// Form a mental picture of.
+c693 concept Imagine < Cognize  @1
+/// The forward part.
+c694 concept Front < Part  @1
+/// Standalone 'if': its content is a condition.
+c695 concept Condition < Relation  @1
+/// Standalone 'when': its content gives the time.
+c696 concept When < Relation  @1
+/// Calling for attention.
+c697 concept Hey < Discourse  @1
+/// Tag seeking confirmation.
+c698 concept Huh < Discourse  @1
+/// Hesitation filler 'um'.
+c699 concept Um < Discourse  @1
+/// Hesitation filler 'er'.
+c700 concept Er < Discourse  @1
+/// Filler 'like'.
+c701 concept Hedge < Discourse  @1
+/// Exclamation of emphasis or annoyance.
+c702 concept Damn < Discourse  @1
+/// Intensifier 'the hell'.
+c703 concept Hell < Discourse  @1
+/// Calling the addressee by a name or term (vocative).
+c704 concept Address < Discourse  @1
+/// Ask earnestly.
+c705 concept Beg < Communicate  @1
+/// Give news to someone.
+c706 concept Inform < Tell  @1
+/// Something that is wrong.
+c707 concept Problem < State  @1
+/// Not right, amiss.
+c708 concept Wrong < Property  @1
+/// Go into somewhere.
+c709 concept Enter < Move  @1
+/// Go up.
+c710 concept Ascend < Move  @1
+/// Go after someone.
+c711 concept Follow < Move  @1
+/// Lift up by hand.
+c712 concept PickUp < Move  @1
+/// Move the hand to and fro as a signal.
+c713 concept Wave < Move  @1
+/// Get the better of someone.
+c714 concept Overcome < Event  @1
+/// Keep away from.
+c715 concept Avoid < Event  @1
+/// Select or decide.
+c716 concept Choose < Event  @1
+/// Show publicly.
+c717 concept Display < Event  @1
+/// Act or operate in some way.
+c718 concept Behave < Event  @1
+/// Come out, end up in some position.
+c719 concept Finish < Event  @1
+/// Not succeed.
+c720 concept Fail < Event  @1
+/// Show respect to.
+c721 concept Honor < Event  @1
+/// Gain as a victor.
+c722 concept Win < Event  @1
+/// Stop living.
+c723 concept Die < Event  @1
+/// Take the first step, begin.
+c724 concept Initiate < Event  @1
+/// Become available at a reduced price.
+c725 concept GoOnSale < Event  @1
+/// Have a friendly relationship.
+c726 concept GetAlong < Event  @1
+/// Feeling anger.
+c727 concept Angry < Feeling  @1
+/// Let down.
+c728 concept Disappointed < Feeling  @1
+/// Lack of happiness.
+c729 concept Unhappiness < Feeling  @1
+/// Mentally unbalanced.
+c730 concept Crazy < Property  @1
+/// Able to wait calmly.
+c731 concept Patient < Property  @1
+/// Just, simply, nothing more.
+c732 concept Merely < Property  @1
+/// Belonging to oneself.
+c733 concept Own < Property  @1
+/// Good to eat, yummy.
+c734 concept Tasty < Property  @1
+/// Powered by compressed air.
+c735 concept Pneumatic < Property  @1
+/// Apparent, evidently so.
+c736 concept Evident < Property  @1
+/// In accordance with fact.
+c737 concept True < Property  @1
+/// Right, not mistaken.
+c738 concept Correct < Property  @1
+/// The same in amount.
+c739 concept Equal < Property  @1
+/// Instant, without delay.
+c740 concept Immediate < Property  @1
+/// Precisely, right.
+c741 concept Exactly < Degree  @1
+/// Too much.
+c742 concept Excess < Degree  @1
+/// Delightful.
+c743 concept Lovely < Good  @1
+/// Most recent or final.
+c744 concept Last < Order  @1
+/// Blue colour.
+c745 concept Blue < Color  @1
+/// A captain.
+c746 concept Captain < Person  @1
+/// A nation.
+c747 concept Country < Place  @1
+/// A large room or entrance hall.
+c748 concept Hall < Place  @1
+/// The world.
+c749 concept World < Place  @1
+/// A newspaper.
+c750 concept Newspaper < Object  @1
+/// A financial document.
+c751 concept Statement < Object  @1
+/// Money earned.
+c752 concept Income < Money  @1
+/// A copy machine.
+c753 concept Copier < Machine  @1
+/// A hammer.
+c754 concept Hammer < Tool  @1
+/// A pole for a flag.
+c755 concept Flagpole < Object  @1
+/// A tapering flag.
+c756 concept Pennant < Object  @1
+/// An award.
+c757 concept Prize < Object  @1
+/// A piece of tree trunk.
+c758 concept Log < Object  @1
+/// A small cake.
+c759 concept Cupcake < Food  @1
+/// Peanut butter.
+c760 concept PeanutButter < Food  @1
+/// A period or stage (of schooling).
+c761 concept Stage < Time  @1
+/// A clock hour, o'clock.
+c762 concept Hour < Time  @1
+/// The moment has come for the content.
+c763 concept RightTime < Time  @1
+/// From a time onward.
+c764 concept Since < Time  @1
+/// After some interval.
+c765 concept Later < Time  @1
+/// A quantity of something.
+c766 concept Amount < Quantity  @1
+/// A blob of a substance.
+c767 concept Glob < Quantity  @1
+/// Unit of weight.
+c768 concept Hundredweight < Quantity  @1
+/// A number of times something happens.
+c769 concept Repetition < Quantity  @1
+/// Look like, appear.
+c770 concept Seem < State  @1
+/// Behaviour.
+c771 concept Conduct < Thing  @1
+/// Bearing, manners.
+c772 concept Deportment < Conduct  @1
+/// Knowledge, schooling.
+c773 concept Learning < Thing  @1
+/// How likely something is.
+c774 concept Likelihood < Property  @1
+/// Bring out, present something.
+c775 concept Produce < Event  @1
+/// A sheet or document of paper.
+c776 concept Paper < Object  @1
+/// Pose a question or request.
+c777 concept Ask < Speak  @1
+/// Look over carefully.
+c778 concept Examine < Perceive  @1
+/// Hold out something for someone to take.
+c779 concept Offer < Event  @1
+/// Fairly, somewhat ("pretty good").
+c780 concept Rather < Degree  @1
+/// Up to now.
+c781 concept SoFar < Time  @1
+/// Naturally, certainly.
+c782 concept OfCourse < Discourse  @1
+/// Expletive intensifier expressing annoyance.
+c783 concept Bloody < Property  @1
+/// In, into, within.
+c784 concept Inside < Place  @1
+/// Be located somewhere or at some time.
+c785 concept BeAt < State  @1
+/// To so great a degree.
+c786 concept Such < Degree  @1
+/// Concerning emotions.
+c787 concept Emotional < Property  @1
+/// Concerning money.
+c788 concept Financial < Property  @1
+/// Scalar focus: beyond what is expected.
+c789 concept Even < Degree  @1
+/// To some extent.
+c790 concept InAWay < Degree  @1
+/// The way one acts.
+c791 concept Behavior < Event  @1
+/// Harmful, poisonous.
+c792 concept Toxic < Property  @1
+/// Mood or feeling of a place or situation.
+c793 concept Atmosphere < State  @1
+/// Likely.
+c794 concept Probably < Likelihood  @1
+/// The heart, seat of feeling.
+c795 concept Heart < BodyPart  @1
+/// Wealthy.
+c796 concept Rich < Property  @1
+/// Riches.
+c797 concept Wealth < Thing  @1
+/// Stop and leave a vehicle.
+c798 concept Park < Move  @1
+/// Possibly.
+c799 concept Maybe < Likelihood  @1
+/// On the other side of.
+c800 concept Across < Place  @1
+/// Drive in and stop.
+c801 concept PullIn < Move  @1
+/// The right-hand side.
+c802 concept RightSide < Place  @1
+/// Confused, perplexed.
+c803 concept Puzzled < Feeling  @1
+/// A reply.
+c804 concept Answer < Speak  @1
+/// Alteration.
+c805 concept Change < Event  @1
+/// Manner of doing something.
+c806 concept Style < Thing  @1
+/// Managing, running an organization.
+c807 concept Management < Event  @1
+/// Cut down, make less.
+c808 concept Reduce < Event  @1
+/// Pay for work.
+c809 concept Wage < Thing  @1
+/// Work for, serve someone.
+c810 concept Serve < Event  @1
+/// A realm ruled by a king.
+c811 concept Kingdom < Place  @1
+/// Faithful.
+c812 concept Loyal < Property  @1
+/// Gladly received, invited.
+c813 concept Welcome < Property  @1
+/// Heaven.
+c814 concept Heaven < Place  @1
+/// Liturgical assent.
+c815 concept Amen < Discourse  @1
+/// Bestow divine favor.
+c816 concept Bless < Event  @1
+/// What something is called.
+c817 concept Name < Thing  @1
+/// A spirit.
+c818 concept Spirit < Animate  @1
+/// Sacred.
+c819 concept Holy < Property  @1
+/// A base, headquarters.
+c820 concept Base < Place  @1
+/// Concession.
+c821 concept Although < Connective  @1
+/// A span of time.
+c822 concept Period < Time  @1
+/// Military or other duty.
+c823 concept Service < Event  @1
+/// Engaged in action.
+c824 concept Active < Property  @1
+/// Hedge: "sort of thing", "that sort of thing".
+c825 concept SortOfThing < Discourse  @1
+/// Not good.
+c826 concept Bad < Property  @1
+/// Move fast on foot.
+c827 concept Run < Move  @1
+/// Of great height.
+c828 concept Tall < Property  @1
+/// Sexual activity.
+c829 concept Sex < Event  @1
+/// Of great age.
+c830 concept Old < Property  @1
+/// Schooling.
+c831 concept Education < Event  @1
+/// To tell the truth.
+c832 concept Honestly < Discourse  @1
+/// The winter season.
+c833 concept Winter < Time  @1
+/// Some place.
+c834 concept Somewhere < Place  @1
+/// A short while.
+c835 concept Bit < Time  @1
+/// On, further along.
+c836 concept Onward < Place  @1
+/// Put something in place of another.
+c837 concept Replace < Event  @1
+/// A competition of speed.
+c838 concept Race < Event  @1
+/// A moose.
+c839 concept Moose < Animal  @1
+/// A diplomat.
+c840 concept Ambassador < Person  @1
+/// Using nuclear weapons or power.
+c841 concept Nuclear < Property  @1
+/// Rather, in contrast.
+c842 concept Instead < Discourse  @1
+/// Be defeated.
+c843 concept Lose < Event  @1
+/// Redden in the face.
+c844 concept Blush < Event  @1
+/// Attractive, charming.
+c845 concept Pretty < Property  @1
+/// Stop briefly.
+c846 concept Pause < Event  @1
+/// Embarrassed bewilderment.
+c847 concept Confusion < Feeling  @1
+/// Interjection of surprise ("why!").
+c848 concept Surprise < Discourse  @1
+/// Betrayal.
+c849 concept Treason < Event  @1
+/// A quick throw or jerk.
+c850 concept Toss < Move  @1
+/// Well, in good health.
+c851 concept Healthy < Property  @1
+/// Mingle together.
+c852 concept Mix < Event  @1
+/// Morally bad.
+c853 concept Evil < Property  @1
+/// A church.
+c854 concept Church < Place  @1
+/// Able to be seen.
+c855 concept Visible < Property  @1
+/// A sheep enclosure; a flock.
+c856 concept Fold < Place  @1
+/// One who tends sheep.
+c857 concept Shepherd < Person  @1
+/// Deliverance from sin.
+c858 concept Salvation < State  @1
+/// Lord, master.
+c859 concept Lord < Person  @1
+/// Modest.
+c860 concept Humble < Property  @1
+/// A model to follow.
+c861 concept Example < Thing  @1
+/// A holy person.
+c862 concept Saint < Person  @1
+/// Holy, blessed.
+c863 concept Blessed < Property  @1
+/// Come together with.
+c864 concept Meet < Event  @1
+/// The day Sunday.
+c865 concept Sunday < Time  @1
+/// Begging.
+c866 concept Imploring < Property  @1
+/// Pitiable.
+c867 concept Poor < Property  @1
+/// Run, function.
+c868 concept Operate < Event  @1
+/// One who drives.
+c869 concept Driver < Person  @1
+/// A particular time ("this time").
+c870 concept Occasion < Time  @1
+/// Introduces an explanation or excuse (it's just that).
+c871 concept Explain < Discourse  @1
+/// An incomplete or abandoned utterance; its pieces are ops.
+c872 concept Fragment < Discourse  @1
+/// Asking the speaker to repeat (pardon?).
+c873 concept RequestRepeat < Discourse  @1
+/// Introduces the first of two contrasting views.
+c874 concept OnOneHand < Discourse  @1
+/// Stop blaming someone for a wrong.
+c875 concept Forgive < Event  @1
+/// Look for, try to find or obtain.
+c876 concept Seek < Event  @1
+/// Being made healthy or whole.
+c877 concept Healing < Event  @1
+/// A medical operation.
+c878 concept Surgery < Event  @1
+/// Make a choice.
+c879 concept Decide < Cognition  @1
+/// Be present at, sit in on.
+c880 concept Attend < Event  @1
+/// Rehearse a skill.
+c881 concept Practise < Event  @1
+/// Strike a surface to get attention.
+c882 concept Knock < Event  @1
+/// Cease an activity.
+c883 concept Stop < Event  @1
+/// An error.
+c884 concept Mistake < Event  @1
+/// Cause harm or pain.
+c885 concept Hurt < Event  @1
+/// Press clothes with an iron.
+c886 concept Iron < Event  @1
+/// Sort out, settle.
+c887 concept Resolve < Event  @1
+/// Short sleep.
+c888 concept Nap < Event  @1
+/// Have on one's body.
+c889 concept Wear < Event  @1
+/// Have the capacity in oneself to do something.
+c890 concept Able < State  @1
+/// Wish that something were so.
+c891 concept Wish < State  @1
+/// Feeling surprise.
+c892 concept Surprised < Emotion  @1
+/// Have anything to do with, be involved in.
+c893 concept Involve < State  @1
+/// Honest and principled.
+c894 concept Honorable < Property  @1
+/// Worth the cost or effort.
+c895 concept Worthwhile < Property  @1
+/// Make-believe, toy.
+c896 concept Pretend < Property  @1
+/// Additional.
+c897 concept Extra < Property  @1
+/// Upper-case (letter); as a head, a capital letter.
+c898 concept Capital < Property  @1
+/// Kind of, sort of.
+c899 concept Somewhat < Degree  @1
+/// With certainty.
+c900 concept Certainly < Degree  @1
+/// Most of the time.
+c901 concept Usually < Time  @1
+/// The number thirty.
+c902 concept Thirty < Number  @1
+/// A way or means of doing something.
+c903 concept Method < Thing  @1
+/// A question, issue of something.
+c904 concept Matter < Thing  @1
+/// A sports or work team.
+c905 concept Team < Group  @1
+/// A god.
+c906 concept Deity < Person  @1
+/// Someone living nearby.
+c907 concept Neighbour < Person  @1
+/// A member of a group.
+c908 concept Member < Person  @1
+/// A toy figure.
+c909 concept Doll < Object  @1
+/// A disc.
+c910 concept Disc < Object  @1
+
+/// An argument of a word whose meaning is not known yet.
+r0 role arg : Thing -> Thing  @0 seed
+/// Something an unknown modifier word adds.
+r1 role mod : Thing -> Thing  @0 seed
+/// One of the things joined by a coordination.
+r2 role op : Thing -> Thing  @0 seed
+/// Who does it on purpose.
+r3 role agent : Event -> Thing  @1
+/// What is affected, changed, made, moved.
+r4 role patient : Event -> Thing  @1
+/// What a state or property is about.
+r5 role theme : Thing -> Thing  @1
+/// Who feels, perceives, knows, wants.
+r6 role experiencer : Event -> Thing  @1
+/// What is felt, perceived, liked.
+r7 role stimulus : Event -> Thing  @1
+/// Who receives.
+r8 role recipient : Event -> Thing  @1
+/// Where to.
+r9 role goal : Thing -> Thing  @1
+/// Where.
+r10 role location : Thing -> Thing  @1
+/// When.
+r11 role time : Thing -> Thing  @1
+/// How.
+r12 role manner : Thing -> Thing  @1
+/// A property of a thing.
+r13 role attr : Thing -> Thing  @1
+/// Whose.
+r14 role possessor : Thing -> Thing  @1
+/// How many or how much.
+r15 role quantity : Thing -> Thing  @1
+/// What is said, thought, known, wanted.
+r16 role content : Event -> Thing  @1
+/// What something is about.
+r17 role topic : Thing -> Thing  @1
+/// Why; what brings it about.
+r18 role cause : Thing -> Thing  @1
+/// What for.
+r19 role purpose : Event -> Thing  @1
+/// Together with whom.
+r20 role companion : Event -> Thing  @1
+/// How much of a property.
+r21 role degree : Thing -> Thing  @1
+/// A discourse marker or interjection accompanying the utterance.
+r22 role discourse : Thing -> Thing  @1
+/// Under what condition (if-clause).
+r23 role condition : Thing -> Thing  @1
+/// An event the thing takes part in (relative clause).
+r24 role relative : Thing -> Event  @1
+/// Where from.
+r25 role source : Thing -> Thing  @1
+/// With what.
+r26 role instrument : Event -> Thing  @1
+/// The person addressed by name or description within the sentence.
+r27 role vocative : Thing -> Thing  @1
+/// What something is compared with ('as a goat', 'as white').
+r28 role compare : Thing -> Thing  @1
+/// Despite what ('in spite of').
+r29 role concession : Thing -> Thing  @1
+/// For whom.
+r30 role beneficiary : Thing -> Thing  @1
+/// The state brought about by causing.
+r31 role result : Event -> Thing  @1
+/// What a comparison is made against (than).
+r32 role standard : Property -> Thing  @1
+
+/// Referent identifiable by hearer or new.
+f0 feature def : Thing = yes | no  @1
+/// How many.
+f1 feature num : Thing = one | many  @1
+/// When, relative to speaking.
+f2 feature time : Thing = past | now | future  @1
+/// Finished, in progress, habitual.
+f3 feature aspect : Thing = done | ongoing | habit  @1
+/// Negation.
+f4 feature polarity : Thing = neg  @1
+/// Question, command, wish, ability, obligation.
+f5 feature mood : Thing = ask | order | wish | can | must  @1
+/// Counterfactual: would have happened but did not.
+f6 feature reality : Event = counter  @1

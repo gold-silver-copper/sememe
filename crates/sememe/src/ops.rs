@@ -48,6 +48,13 @@ pub enum Op {
         /// Doc comment.
         doc: String,
     },
+    /// A new value of an existing meaning feature.
+    AddValue {
+        /// Feature name.
+        feature: String,
+        /// Value name.
+        value: String,
+    },
     /// A new atomic category.
     AddAtom {
         /// Name.
@@ -292,6 +299,16 @@ pub fn apply(p: &mut Program, op: &Op, round: u32) -> Result<Option<u32>> {
                 },
             );
             created = Some(id);
+        }
+        Op::AddValue { feature, value } => {
+            let id = p
+                .feat_by_name(feature)
+                .ok_or_else(|| anyhow!("unknown feature `{feature}`"))?;
+            if let Some(f) = p.feats.get_mut(&id)
+                && !f.values.contains(value)
+            {
+                f.values.push(value.clone());
+            }
         }
         Op::AddAtom { name, doc } => {
             if p.atoms.iter().any(|a| a.name == *name) {

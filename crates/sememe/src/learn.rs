@@ -46,6 +46,26 @@ pub fn apply_proposals(p: &mut Program, r: &Reply, round: u32) -> Vec<Op> {
         }
     }
     for x in &r.new_features {
+        if let Some(fid) = p.feat_by_name(&x.name) {
+            // Extend an existing feature with new values.
+            let have = p
+                .feats
+                .get(&fid)
+                .map(|f| f.values.clone())
+                .unwrap_or_default();
+            for v in &x.values {
+                if !have.contains(v) {
+                    let op = Op::AddValue {
+                        feature: x.name.clone(),
+                        value: v.clone(),
+                    };
+                    if apply(p, &op, round).is_ok() {
+                        done.push(op);
+                    }
+                }
+            }
+            continue;
+        }
         let op = Op::AddFeature {
             name: x.name.clone(),
             domain: x.domain.clone(),

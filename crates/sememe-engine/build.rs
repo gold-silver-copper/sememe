@@ -4,7 +4,7 @@ use sha2::{Digest, Sha256};
 
 fn main() {
     let mut hasher = Sha256::new();
-    for path in ["src/cost.rs", "src/charmodel.tsv"] {
+    for path in ["src/cost.rs", "src/charmodel.tsv", "src/text.rs"] {
         println!("cargo:rerun-if-changed={path}");
         match std::fs::read(path) {
             Ok(bytes) => hasher.update(&bytes),

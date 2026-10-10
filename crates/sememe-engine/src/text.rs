@@ -84,8 +84,8 @@ fn is_word_char(c: char) -> bool {
     c.is_alphanumeric()
 }
 
-fn is_joiner(c: char) -> bool {
-    c == '\'' || c == '’' || c == '-'
+fn is_apostrophe(c: char) -> bool {
+    c == '\'' || c == '’'
 }
 
 fn split_tag(raw: &str) -> (TagKind, Option<String>, &str) {
@@ -158,18 +158,23 @@ impl Line {
         let mut gap_start = 0usize;
         let mut i = 0usize;
         while let Some(&(pos, c)) = chars.get(i) {
-            if !is_word_char(c) {
+            // An apostrophe between letters starts a new word, a clitic:
+            // "it's" is "it" + "'s", "don't" is "don" + "'t".
+            let clitic = is_apostrophe(c)
+                && i > 0
+                && chars.get(i - 1).is_some_and(|&(_, p)| is_word_char(p))
+                && chars.get(i + 1).is_some_and(|&(_, n)| is_word_char(n));
+            if !is_word_char(c) && !clitic {
                 i += 1;
                 continue;
             }
-            // A word starts here.
+            // A word starts here; a hyphen between letters joins.
             let mut j = i + 1;
             loop {
                 match chars.get(j) {
                     Some(&(_, c)) if is_word_char(c) => j += 1,
                     Some(&(_, c))
-                        if is_joiner(c)
-                            && chars.get(j + 1).is_some_and(|&(_, n)| is_word_char(n)) =>
+                        if c == '-' && chars.get(j + 1).is_some_and(|&(_, n)| is_word_char(n)) =>
                     {
                         j += 2
                     }
@@ -322,8 +327,12 @@ mod tests {
         let forms: Vec<&str> = l.words.iter().map(|w| w.form.as_str()).collect();
         assert_eq!(forms, ["mom", "where", "my", "new", "blanket"]);
         assert_eq!(l.words[0].case, Case::Cap);
-        let l = Line::parse("McDonald's");
+        let l = Line::parse("it's Fraser's, don't");
+        let forms: Vec<&str> = l.words.iter().map(|w| w.form.as_str()).collect();
+        assert_eq!(forms, ["it", "'s", "fraser", "'s", "don", "'t"]);
+        assert_eq!(l.gaps[1], "");
+        let l = Line::parse("McDonald");
         assert_eq!(l.words[0].case, Case::Mixed);
-        assert_eq!(l.words[0].form, "mcdonald's");
+        assert_eq!(l.words[0].form, "mcdonald");
     }
 }

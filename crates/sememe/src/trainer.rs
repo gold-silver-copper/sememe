@@ -449,7 +449,15 @@ impl Trainer {
     }
 
     /// Keep an evaluated change.
-    pub fn commit(&mut self, eval: Eval, ops: &[Op], source: &str) -> Result<()> {
+    pub fn commit(&mut self, mut eval: Eval, ops: &[Op], source: &str) -> Result<()> {
+        // Refresh the single-unknown lines of the re-parsed documents.
+        let touched: FxHashSet<usize> = eval.ids.iter().copied().collect();
+        self.singles.retain(|(d, _)| !touched.contains(d));
+        for (d, r) in eval.ids.iter().zip(eval.results.iter_mut()) {
+            for s in r.singles.drain(..) {
+                self.singles.push((*d, s));
+            }
+        }
         self.program = eval.program;
         self.stats.replace(&self.program, &eval.ids, eval.results);
         self.program_bits = eval.program_bits;
@@ -1239,7 +1247,11 @@ impl Trainer {
             .into_iter()
             .map(|(id, _)| Op::RemoveEntry { id })
             .collect();
-        let (pruned, _) = if prune.is_empty() { (0, 0) } else { self.accept_bulk(prune, "prune", 3)? };
+        let (pruned, _) = if prune.is_empty() {
+            (0, 0)
+        } else {
+            self.accept_bulk(prune, "prune", 3)?
+        };
         m.pruned = pruned;
         self.finish_round(m, started, snapshot)
     }

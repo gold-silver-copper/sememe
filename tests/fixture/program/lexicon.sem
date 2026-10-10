@@ -1,0 +1,1252 @@
+# sememe program: the lexicon. `form category : meaning`.
+
+e0 entry "3" NP/NP : \x. x + quantity: Three  @1
+e1 entry "a" (S\NP)/(S\NP) : \x y. x y + def=no  @1
+e2 entry "a" N/N : \x. x + def=no  @1
+e3 entry "a" NP/N : \x. x + def=no  @1
+e5 entry "a" S/S : \x. x + def=no  @1
+e12 entry "able" (S\NP)/(S\NP) : \x y. x y + mood=can  @1
+e13 entry "about" ((S\NP)\(S\NP))/NP : \x y z. y z + stimulus: x  @1
+e15 entry "about" (S\S)/S : \x y. y + topic: x  @1
+e17 entry "accept" (S\NP)/S : \x y. Accept(agent: y, content: x)  @1
+e18 entry "across" NP/NP : \x. Across(theme: x)  @1
+e20 entry "afraid" (S\NP)/S : \x y. Fear(experiencer: y, content: x)  @1
+e21 entry "after" ((S\NP)\(S\NP))/NP : \x y z. y z + time: x  @1
+e22 entry "after" (S/S)/S : \x y. y + time: x  @1
+e23 entry "after" NP/NP : \x. After(theme: x)  @1
+e24 entry "after" NP/S : \x. After(theme: x)  @1
+e26 entry "again" (S\NP)\(S\NP) : \x y. x y + manner: Again  @1
+e27 entry "again" (S\NP)\(S\NP) : \x y. x y + time: Again  @1
+e28 entry "ah" S : Ah  @1
+e29 entry "ah" S/S : \x. x + discourse: Ah  @1
+e31 entry "ain't" (S\NP)/(S\NP) : \x y. x y + polarity=neg  @1
+e32 entry "alex" NP : Person "alex"  @1
+e35 entry "all" (S\NP)/S : \x y. All(mod: x, theme: y)  @1
+e36 entry "all" NP/NP : \x. x + quantity: All  @1
+e37 entry "all" NP\NP : \x. x + quantity: All  @1
+e38 entry "all" S/S : \x. x + degree: Only  @1
+e39 entry "all" S\NP : \x. All(theme: x)  @1
+e45 entry "allowed" (S\NP)/S : \x y. Allow(recipient: y, content: x)  @1
+e46 entry "almost" NP/NP : \x. x + degree: Almost  @1
+e47 entry "already" ((S\NP)\NP)/((S\NP)\NP) : \x y z. x y z + time: Already  @1
+e48 entry "also" (S\NP)/(S\NP) : \x y. x y + manner: Also  @1
+e49 entry "also" NP/NP : \x. x + discourse: Also  @1
+e50 entry "alteration" S : Change[def=no]  @1
+e51 entry "although" NP : Although  @1
+e52 entry "always" (S\NP)/(S\NP) : \x y. x y + aspect=habit  @1
+e53 entry "always" (S\NP)\(S\NP) : \x y. x y + time: Always  @1
+e54 entry "always" NP\NP : \x. x + time: Always  @1
+e55 entry "always" S/S : \x. x + time: Always  @1
+e56 entry "am" (S\NP)/(S\NP) : \x y. x y + time=now  @1
+e57 entry "am" NP : AM  @1
+e58 entry "am" S/S : \x. x + time=now  @1
+e59 entry "amen" S : Amen  @1
+e60 entry "amount" N : Amount  @1
+e61 entry "amuse" S/NP : \x. Entertain(patient: x)  @1
+e63 entry "an" NP/N : \x. x + def=no  @1
+e64 entry "and" ((NP\NP)\NP)/NP : \x y z. And(op: x, op: z, op: y)  @1
+e65 entry "and" ((S\S)\S)/NP : \x y z. And(op: x, op: z, op: y)  @1
+e66 entry "and" ((S\S)\S)/S : \x y z. And(op: x, op: z, op: y)  @1
+e68 entry "and" (NP\NP)/S : \x y. And(op: y, op: x)  @1
+e69 entry "and" (NP\NP)\NP : \x y. And(op: y, op: x)  @1
+e70 entry "and" (NP\S)/S : \x y. And(op: y, op: x)  @1
+e71 entry "and" (S\S)/NP : \x y. And(op: y, op: x)  @1
+e72 entry "and" (S\S)/S : \x y. And(op: y, op: x)  @1
+e78 entry "and" S/S : \x. x  @1
+e80 entry "and" S\S : \x. x  @1
+e83 entry "angry" NP : Angry  @1
+e84 entry "animals" NP : Animal[num=many]  @1
+e85 entry "answer" S : Answer  @1
+e86 entry "anxiety" S : Anxiety  @1
+e87 entry "anxiously" (S\NP)\(S\NP) : \x y. x y + manner: Anxious  @1
+e88 entry "any" NP/NP : \x. x + quantity: Any  @1
+e89 entry "any" S/S : \x. x + quantity: Any  @1
+e91 entry "anything" (NP/S)/S : \x y. Thing[def=no](attr: y, attr: x)  @1
+e92 entry "anything" (S\NP)/(S\NP) : \x y. x y + quantity: Anything  @1
+e93 entry "anything" NP/S : \x. Anything(mod: x)  @1
+e94 entry "anything" NP/S : \x. Anything(purpose: x)  @1
+e96 entry "anyway" (S\NP)\(S\NP) : \x y. x y + manner: Anyway  @1
+e97 entry "anyway" S : Anyway  @1
+e98 entry "apartment" NP : Apartment  @1
+e99 entry "apprehensively" NP : Anxious  @1
+e100 entry "are" (S\NP)/(S\NP) : \x y. x y + aspect=ongoing  @1
+e101 entry "are" (S\NP)/(S\NP) : \x y. x y + time=now  @1
+e102 entry "are" (S\NP)/NP : \x y. Be(theme: y, attr: x)  @1
+e103 entry "are" S/S : \x. x + time=now + aspect=ongoing + mood=ask  @1
+e104 entry "are" S\NP : \x. Be(theme: x)  @1
+e105 entry "arm" NP\NP : \x. Arm(possessor: x)  @1
+e106 entry "as" ((S\NP)\(S\NP))/S : \x y z. y z + manner: x  @1
+e107 entry "as" (S/S)/S : \x y. y + time: x  @1
+e112 entry "ask" S/NP : \x. Ask(agent: @speaker, recipient: x)  @1
+e113 entry "ask" S\NP : \x. Ask(agent: x)  @1
+e115 entry "asked" S\NP : \x. Ask[time=past](agent: x)  @1
+e116 entry "ass" NP : Buttocks  @1
+e117 entry "assume" S/S : \x. Assume(content: x)  @1
+e119 entry "at" ((S\NP)\(S\NP))/NP : \x y z. y z + location: x  @1
+e121 entry "at" ((S\NP)\(S\NP))/S : \x y z. y z + topic: x  @1
+e122 entry "at" ((S\S)/(S\S))/NP : \x y z. y z + time: x  @1
+e123 entry "at" (S/S)/NP : \x y. y + location: x  @1
+e124 entry "at" (S\S)/NP : \x y. y + goal: x  @1
+e127 entry "atmosphere" S : Atmosphere  @1
+e128 entry "authorities" N : Authority[num=many]  @1
+e129 entry "aware" S\NP : \x. Aware(experiencer: x)  @1
+e130 entry "away" (S\NP)\(S\NP) : \x y. x y + goal: Away  @1
+e131 entry "away" NP : Away  @1
+e132 entry "awhile" NP : While  @1
+e133 entry "aye" S : Yes  @1
+e134 entry "b" NP : Letter "b"  @1
+e137 entry "baby" N : Baby  @1
+e138 entry "back" ((S\NP)\NP)/NP : \x y z. Return(agent: z, patient: y, goal: x)  @1
+e139 entry "back" (S\NP)\(S\NP) : \x y. x y + manner: Back  @1
+e140 entry "back" (S\NP)\NP : \x y. Put(agent: y, patient: x)  @1
+e141 entry "back" (S\NP)\NP : \x y. Return(agent: y, patient: x)  @1
+e142 entry "back" N : Back  @1
+e143 entry "back" S\NP : \x. Restore(patient: x)  @1
+e144 entry "badge" N : Badge  @1
+e145 entry "badge" NP : Badge  @1
+e146 entry "bag" N : Bag  @1
+e147 entry "bananas" N : Banana[num=many]  @1
+e148 entry "bank" N : Bank  @1
+e149 entry "barty" NP : Person "barty"  @1
+e150 entry "base" N : Base  @1
+e151 entry "basic" NP/NP : \x. x + attr: Basic  @1
+e153 entry "bath" S : Bath  @1
+e154 entry "be" N/N : \x. x  @1
+e155 entry "be" NP/NP : \x. x  @1
+e156 entry "be" S : Be  @1
+e157 entry "be" S/S : \x. x  @1
+e158 entry "be" S\NP : \x. BeAt(theme: x)  @1
+e159 entry "beary" NP : Bear "beary"  @1
+e160 entry "because" ((S\NP)\(S\NP))/S : \x y z. y z + cause: x  @1
+e161 entry "because" S/S : \x. x + discourse: Because  @1
+e162 entry "become" S : Become(theme: @speaker, goal: @other)  @1
+e164 entry "been" (S\NP)/(S\NP) : \x y. x y + aspect=ongoing  @1
+e165 entry "been" (S\NP)/(S\NP) : \x y. x y + time=past  @1
+e166 entry "been" S/S : \x. x + aspect=done  @1
+e167 entry "before" ((S\NP)\(S\NP))/S : \x y z. y z + time: x  @1
+e168 entry "before" (S\NP)\(S\NP) : \x y. x y + time: Before  @1
+e169 entry "before" NP/NP : \x. Before(theme: x)  @1
+e170 entry "before" NP/S : \x. Before(theme: x)  @1
+e171 entry "before" S/S : \x. x + time: Before  @1
+e172 entry "beg" S\NP : \x. Beg(agent: x)  @1
+e173 entry "beginning" N : Beginning  @1
+e174 entry "begun" S : Begin[aspect=done](theme: @other)  @1
+e175 entry "behavior" S : Behavior  @1
+e176 entry "beside" ((S\NP)\(S\NP))/NP : \x y z. y z + location: x  @1
+e177 entry "besides" S/S : \x. x + discourse: Besides  @1
+e178 entry "bessie" NP : Girl "bessie"  @1
+e180 entry "better" (S\NP)/(S\NP) : \x y. x y + mood=must  @1
+e181 entry "beware" S : Beware[mood=order](experiencer: @addressee)  @1
+e182 entry "big" N/N : \x. x + attr: Big  @1
+e184 entry "bit" N : Bit  @1
+e185 entry "bit" N/S : \x. Part(mod: x)  @1
+e186 entry "blank" NP : Blank  @1
+e187 entry "bless" (S\NP)/NP : \x y. Bless(agent: y, patient: x)  @1
+e188 entry "blessed" NP/NP : \x. x + attr: Blessed  @1
+e189 entry "bloody" N/N : \x. x + attr: Bloody  @1
+e190 entry "blow" (S\NP)/NP : \x y. Blow(agent: y, patient: x)  @1
+e191 entry "blushed" S\NP : \x. Blush[time=past](experiencer: x)  @1
+e192 entry "boats" NP : Lifeboat[num=many]  @1
+e193 entry "body" N : Body  @1
+e194 entry "book" N : Book  @1
+e195 entry "box" N : Box  @1
+e196 entry "boy" NP : Boy  @1
+e197 entry "breakfast" NP : Breakfast  @1
+e198 entry "brian" NP : Person "brian"  @1
+e199 entry "bring" S/S : \x. x  @1
+e200 entry "broadside" S : Broadside  @1
+e202 entry "brother" N : Brother  @1
+e203 entry "brother" NP : Brother  @1
+e204 entry "built" S\NP : \x. Build(patient: x)  @1
+e206 entry "but" (NP\NP)/S : \x y. But(op: y, op: x)  @1
+e207 entry "but" (S/NP)/S : \x y. But(op: y, op: x)  @1
+e208 entry "but" (S\S)/NP : \x y. But(op: y, op: x)  @1
+e209 entry "but" NP : But  @1
+e211 entry "but" NP/NP : \x. x  @1
+e213 entry "but" NP/S : \x. But(op: x)  @1
+e214 entry "but" NP\NP : \x. But(op: x)  @1
+e217 entry "buy" (S\NP)/NP : \x y. Buy[aspect=habit](agent: y, patient: x)  @1
+e218 entry "by" ((S\NP)\(S\NP))/S : \x y z. y z + instrument: x  @1
+e219 entry "by" (S\S)/S : \x y. y + manner: x  @1
+e220 entry "by" S/S : \x. x  @1
+e221 entry "call" S/NP : \x. Label(patient: x)  @1
+e222 entry "call" S\NP : \x. Call(agent: x)  @1
+e223 entry "called" (S\NP)/NP : \x y. Call[time=past](agent: y, patient: x)  @1
+e224 entry "came" (S\NP)/S : \x y. Come[time=past](agent: y, purpose: x)  @1
+e225 entry "came" S\NP : \x. Come[time=past](agent: x)  @1
+e227 entry "can" ((S\NP)\NP)/((S\NP)\NP) : \x y z. x y z + mood=can  @1
+e228 entry "can" (S\NP)/(S\NP) : \x y. x y + mood=can  @1
+e229 entry "can" S/S : \x. x + mood=ask  @1
+e230 entry "can't" (S\NP)/(S\NP) : \x y. x y + polarity=neg + mood=can  @1
+e231 entry "canada" NP : Country "canada"  @1
+e232 entry "cannot" (S\NP)/(S\NP) : \x y. x y + polarity=neg + mood=can  @1
+e234 entry "capital" NP/NP : \x. x + attr: Capital  @1
+e235 entry "care" S\NP : \x. Care(experiencer: x)  @1
+e236 entry "certainly" S/S : \x. x + degree: Certainly  @1
+e237 entry "chair" N : Chair  @1
+e238 entry "chance" N : Chance  @1
+e239 entry "charge" S/NP : \x. Charge(patient: x)  @1
+e240 entry "check" (S\NP)\NP : \x y. Check(agent: y, patient: x)  @1
+e241 entry "check" S\NP : \x. Check(agent: @speaker, patient: x)  @1
+e242 entry "checked" (S\NP)/NP : \x y. Check[time=past](agent: y, patient: x)  @1
+e243 entry "child" NP : Child  @1
+e244 entry "children" NP : Child[num=many]  @1
+e245 entry "chinatown" NP : Place "chinatown"  @1
+e246 entry "chinese" NP/NP : \x. x + attr: Chinese  @1
+e247 entry "choose" (S\NP)/S : \x y. Choose(agent: y, content: x)  @1
+e249 entry "church" N : Church  @1
+e250 entry "church" NP : Church  @1
+e251 entry "clean" S\NP : \x. Clean(agent: x)  @1
+e252 entry "close" S : Near  @1
+e253 entry "coats" NP : Coat[num=many]  @1
+e254 entry "cold" NP : Cold  @1
+e255 entry "colonel" N : Colonel  @1
+e256 entry "come" (S\NP)\NP : \x y. Come[time=past](agent: x, time: y)  @1
+e257 entry "come" S : Come  @1
+e258 entry "come" S : Come[mood=order](agent: @addressee)  @1
+e259 entry "come" S\NP : \x. Come(agent: x)  @1
+e262 entry "comes" S : Come  @1
+e263 entry "comes" S/NP : \x. Come(theme: x)  @1
+e265 entry "complained" S : Complain[time=past]  @1
+e266 entry "confusion" NP : Confusion  @1
+e267 entry "cop" S\NP : \x. Cop(theme: x)  @1
+e269 entry "corner" N : Corner  @1
+e270 entry "cos" S/S : \x. Because(op: x)  @1
+e271 entry "could" (S\NP)/(S\NP) : \x y. x y + time=past + mood=can  @1
+e272 entry "country" N : Country  @1
+e273 entry "crash" S\NP : \x. Crash(patient: x)  @1
+e275 entry "cupcake" N : Cupcake  @1
+e276 entry "cups" S : Game "cups"  @1
+e277 entry "cut" S/S : \x. x  @1
+e278 entry "cut" S\NP : \x. Cut(agent: x)  @1
+e279 entry "dad" NP : Father  @1
+e280 entry "damn" S : Damn  @1
+e281 entry "darling" NP : @addressee  @1
+e282 entry "day" N : Day  @1
+e283 entry "day" S\NP : \x. Day(theme: x)  @1
+e284 entry "decided" (S\NP)/S : \x y. Decide[time=past](agent: y, content: x)  @1
+e285 entry "delicious" NP : Delicious  @1
+e286 entry "design" NP/NP : \x. x + attr: Design  @1
+e287 entry "dewey" NP : Person "dewey"  @1
+e288 entry "did" (S\NP)/(S\NP) : \x y. x y + time=past  @1
+e289 entry "did" (S\NP)/(S\NP) : \x y. x y + time=past + mood=ask  @1
+e290 entry "did" S/S : \x. x  @1
+e291 entry "did" S/S : \x. x + time=past + mood=ask  @1
+e292 entry "did" S\NP : \x. Do[time=past](agent: x)  @1
+e293 entry "did" S\NP : \x. Happen[time=past](theme: x)  @1
+e294 entry "didn't" S/S : \x. x + time=past + polarity=neg  @1
+e295 entry "died" S\NP : \x. Die[time=past](patient: x)  @1
+e297 entry "difficult" S/S : \x. Difficult(theme: x)  @1
+e298 entry "disappearance" S : Disappear  @1
+e299 entry "disappointed" S\NP : \x. Disappointed(theme: x)  @1
+e300 entry "disc" N : Disc  @1
+e301 entry "do" (S\NP)/(S\NP) : \x y. x y + mood=ask  @1
+e302 entry "do" (S\NP)/NP : \x y. Clean(agent: y, patient: x)  @1
+e303 entry "do" (S\NP)/NP : \x y. Do(agent: y, patient: x)  @1
+e304 entry "do" (S\NP)\NP : \x y. Do(agent: x, patient: y)  @1
+e305 entry "do" S : Do  @1
+e306 entry "do" S/NP : \x. Do(patient: x)  @1
+e307 entry "do" S/S : \x. Do[mood=order](patient: x)  @1
+e308 entry "do" S/S : \x. x  @1
+e309 entry "do" S/S : \x. x + mood=ask  @1
+e310 entry "do" S\NP : \x. Do(agent: x)  @1
+e311 entry "do" S\NP : \x. Do(patient: x)  @1
+e312 entry "do" S\NP : \x. Do(theme: x)  @1
+e313 entry "doctor" N : Doctor  @1
+e314 entry "does" S/S : \x. x + mood=ask  @1
+e315 entry "doesn't" (S\NP)/(S\NP) : \x y. x y + polarity=neg  @1
+e316 entry "dog" N : Dog  @1
+e317 entry "doing" S/NP : \x. Do(patient: x)  @1
+e318 entry "dollar" N : Dollar  @1
+e319 entry "dolls" N : Doll[num=many]  @1
+e320 entry "don't" (S\NP)/(S\NP) : \x y. x y + polarity=neg  @1
+e321 entry "don't" S/S : \x. x + mood=order  @1
+e322 entry "don't" S/S : \x. x + polarity=neg  @1
+e323 entry "don't" S/S : \x. x + polarity=neg + mood=ask  @1
+e324 entry "don't" S/S : \x. x + polarity=neg + mood=order  @1
+e325 entry "done" (S\NP)\NP : \x y. Do(agent: x, patient: y)  @1
+e326 entry "door" N : Door  @1
+e327 entry "down" (S\NP)\(S\NP) : \x y. x y + goal: Down  @1
+e328 entry "down" (S\NP)\(S\NP) : \x y. x y + manner: Down  @1
+e329 entry "down" NP : Down  @1
+e330 entry "down" S\NP : \x. MakeQuieter(patient: x)  @1
+e332 entry "downfall" S\NP : \x. Downfall(theme: x)  @1
+e333 entry "dr" NP : Doctor  @1
+e335 entry "drain" N : Drain  @1
+e336 entry "drawn" S\NP : \x. Pull(patient: x)  @1
+e337 entry "drink" S/NP : \x. Drink[mood=order](agent: @addressee, patient: x)  @1
+e338 entry "early" S/S : \x. x + attr: Early  @1
+e339 entry "earnest" S/S : \x. x + attr: Earnest  @1
+e340 entry "earth" N : Earth  @1
+e341 entry "earth" NP : Earth  @1
+e342 entry "easy" NP : Easy  @1
+e343 entry "eat" S/NP : \x. Eat[mood=order](agent: @addressee, patient: x)  @1
+e344 entry "edge" N : Person "edge"  @1
+e346 entry "edna" NP : Woman "edna"  @1
+e347 entry "effort" (S\NP)/S : \x y. Effort(theme: x, quantity: y)  @1
+e348 entry "else" NP\NP : \x. x + attr: Other  @1
+e349 entry "end" N : End  @1
+e350 entry "end" NP : End[mood=ask]  @1
+e351 entry "end" S\NP : \x. End(theme: x)  @1
+e353 entry "enough" (S\NP)/(S\NP) : \x y. x y + quantity: Enough  @1
+e354 entry "entered" (S\NP)/NP : \x y. Enter[time=past](agent: y, goal: x)  @1
+e355 entry "entertained" S : Entertain  @1
+e357 entry "er" N/N : \x. x + discourse: Hesitate  @1
+e358 entry "er" NP\NP : \x. x + discourse: Hesitate  @1
+e359 entry "er" S/S : \x. x  @1
+e362 entry "erm" NP\NP : \x. x + discourse: Hesitate  @1
+e363 entry "erm" S : Hesitate  @1
+e364 entry "erm" S/S : \x. x + discourse: Hesitate  @1
+e365 entry "errors" NP : Error[num=many]  @1
+e366 entry "ever" (S\NP)/(S\NP) : \x y. x y + time: Ever  @1
+e367 entry "ever" S/S : \x. x + time: Ever  @1
+e368 entry "every" S/S : \x. x  @1
+e370 entry "everybody" NP : Everyone  @1
+e371 entry "everyone" NP : Everyone  @1
+e372 entry "everything" NP : Everything  @1
+e373 entry "evidently" (S\NP)/(S\NP) : \x y. x y + manner: Evident  @1
+e374 entry "evil" N : Evil  @1
+e375 entry "evolved" S : Evolve  @1
+e376 entry "example" NP : Example  @1
+e377 entry "exclaimed" S/NP : \x. Exclaim[time=past](agent: x)  @1
+e379 entry "exhausted" (S\NP)\(S\NP) : \x y. x y + manner: Exhausted  @1
+e380 entry "exhausted" S\NP : \x. Exhausted(theme: x)  @1
+e381 entry "expected" S\NP : \x. Expect(experiencer: x, stimulus: @other)  @1
+e382 entry "expression" S : Expression  @1
+e383 entry "expressions" S : Expression[num=many]  @1
+e384 entry "extra" (S\NP)/(S\NP) : \x y. x y + attr: Extra  @1
+e385 entry "exultant" S/S : \x. x + attr: Exultant  @1
+e386 entry "eye" N : Eye  @1
+e387 entry "eyes" NP : Eye[num=many]  @1
+e388 entry "f" N/N : \x. x  @1
+e389 entry "face" (S\NP)/NP : \x y. Face(agent: y, patient: x)  @1
+e390 entry "face" S : Face  @1
+e391 entry "fails" S\NP : \x. Fail(agent: x)  @1
+e392 entry "falling" S : Fall  @1
+e394 entry "fascist" N/N : \x. x + attr: Fascist  @1
+e395 entry "fathead" NP : Fool  @1
+e397 entry "father" N : Father  @1
+e398 entry "father" NP : Father  @1
+e399 entry "father" NP : Father[def=yes]  @1
+e400 entry "feel" ((S\NP)\NP)/S : \x y z. Feel(experiencer: y, content: x, topic: z)  @1
+e401 entry "feel" (S\NP)/NP : \x y. Feel(experiencer: y, content: x)  @1
+e404 entry "fell" S\NP : \x. Fall[time=past](patient: x)  @1
+e405 entry "fellas" NP : @addressee[num=many]  @1
+e406 entry "felt" S\NP : \x. Feel[time=past](experiencer: x)  @1
+e407 entry "fidgeting" S : Fidget[aspect=ongoing]  @1
+e408 entry "files" N : File[num=many]  @1
+e409 entry "filled" S\NP : \x. Fill[time=past](patient: x)  @1
+e410 entry "find" (S\NP)/NP : \x y. Find(agent: y, patient: x)  @1
+e411 entry "find" (S\NP)/NP : \x y. Find(experiencer: y, content: x)  @1
+e412 entry "fire" (S\NP)/S : \x y. Fire(agent: y, patient: x)  @1
+e413 entry "first" (S\NP)\(S\NP) : \x y. x y + time: First  @1
+e414 entry "first" N/N : \x. x + attr: First  @1
+e416 entry "fit" (S\NP)/(S\NP) : \x y. x y + attr: Fit  @1
+e417 entry "fit" S\NP : \x. Fit(theme: x)  @1
+e418 entry "flipper" N : Slipper  @1
+e419 entry "florence" NP : Girl "florence"  @1
+e420 entry "follow" S/NP : \x. Follow(agent: @other, patient: x)  @1
+e421 entry "followed" ((S\NP)\NP)/NP : \x y z. Follow[time=past](agent: y, patient: x, time: z)  @1
+e422 entry "following" NP/NP : \x. x + attr: Next  @1
+e423 entry "food" N : Food  @1
+e424 entry "foods" NP : Food[num=many]  @1
+e425 entry "for" (((S\NP)/NP)\((S\NP)/NP))/NP : \x y z w. y z w + theme: x  @1
+e426 entry "for" ((NP\NP)\(NP\NP))/NP : \x y z. y z + beneficiary: x  @1
+e428 entry "for" ((S\NP)\(S\NP))/NP : \x y z. y z + cause: x  @1
+e433 entry "for" (N\N)/NP : \x y. y + topic: x  @1
+e434 entry "for" (N\N)/S : \x y. y + content: x  @1
+e436 entry "for" (S\S)/NP : \x y. y + cause: x  @1
+e438 entry "for" (S\S)/S : \x y. y + content: x  @1
+e441 entry "forgave" (S\NP)/NP : \x y. Forgive[time=past](agent: y, patient: x)  @1
+e442 entry "forget" (S\NP)/NP : \x y. Forget(experiencer: y, content: x)  @1
+e443 entry "form" N : Person  @1
+e444 entry "forward" (S\NP)\(S\NP) : \x y. x y + manner: Forward  @1
+e445 entry "found" ((S\NP)/S)/NP : \x y z. Find[time=past](agent: z, patient: x, content: y)  @1
+e446 entry "found" (S\NP)/NP : \x y. Find[time=past](agent: y, patient: x)  @1
+e447 entry "four" NP/NP : \x. x + quantity: Four  @1
+e449 entry "franky" NP : Person "franky"  @1
+e450 entry "fred" NP : Person "fred"  @1
+e451 entry "fresh" S\NP : \x. Fresh(theme: x)  @1
+e452 entry "friend" NP : Friend  @1
+e453 entry "from" ((S\NP)\(S\NP))/S : \x y z. y z + source: x  @1
+e454 entry "from" (NP\NP)/NP : \x y. y + source: x  @1
+e455 entry "from" (S\S)/NP : \x y. y + source: x  @1
+e456 entry "from" S/S : \x. x  @1
+e457 entry "fucking" (S\NP)/(S\NP) : \x y. x y + degree: Very  @1
+e458 entry "fun" N/S : \x. Fun(theme: x)  @1
+e459 entry "game" S : Game  @1
+e460 entry "gave" (S\NP)/(S\NP) : \x y. x y + time=past  @1
+e462 entry "gentlemen" N : Gentleman[num=many]  @1
+e463 entry "get" ((S\NP)\NP)/NP : \x y z. Obtain(agent: y, patient: z, vocative: x)  @1
+e464 entry "get" (S/NP)/NP : \x y. Obtain(patient: y, recipient: x)  @1
+e465 entry "get" (S/S)/NP : \x y. Cause(patient: x, content: y)  @1
+e466 entry "get" (S\NP)/NP : \x y. Obtain(agent: y, patient: x)  @1
+e469 entry "get" S\NP : \x. Become(theme: x)  @1
+e478 entry "girl" N : Girl  @1
+e479 entry "girl" N/S : \x. Girl(mod: x)  @1
+e480 entry "girls" N : Girl[num=many]  @1
+e481 entry "give" (S/NP)/NP : \x y. Give[mood=order](agent: @addressee, patient: y, recipient: x)  @1
+e482 entry "give" (S\NP)/NP : \x y. Give(agent: y, patient: x)  @1
+e483 entry "give" S : Give(agent: @speaker, patient: @other)  @1
+e484 entry "give" S/NP : \x. Give(patient: x)  @1
+e486 entry "go" (S\NP)/NP : \x y. Go(agent: y, time: x)  @1
+e487 entry "go" S : Go  @1
+e488 entry "go" S\NP : \x. Belong(theme: x)  @1
+e489 entry "go" S\NP : \x. Go(agent: x)  @1
+e496 entry "god" N : God  @1
+e498 entry "going" (S\NP)/(S\NP) : \x y. x y + time=future  @1
+e499 entry "going" (S\NP)/S : \x y. Intend(agent: y, content: x)  @1
+e500 entry "going" (S\NP)/S : \x y. Intend(experiencer: y, content: x)  @1
+e501 entry "going" S/S : \x. x + time=future  @1
+e502 entry "going" S\NP : \x. Become[aspect=ongoing](theme: x)  @1
+e506 entry "gone" (S\NP)/S : \x y. Go(agent: y, manner: x)  @1
+e507 entry "gone" S\NP : \x. Go(agent: x)  @1
+e508 entry "gone" S\NP : \x. Go[aspect=done](agent: x)  @1
+e509 entry "gonna" (S\NP)/(S\NP) : \x y. x y + time=future  @1
+e510 entry "gonna" S/S : \x. x + time=future  @1
+e511 entry "good" N : Good  @1
+e512 entry "good" N/S : \x. Good(cause: x)  @1
+e513 entry "good" NP : Good  @1
+e514 entry "good" NP/NP : \x. x + attr: Good  @1
+e515 entry "good" S/S : \x. x + attr: Good  @1
+e516 entry "good" S\NP : \x. Good(theme: x)  @1
+e518 entry "got" (S\NP)/(S\NP) : \x y. x y + time=past  @1
+e519 entry "got" S : Possess  @1
+e521 entry "got" S\NP : \x. Arrive[time=past](theme: x)  @1
+e523 entry "gotta" (S\NP)/(S\NP) : \x y. x y + mood=must  @1
+e524 entry "grammatical" NP/NP : \x. x + attr: Grammatical  @1
+e526 entry "grasp" (S\NP)/NP : \x y. Grasp(agent: y, patient: x)  @1
+e527 entry "grassy" N/N : \x. x + attr: Grassy  @1
+e528 entry "great" (S\NP)/(S\NP) : \x y. x y + attr: Great  @1
+e529 entry "great" N/N : \x. x + attr: Great  @1
+e530 entry "great" NP\NP : \x. Great(theme: x)  @1
+e531 entry "great" S\NP : \x. Great(theme: x)  @1
+e532 entry "greatest" (S\NP)/(S\NP) : \x y. x y + attr: Great(degree: Most)  @1
+e533 entry "greedy" N/N : \x. x + attr: Greedy  @1
+e534 entry "gregory" NP : Person "gregory"  @1
+e535 entry "grilling" (S\NP)/NP : \x y. Interrogate(agent: y, patient: x)  @1
+e536 entry "guy" N : Man(theme: @other)  @1
+e537 entry "h" N : Character "h"  @1
+e538 entry "had" ((S\NP)\NP)/((S\NP)\NP) : \x y z. x y z + time=past + aspect=done  @1
+e539 entry "had" (S\NP)/(S\NP) : \x y. x y + aspect=done  @1
+e540 entry "had" (S\NP)/(S\NP) : \x y. x y + time=past + aspect=done  @1
+e541 entry "had" (S\NP)/(S\NP) : \x y. x y + time=past + mood=must  @1
+e542 entry "had" (S\NP)/NP : \x y. GiveBirth[time=past](agent: y, patient: x)  @1
+e543 entry "had" S : Possess[time=past]  @1
+e545 entry "had" S/S : \x. x + time=past + mood=ask  @1
+e546 entry "hafta" (S\NP)/S : \x y. Need(experiencer: y, content: x)  @1
+e547 entry "hall" N : Hall  @1
+e548 entry "hammer" NP : Hammer  @1
+e549 entry "hand" NP : Hand  @1
+e551 entry "happens" S\NP : \x. Happen[mood=ask](theme: x)  @1
+e552 entry "hard" NP : Hard  @1
+e553 entry "hard" NP/NP : \x. x + attr: Hard  @1
+e554 entry "hard" S\NP : \x. Hard(theme: x)  @1
+e555 entry "harry" NP : Person "harry"  @1
+e557 entry "has" ((S\NP)\NP)/((S\NP)\NP) : \x y z. x y z + aspect=done  @1
+e558 entry "has" (S\NP)/(S\NP) : \x y. x y + aspect=done  @1
+e560 entry "has" S/S : \x. x  @1
+e562 entry "have" (S/S)/NP : \x y. Possess(theme: x, purpose: y)  @1
+e563 entry "have" (S\NP)/(S\NP) : \x y. x y + aspect=done  @1
+e564 entry "have" (S\NP)/(S\NP) : \x y. x y + mood=must  @1
+e565 entry "have" (S\NP)\(S\NP) : \x y. x y + mood=ask  @1
+e566 entry "have" S : Possess  @1
+e567 entry "have" S/NP : \x. Possess(theme: x)  @1
+e568 entry "have" S/S : \x. Possess(theme: x)  @1
+e569 entry "have" S/S : \x. x  @1
+e570 entry "have" S/S : \x. x + reality=counter  @1
+e572 entry "haven't" (S\NP)/(S\NP) : \x y. x y + aspect=done + polarity=neg  @1
+e573 entry "he" NP : @other  @1
+e574 entry "he" NP : Person  @1
+e575 entry "he" S/S : \x. x  @1
+e577 entry "he's" NP : @other  @1
+e578 entry "head" N : Head  @1
+e579 entry "head" NP : Head  @1
+e580 entry "heads" NP : Head[num=many]  @1
+e581 entry "healing" S : Healing  @1
+e582 entry "hear" S/NP : \x. Hear(stimulus: x)  @1
+e583 entry "hearing" (S\NP)/S : \x y. Hear[aspect=ongoing](experiencer: y, content: x)  @1
+e584 entry "hears" S\NP : \x. Hear(experiencer: x)  @1
+e585 entry "heart" NP : Heart  @1
+e587 entry "heather's" NP/NP : \x. x + possessor: Woman "heather"  @1
+e588 entry "heaven" NP : Heaven  @1
+e589 entry "heavy" (S\NP)/(S\NP) : \x y. x y + attr: Heavy  @1
+e590 entry "her" (S\NP)\(S\NP) : \x y. x y + companion: @other  @1
+e591 entry "her" NP : @other  @1
+e592 entry "her" NP : Girl  @1
+e593 entry "her" NP/NP : \x. x + possessor: @other  @1
+e594 entry "here" (S\NP)\(S\NP) : \x y. x y + goal: Here  @1
+e595 entry "here" (S\NP)\(S\NP) : \x y. x y + location: Here  @1
+e596 entry "here" NP : Here  @1
+e597 entry "here" S\S : \x. x + goal: Here  @1
+e598 entry "here" S\S : \x. x + location: Here  @1
+e599 entry "herself" NP : @other  @1
+e600 entry "hey" S : Call  @1
+e602 entry "him" NP : @other  @1
+e603 entry "his" NP/NP : \x. x + possessor: @other  @1
+e606 entry "holy" N/N : \x. x + attr: Holy  @1
+e607 entry "home" S\S : \x. x + goal: Home  @1
+e608 entry "honor" (S\NP)/NP : \x y. Honor(agent: y, patient: x)  @1
+e609 entry "hospital" N : Hospital  @1
+e610 entry "hotel" NP : Hotel  @1
+e611 entry "house" N : House  @1
+e612 entry "house" NP : House  @1
+e613 entry "houses" N : House[num=many]  @1
+e614 entry "how" NP : Query  @1
+e615 entry "how" S/S : \x. x  @1
+e618 entry "huh" S\S : \x. x + discourse: Huh  @1
+e621 entry "husband's" NP : Husband  @1
+e622 entry "i" NP : @speaker  @1
+e623 entry "i" S/S : \x. x  @1
+e624 entry "i" S/S : \x. x + possessor: @speaker  @1
+e625 entry "i" S\S : \x. x  @1
+e627 entry "i'm" NP : @speaker  @1
+e628 entry "i've" NP : @speaker  @1
+e629 entry "if" ((NP\NP)\(NP\NP))/S : \x y z. y z + condition: x  @1
+e630 entry "if" ((S\NP)\(S\NP))/S : \x y z. y z + condition: x  @1
+e631 entry "if" (NP/NP)/S : \x y. y + condition: x  @1
+e632 entry "if" (N\N)/S : \x y. y + theme: x  @1
+e633 entry "if" (S/S)/S : \x y. y + condition: x  @1
+e634 entry "if" (S\S)/S : \x y. y + condition: x  @1
+e635 entry "if" NP : Condition  @1
+e638 entry "imagine" (S\NP)/S : \x y. Imagine(experiencer: y, content: x)  @1
+e639 entry "imploringly" (S\NP)\(S\NP) : \x y. x y + manner: Imploring  @1
+e645 entry "in" ((S\NP)\(S\NP))/NP : \x y z. y z + manner: x  @1
+e647 entry "in" ((S\NP)\(S\NP))/S : \x y z. y z + goal: x  @1
+e648 entry "in" (NP\NP)/NP : \x y. y + location: x  @1
+e649 entry "in" (N\N)/NP : \x y. y + location: x  @1
+e650 entry "in" (S/S)/NP : \x y. y + location: x  @1
+e655 entry "in" (S\S)/NP : \x y. y + topic: x  @1
+e662 entry "increase" S : Increase  @1
+e663 entry "indians" NP : Person "indians"[num=many]  @1
+e665 entry "instant" N/S : \x. Moment(attr: x)  @1
+e666 entry "instantly" S\S : \x. x + manner: Immediate  @1
+e667 entry "interested" S\NP : \x. Interested(theme: x)  @1
+e668 entry "interrupts" S : Interrupt  @1
+e669 entry "into" ((S\NP)\(S\NP))/NP : \x y z. y z + goal: x  @1
+e670 entry "into" (S\S)/NP : \x y. y + goal: x  @1
+e671 entry "into" (S\S)/S : \x y. y + goal: x  @1
+e672 entry "iron" (S\NP)/NP : \x y. Iron(agent: y, patient: x)  @1
+e673 entry "is" (N\N)/S : \x y. y + content: x  @1
+e674 entry "is" (S/NP)\(S/NP) : \x y. x y + time=now  @1
+e675 entry "is" (S\NP)/(S\NP) : \x y. x y + time=now  @1
+e676 entry "is" (S\NP)/S : \x y. Identical(theme: y, theme: x)  @1
+e677 entry "is" NP/N : \x. x + time=now  @1
+e679 entry "is" S/S : \x. x + time=now + mood=ask  @1
+e680 entry "islands" NP : Island[num=many]  @1
+e681 entry "isn't" (S\NP)/(S\NP) : \x y. x y + time=now + polarity=neg  @1
+e682 entry "isn't" S/S : \x. x + polarity=neg  @1
+e683 entry "it" (S\NP)\(S\NP) : \x y. x y + location: @other  @1
+e684 entry "it" NP : @other  @1
+e685 entry "it" NP : Prize  @1
+e686 entry "it" NP/NP : \x. x  @1
+e687 entry "it" NP/S : \x. @other(attr: x)  @1
+e689 entry "it" S/S : \x. x + cause: @other  @1
+e690 entry "it" S\S : \x. x  @1
+e692 entry "it's" NP/N : \x. x + time=now  @1
+e693 entry "it's" NP/NP : \x. x + possessor: @other  @1
+e694 entry "it's" S/S : \x. x  @1
+e696 entry "j" NP : Letter "j"  @1
+e697 entry "jennie" NP : Girl "jennie"  @1
+e698 entry "john" NP : Person "john"  @1
+e700 entry "jones" NP : Person "jones"  @1
+e701 entry "josie" NP : Woman "josie"  @1
+e702 entry "julien" NP : Person "julien"  @1
+e703 entry "just" ((S\NP)\NP)/((S\NP)\NP) : \x y z. x y z + manner: Only  @1
+e705 entry "just" (S\NP)/(S\NP) : \x y. x y + manner: Just  @1
+e706 entry "just" (S\NP)/(S\NP) : \x y. x y + manner: Merely  @1
+e707 entry "just" (S\NP)/(S\NP) : \x y. x y + manner: Recent  @1
+e709 entry "just" NP/NP : \x. x + degree: Just  @1
+e710 entry "just" NP/NP : \x. x + manner: Just  @1
+e711 entry "just" NP/NP : \x. x + manner: Merely  @1
+e712 entry "just" S/S : \x. x + degree: Just  @1
+e713 entry "just" S/S : \x. x + time: Recent  @1
+e715 entry "keep" (S/NP)/NP : \x y. Keep[mood=order](agent: @addressee, patient: x, location: y)  @1
+e716 entry "keep" (S\NP)/(S\NP) : \x y. x y + aspect=habit  @1
+e719 entry "kids" NP : Child[num=many]  @1
+e720 entry "kill" (S\NP)/NP : \x y. Kill(agent: y, patient: x)  @1
+e721 entry "kind" NP : Kind[mood=ask]  @1
+e722 entry "kingdom" N : Kingdom  @1
+e723 entry "kingdom" NP : Kingdom  @1
+e724 entry "kissed" S/NP : \x. Kiss[time=past](patient: x)  @1
+e725 entry "kitty" NP : @other  @1
+e727 entry "knew" (S\NP)/S : \x y. Know[time=past](experiencer: y, content: x)  @1
+e728 entry "knots" NP : Knot[num=many]  @1
+e729 entry "know" ((S\NP)\NP)/NP : \x y z. Know(experiencer: y, manner: z, content: x)  @1
+e730 entry "know" (S\NP)/NP : \x y. Know(experiencer: y, content: x)  @1
+e731 entry "know" (S\NP)/NP : \x y. Know(experiencer: y, stimulus: x)  @1
+e733 entry "know" (S\NP)/S : \x y. Know(experiencer: y, content: x)  @1
+e734 entry "know" S : Know  @1
+e735 entry "know" S/NP : \x. Know(content: x)  @1
+e736 entry "know" S/S : \x. x  @1
+e737 entry "know" S\NP : \x. Know(experiencer: x)  @1
+e738 entry "know" S\NP : \x. Know[mood=ask](experiencer: x)  @1
+e739 entry "knows" (S\NP)/S : \x y. Know(experiencer: y, content: x)  @1
+e740 entry "lady" N : Woman  @1
+e741 entry "laid" S : Put[time=past](patient: @other)  @1
+e744 entry "later" NP\NP : \x. Later(quantity: x)  @1
+e745 entry "laugh" S : Laugh  @1
+e746 entry "learn" (S\NP)\NP : \x y. Learn(experiencer: x, content: y)  @1
+e747 entry "ledge" N : Ledge  @1
+e748 entry "lee" NP : Woman "lee"  @1
+e749 entry "left" (S\NP)/NP : \x y. Abandon(agent: y, patient: x)  @1
+e750 entry "lem" NP : Boy "lem"  @1
+e751 entry "let" (S\NP)/S : \x y. Allow(agent: y, content: x)  @1
+e752 entry "let" (S\NP)/S : \x y. Allow[time=past](agent: y, content: x)  @1
+e754 entry "let" S/S : \x. x + mood=wish  @1
+e755 entry "letter" N : Letter  @1
+e756 entry "letter" NP : Letter  @1
+e757 entry "life" N : Life  @1
+e758 entry "life" NP : Life  @1
+e759 entry "lifted" S\NP : \x. Lift(patient: x)  @1
+e760 entry "lightning" S : Lightning  @1
+e761 entry "like" (((S\NP)/S)\((S\NP)/S))/NP : \x y z w. y z w + manner: x  @1
+e762 entry "like" ((NP\S)\(NP\S))/S : \x y z. y z + manner: x  @1
+e763 entry "like" (S\NP)/NP : \x y. Like(experiencer: y, stimulus: x)  @1
+e764 entry "like" (S\NP)/S : \x y. Like(experiencer: y, content: x)  @1
+e765 entry "like" (S\NP)/S : \x y. Want(experiencer: y, content: x)  @1
+e766 entry "like" NP : Similar  @1
+e768 entry "like" S/S : \x. x  @1
+e770 entry "likes" (S\NP)/NP : \x y. Like(experiencer: y, stimulus: x)  @1
+e771 entry "likes" (S\NP)/S : \x y. Like(experiencer: y, content: x)  @1
+e772 entry "little" (S\NP)/(S\NP) : \x y. x y + degree: Little  @1
+e773 entry "little" N/N : \x. x + attr: Little  @1
+e774 entry "little" N/N : \x. x + attr: Small  @1
+e775 entry "little" N/N : \x. x + attr: Young  @1
+e776 entry "little" NP/NP : \x. x + attr: Little  @1
+e777 entry "live" S/NP : \x. Live[mood=order](agent: @addressee, patient: x)  @1
+e778 entry "lived" S\NP : \x. Live(agent: x)  @1
+e779 entry "local" NP/NP : \x. x + attr: Local  @1
+e780 entry "log" N : Log[mood=ask]  @1
+e781 entry "long" (S\NP)/(S\NP) : \x y. x y + time: Long  @1
+e782 entry "long" S/S : \x. x + attr: Long  @1
+e783 entry "look" S : Look[mood=order](agent: @addressee)  @1
+e784 entry "look" S/NP : \x. Look[mood=order](agent: @addressee, stimulus: x)  @1
+e786 entry "looked" S\NP : \x. Look[time=past](agent: x)  @1
+e788 entry "looking" ((S\NP)\NP)/S : \x y z. Seek[aspect=ongoing](agent: y, manner: z, content: x)  @1
+e789 entry "looking" S : Appear  @1
+e790 entry "looking" S : Look[aspect=ongoing](agent: @other)  @1
+e791 entry "looking" S : Seek[aspect=ongoing]  @1
+e792 entry "looking" S\NP : \x. Look[aspect=ongoing](agent: x)  @1
+e795 entry "lose" S\NP : \x. Lose(agent: x)  @1
+e796 entry "lot" N : Lot  @1
+e797 entry "loud" S/S : \x. x + attr: Loud  @1
+e798 entry "louis" NP : Person "louis"  @1
+e799 entry "love" ((S\NP)/NP)/NP : \x y z. Love(experiencer: z, stimulus: x, degree: y)  @1
+e800 entry "love" (S\NP)/NP : \x y. Love(experiencer: y, stimulus: x)  @1
+e801 entry "love" S\NP : \x. Love(quantity: x)  @1
+e802 entry "lovely" (S\NP)/(S\NP) : \x y. x y + attr: Lovely  @1
+e804 entry "made" (S\S)/NP : \x y. Cause[time=past](agent: y, content: x)  @1
+e805 entry "madge" NP : Girl "madge"  @1
+e807 entry "maggie" NP : Person "maggie"  @1
+e808 entry "main" N/N : \x. x + attr: Main  @1
+e809 entry "make" (S/S)/NP : \x y. Cause(patient: x, content: y)  @1
+e810 entry "make" S/NP : \x. Cause(patient: x)  @1
+e811 entry "make" S/NP : \x. Cause[mood=ask](patient: x)  @1
+e812 entry "make" S/NP : \x. Make(patient: x)  @1
+e815 entry "man" N/S : \x. Man(attr: x)  @1
+e816 entry "management" S : Management  @1
+e817 entry "manager" S\NP : \x. Manager(theme: x)  @1
+e818 entry "martin" NP : Person "martin"  @1
+e819 entry "mate" NP : Friend  @1
+e820 entry "matter" S\NP : \x. Problem(theme: x)  @1
+e821 entry "maybe" (S\NP)/(S\NP) : \x y. x y + manner: Maybe  @1
+e822 entry "maybe" S/S : \x. x + mood=can  @1
+e823 entry "mcdonald" NP : Restaurant "mcdonald"  @1
+e824 entry "mcdonalds" NP : Restaurant "mcdonalds"  @1
+e825 entry "me" NP : @speaker  @1
+e826 entry "mean" (S\NP)/S : \x y. Mean(agent: y, content: x)  @1
+e827 entry "mean" S/S : \x. Imply(content: x)  @1
+e828 entry "mean" S\NP : \x. Mean(agent: x)  @1
+e829 entry "meet" (S/NP)/NP : \x y. Meet(agent: @speaker, patient: x, time: y)  @1
+e830 entry "mercy" N/S : \x. Mercy(attr: x)  @1
+e831 entry "method" N : Method  @1
+e832 entry "mhm" S : Agree  @1
+e833 entry "mine" NP : Thing(possessor: @speaker)  @1
+e834 entry "mingled" S\NP : \x. Mix(patient: x)  @1
+e840 entry "mistake" S\NP : \x. Mistake(theme: x)  @1
+e841 entry "mister" NP : Man  @1
+e842 entry "mm" S : Agree  @1
+e843 entry "mm" S : Backchannel  @1
+e844 entry "moment" N : Moment  @1
+e845 entry "money" N : Money  @1
+e846 entry "money" N/S : \x. Money(purpose: x)  @1
+e847 entry "months" N : Month[num=many]  @1
+e848 entry "months" NP/NP : \x. Month[num=many](time: x)  @1
+e849 entry "mood" (S\NP)/S : \x y. Want(experiencer: y, content: x)  @1
+e850 entry "moose" NP : Moose  @1
+e852 entry "more" (S\NP)\(S\NP) : \x y. x y + degree: More  @1
+e853 entry "more" NP : More  @1
+e854 entry "morning" N : Morning  @1
+e855 entry "mother" NP : Mother  @1
+e856 entry "mouth" NP : Mouth  @1
+e857 entry "move" S : Relocate  @1
+e858 entry "moved" S : Move[time=past](agent: @speaker)  @1
+e859 entry "moved" S\NP : \x. Move[time=past](agent: x)  @1
+e860 entry "moves" S\NP : \x. Move(agent: x)  @1
+e865 entry "ms" S\S : \x. x + topic: Woman  @1
+e866 entry "much" NP : Much  @1
+e867 entry "much" NP\NP : \x. Much(degree: x)  @1
+e868 entry "music" N : Music  @1
+e869 entry "must" (S\NP)/(S\NP) : \x y. x y + mood=must  @1
+e870 entry "my" (S\NP)/(S\NP) : \x y. x y + possessor: @speaker  @1
+e871 entry "my" NP : @speaker  @1
+e872 entry "my" NP/NP : \x. x + possessor: @speaker  @1
+e874 entry "myself" NP : @speaker  @1
+e875 entry "name" N : Name  @1
+e876 entry "near" ((S\NP)\(S\NP))/NP : \x y z. y z + goal: x  @1
+e878 entry "need" (S\NP)/(S\NP) : \x y. x y + mood=must  @1
+e879 entry "need" (S\NP)/NP : \x y. Need(experiencer: y, content: x)  @1
+e880 entry "need" (S\NP)/S : \x y. Need(experiencer: y, content: x)  @1
+e881 entry "need" (S\NP)\NP : \x y. Need(experiencer: x, content: y)  @1
+e882 entry "need" (S\NP)\NP : \x y. Need(theme: y, experiencer: x)  @1
+e883 entry "need" S\NP : \x. Need(experiencer: x)  @1
+e884 entry "need" S\NP : \x. Need(theme: x)  @1
+e885 entry "needed" (S\NP)/S : \x y. Need[time=past](experiencer: y, content: x)  @1
+e886 entry "needs" (S\NP)/NP : \x y. Need(theme: x, experiencer: y)  @1
+e887 entry "neighbours" NP : Neighbour[num=many]  @1
+e888 entry "never" (S\NP)/(S\NP) : \x y. x y + polarity=neg  @1
+e889 entry "never" S/S : \x. x + polarity=neg  @1
+e890 entry "new" N/N : \x. x + attr: New  @1
+e891 entry "new" S/NP : \x. New(theme: x)  @1
+e892 entry "next" NP/NP : \x. x + attr: Next  @1
+e893 entry "nice" N : Nice  @1
+e894 entry "niece" NP : Niece  @1
+e895 entry "nine" NP : Nine  @1
+e896 entry "nineteen" S/S : \x. x  @1
+e898 entry "no" (S\NP)/(S\NP) : \x y. x y + polarity=neg  @1
+e899 entry "no" NP/NP : \x. x + quantity: None  @1
+e900 entry "no" S : No  @1
+e901 entry "no" S/S : \x. x  @1
+e903 entry "nobody" NP : Nobody  @1
+e904 entry "noise" S : Noise  @1
+e905 entry "not" (S\NP)/(S\NP) : \x y. x y + polarity=neg  @1
+e906 entry "not" NP/N : \x. x + polarity=neg  @1
+e907 entry "not" S : No  @1
+e908 entry "not" S/S : \x. x  @1
+e909 entry "not" S/S : \x. x + polarity=neg  @1
+e910 entry "not" S\S : \x. x + polarity=neg  @1
+e911 entry "nothing" NP : Nothing  @1
+e912 entry "nothing" S/S : \x. x + polarity=neg  @1
+e914 entry "now" (S\NP)\(S\NP) : \x y. x y + time: Now  @1
+e915 entry "now" NP : Now  @1
+e916 entry "now" NP/NP : \x. x + discourse: Now  @1
+e917 entry "now" S/S : \x. x + discourse: Now  @1
+e919 entry "nuclear" (S\NP)\(S\NP) : \x y. x y + goal: Nuclear  @1
+e920 entry "nurse" N : Nurse  @1
+e921 entry "nurse" NP : Nurse  @1
+e922 entry "o'clock" NP : Hour  @1
+e923 entry "of" ((N/S)\(N/S))/NP : \x y z. y z + theme: x  @1
+e927 entry "of" ((S\NP)\(S\NP))/S : \x y z. y z + possessor: x  @1
+e928 entry "of" (NP/NP)\NP : \x y. y + quantity: x  @1
+e929 entry "of" (NP\NP)/NP : \x y. y + possessor: x  @1
+e930 entry "of" (NP\NP)/NP : \x y. y + topic: x  @1
+e931 entry "of" (NP\NP)/S : \x y. y + topic: x  @1
+e932 entry "of" (N\N)/NP : \x y. y + possessor: x  @1
+e935 entry "of" (N\N)/S : \x y. y + topic: x  @1
+e938 entry "of" (S\S)/NP : \x y. y + stimulus: x  @1
+e939 entry "of" (S\S)/NP : \x y. y + theme: x  @1
+e942 entry "off" (S\NP)/S : \x y. Leave(agent: y, time: x)  @1
+e943 entry "off" (S\S)/NP : \x y. y + source: x  @1
+e944 entry "off" S\S : \x. x + goal: Away  @1
+e945 entry "offered" (S\NP)/NP : \x y. Offer[time=past](agent: y, patient: @other, recipient: x)  @1
+e946 entry "oh" S : Oh  @1
+e947 entry "oh" S/S : \x. x + discourse: Oh  @1
+e950 entry "okay" N : Okay  @1
+e951 entry "okay" S : Agree  @1
+e952 entry "okay" S : Agree[mood=ask]  @1
+e953 entry "on" ((S\NP)\(S\NP))/NP : \x y z. y z + experiencer: x  @1
+e958 entry "on" (NP\NP)/NP : \x y. y + location: x  @1
+e959 entry "on" (N\N)/NP : \x y. y + location: x  @1
+e961 entry "on" (S/S)/NP : \x y. y + time: x  @1
+e964 entry "on" (S\S)/NP : \x y. y + location: x  @1
+e965 entry "on" (S\S)/NP : \x y. y + topic: x  @1
+e966 entry "on" (S\S)/S : \x y. y + location: x  @1
+e971 entry "one" N : Thing  @1
+e972 entry "one" NP : One  @1
+e973 entry "one" NP : Person  @1
+e974 entry "one" NP/N : \x. x + def=no  @1
+e975 entry "one" S\NP : \x. Thing(theme: x)  @1
+e976 entry "only" (S\NP)/(S\NP) : \x y. x y + degree: Just  @1
+e977 entry "only" (S\S)/(S\S) : \x y. x y + degree: Only  @1
+e978 entry "only" S/S : \x. x + attr: Only  @1
+e980 entry "opening" S/NP : \x. Open(patient: x)  @1
+e981 entry "or" NP/NP : \x. Or(op: x)  @1
+e982 entry "or" S/S : \x. Or(op: x)  @1
+e986 entry "other" S/S : \x. x  @1
+e987 entry "others" N : Other[num=many]  @1
+e988 entry "others" NP : Other[num=many]  @1
+e989 entry "ought" (S\NP)/(S\NP) : \x y. x y + mood=must  @1
+e990 entry "out" (S\NP)\(S\NP) : \x y. x y + goal: Out  @1
+e991 entry "own" NP/NP : \x. x + attr: Own  @1
+e992 entry "page" N/S : \x. Page(attr: x)  @1
+e993 entry "paper" N : Newspaper  @1
+e994 entry "paper" N : Paper  @1
+e995 entry "pardon" S : RequestRepeat[mood=ask]  @1
+e996 entry "park" (S\NP)/NP : \x y. Park(agent: y, location: x)  @1
+e997 entry "part" N : Part  @1
+e998 entry "past" N/N : \x. x + attr: Past  @1
+e999 entry "patient" NP : Patient[mood=order](theme: @addressee)  @1
+e1000 entry "paused" S\NP : \x. Pause[time=past](agent: x)  @1
+e1001 entry "pay" S : Pay  @1
+e1003 entry "people" NP : Person[num=many]  @1
+e1004 entry "peoples" NP : Person[num=many]  @1
+e1005 entry "perfect" S\NP : \x. Perfect(theme: x)  @1
+e1006 entry "perfectly" S/S : \x. x + degree: Completely  @1
+e1007 entry "phone" N : Phone  @1
+e1008 entry "picture" N : Picture  @1
+e1009 entry "place" N : Situation  @1
+e1010 entry "plane" NP : Plane  @1
+e1011 entry "play" S : Play  @1
+e1013 entry "play" S\NP : \x. Play(agent: x)  @1
+e1014 entry "pneumatic" NP/NP : \x. x + attr: Pneumatic  @1
+e1015 entry "points" N/S : \x. Point[num=many](attr: x)  @1
+e1016 entry "poor" NP/NP : \x. x + attr: Poor  @1
+e1017 entry "position" NP : Position  @1
+e1018 entry "possible" NP : Possible  @1
+e1019 entry "possibly" NP : Possibly  @1
+e1020 entry "postbag" N : Postbag  @1
+e1021 entry "pours" (S\NP)/NP : \x y. Pour[aspect=ongoing](agent: y, patient: x)  @1
+e1022 entry "practising" S\NP : \x. Practise(agent: x)  @1
+e1023 entry "precious" N/N : \x. x + attr: Precious  @1
+e1025 entry "presently" (S\NP)\(S\NP) : \x y. x y + time: Soon  @1
+e1026 entry "pretend" N/N : \x. x + attr: Pretend  @1
+e1027 entry "prettily" (S\NP)\(S\NP) : \x y. x y + manner: Pretty  @1
+e1028 entry "pretty" NP/NP : \x. x + degree: Rather  @1
+e1029 entry "prize" N : Prize  @1
+e1030 entry "probably" (S\S)/(S\S) : \x y. x y + manner: Probably  @1
+e1031 entry "procedure" N : Procedure  @1
+e1032 entry "procedures" NP : Procedure[num=many]  @1
+e1033 entry "produced" (S\NP)/NP : \x y. Produce[time=past](agent: y, patient: x)  @1
+e1034 entry "promised" (S\NP)/S : \x y. Promise[time=past](agent: y, content: x)  @1
+e1035 entry "promised" S\NP : \x. Promise(agent: x)  @1
+e1036 entry "proper" NP : Proper  @1
+e1037 entry "pub" N : Pub  @1
+e1038 entry "put" (S\NP)/NP : \x y. Put(agent: y, patient: x)  @1
+e1041 entry "put" S/NP : \x. Put[mood=order](agent: @addressee, patient: x)  @1
+e1044 entry "putting" S/NP : \x. Put(patient: x)  @1
+e1045 entry "puzzled" S\S : \x. x + attr: Puzzled  @1
+e1046 entry "qualitative" N/N : \x. x + attr: Qualitative  @1
+e1047 entry "quick" S\NP : \x. Quick(theme: x)  @1
+e1048 entry "racing" S\NP : \x. Race(theme: x)  @1
+e1049 entry "rainy" NP : Rainy  @1
+e1050 entry "raise" S/NP : \x. Raise(patient: x)  @1
+e1051 entry "rather" S/S : \x. x + manner: Instead  @1
+e1052 entry "reach" S : Reach  @1
+e1053 entry "reached" (S\NP)/NP : \x y. Reach[time=past](agent: y, goal: x)  @1
+e1054 entry "reading" S/NP : \x. Read(patient: x)  @1
+e1055 entry "real" N/N : \x. x + attr: Real  @1
+e1056 entry "real" NP/NP : \x. x + degree: Very  @1
+e1057 entry "realities" N : Reality[num=many]  @1
+e1058 entry "really" (S\NP)/(S\NP) : \x y. x y + degree: Very  @1
+e1059 entry "really" (S\NP)/(S\NP) : \x y. x y + manner: Really  @1
+e1060 entry "really" (S\S)/(S\S) : \x y. x y + degree: Very  @1
+e1061 entry "really" NP/NP : \x. x + degree: Really  @1
+e1062 entry "really" S/S : \x. x + degree: Very  @1
+e1063 entry "reason" (S/S)/S : \x y. Reason(theme: y, topic: x)  @1
+e1064 entry "reason" N : Reason  @1
+e1065 entry "relief" S : Relief  @1
+e1066 entry "remember" S : Remember[mood=order](experiencer: @addressee)  @1
+e1067 entry "replaces" (S\NP)/S : \x y. Replace(agent: y, patient: x)  @1
+e1068 entry "replied" S/NP : \x. Reply[time=past](agent: x)  @1
+e1069 entry "rich" (S\NP)\(S\NP) : \x y. x y + goal: Rich  @1
+e1070 entry "riches" NP : Wealth[num=many]  @1
+e1071 entry "right" NP/NP : \x. x + degree: Exactly  @1
+e1072 entry "right" NP\NP : \x. Correct(theme: x)  @1
+e1073 entry "right" S : Agree  @1
+e1074 entry "right" S/S : \x. x + degree: Exactly  @1
+e1075 entry "right" S\NP : \x. Right(theme: x)  @1
+e1077 entry "room" N : Room  @1
+e1078 entry "ropes" NP : Rope[num=many]  @1
+e1079 entry "run" S\NP : \x. Run(agent: x)  @1
+e1080 entry "ruth" NP : Girl "ruth"  @1
+e1081 entry "sacrifice" ((S\NP)/NP)/NP : \x y z. Sacrifice(agent: z, patient: x, manner: y)  @1
+e1082 entry "safe" (S\NP)\(S\NP) : \x y. x y + manner: Safe  @1
+e1083 entry "said" (S\NP)/S : \x y. Say[time=past](agent: y, content: x)  @1
+e1084 entry "said" (S\S)/NP : \x y. Say[time=past](agent: x, content: y)  @1
+e1085 entry "said" S : Say[time=past](agent: @speaker)  @1
+e1086 entry "said" S/NP : \x. Say[time=past](agent: x)  @1
+e1087 entry "said" S\NP : \x. Say(agent: x)  @1
+e1088 entry "said" S\NP : \x. Say[time=past](agent: x)  @1
+e1089 entry "saints" NP : Saint[num=many]  @1
+e1090 entry "sam" NP : Person "sam"  @1
+e1092 entry "saved" (S\NP)/NP : \x y. Save[time=past](agent: y, patient: x)  @1
+e1093 entry "saw" (S\NP)/NP : \x y. See[time=past](experiencer: y, stimulus: x)  @1
+e1094 entry "say" (S\NP)/NP : \x y. Say(agent: y, content: x)  @1
+e1095 entry "say" (S\NP)/NP : \x y. Say[aspect=habit](agent: y, content: x)  @1
+e1096 entry "say" (S\NP)/S : \x y. Say(agent: y, content: x)  @1
+e1097 entry "say" (S\NP)\NP : \x y. Say[mood=ask](agent: x, content: y)  @1
+e1098 entry "say" (S\S)/NP : \x y. Say(agent: @addressee, content: x, discourse: y)  @1
+e1099 entry "say" S : Say  @1
+e1100 entry "say" S/NP : \x. Say(agent: @addressee, content: x)  @1
+e1101 entry "saying" (S\NP)/NP : \x y. Say(agent: y, content: x)  @1
+e1102 entry "school" NP : School  @1
+e1103 entry "schooling" S : Education[mood=ask]  @1
+e1104 entry "season" N : Season  @1
+e1105 entry "seat" NP : Seat  @1
+e1106 entry "second" N/N : \x. x + attr: Second  @1
+e1107 entry "see" (S\NP)/NP : \x y. See(experiencer: y, stimulus: x)  @1
+e1108 entry "see" (S\NP)/S : \x y. See(experiencer: y, content: x)  @1
+e1109 entry "see" S/NP : \x. See(stimulus: x)  @1
+e1110 entry "see" S/S : \x. x  @1
+e1111 entry "see" S\NP : \x. See(experiencer: x)  @1
+e1112 entry "see" S\NP : \x. Understand(experiencer: x)  @1
+e1113 entry "send" (S\NP)/NP : \x y. Send(agent: y, patient: x)  @1
+e1114 entry "served" (S\NP)/NP : \x y. Serve(agent: y, patient: x)  @1
+e1115 entry "sex" S\NP : \x. Sex(theme: x)  @1
+e1116 entry "shall" (S\NP)/(S\NP) : \x y. x y + mood=can  @1
+e1117 entry "shall" (S\NP)/(S\NP) : \x y. x y + time=future  @1
+e1118 entry "shall" S/S : \x. x + mood=ask  @1
+e1119 entry "she" NP : @other  @1
+e1120 entry "shorts" NP : Shorts[num=many]  @1
+e1122 entry "should" (S\NP)/(S\NP) : \x y. x y + mood=wish  @1
+e1123 entry "should" S/S : \x. x + mood=must  @1
+e1125 entry "should've" (S\NP)/(S\NP) : \x y. x y + time=past + mood=must  @1
+e1126 entry "shouts" S : Shout  @1
+e1127 entry "show" ((S\NP)/S)/NP : \x y z. Show(agent: z, recipient: x, content: y)  @1
+e1128 entry "show" (S\NP)/NP : \x y. Show[mood=ask](agent: y, patient: @other, recipient: x)  @1
+e1129 entry "show" S : Show[mood=order](agent: @addressee)  @1
+e1130 entry "show" S/S : \x. Show(content: x)  @1
+e1131 entry "showed" (S/S)/NP : \x y. Show[time=past](agent: @other, patient: y, recipient: x)  @1
+e1132 entry "shown" S/NP : \x. Show[time=past](recipient: x)  @1
+e1133 entry "side" N : Side  @1
+e1134 entry "sigh" S\NP : \x. Sigh(agent: x)  @1
+e1135 entry "sir" S : Sir  @1
+e1137 entry "sit" S/S : \x. Sit[mood=order](agent: @addressee, manner: x)  @1
+e1138 entry "site" NP : Site  @1
+e1139 entry "sitting" S : Sit  @1
+e1140 entry "six" N/N : \x. x + quantity: Six  @1
+e1141 entry "slams" S\NP : \x. Slam(patient: x)  @1
+e1142 entry "slippers" NP : Slipper[num=many]  @1
+e1143 entry "slowly" S/S : \x. x + manner: Slow  @1
+e1144 entry "smells" S\NP : \x. Stink(theme: x)  @1
+e1145 entry "smiling" S : Smile[aspect=ongoing]  @1
+e1146 entry "smithereens" NP : Smithereens  @1
+e1147 entry "so" (S\S)/S : \x y. y + purpose: x  @1
+e1148 entry "so" N/N : \x. x + degree: Very  @1
+e1149 entry "so" NP/NP : \x. So(op: x)  @1
+e1150 entry "so" NP/NP : \x. x + degree: Very  @1
+e1151 entry "so" NP/NP : \x. x + discourse: So  @1
+e1152 entry "so" NP\NP : \x. x + discourse: So  @1
+e1153 entry "so" S : So  @1
+e1157 entry "so" S\S : \x. x  @1
+e1160 entry "socks" NP : Sock[num=many]  @1
+e1161 entry "solemn" S/S : \x. x + attr: Solemn  @1
+e1162 entry "some" NP/NP : \x. x + quantity: Some  @1
+e1163 entry "some" S/S : \x. x + quantity: Some  @1
+e1164 entry "somebody" NP : Person[def=no]  @1
+e1165 entry "somebody" NP/S : \x. Somebody(attr: x)  @1
+e1166 entry "someone" NP/S : \x. Person[def=no](purpose: x)  @1
+e1167 entry "something" (S\NP)/S : \x y. Thing(theme: y, attr: x)  @1
+e1168 entry "something" NP : Thing[def=no]  @1
+e1169 entry "something" NP/S : \x. Thing[def=no](attr: x)  @1
+e1171 entry "sometimes" (S\NP)\(S\NP) : \x y. x y + time: Sometimes  @1
+e1172 entry "sometimes" NP : Sometimes  @1
+e1173 entry "sometimes" NP/NP : \x. x + time: Sometimes  @1
+e1174 entry "sometimes" S/S : \x. x + time: Sometimes  @1
+e1175 entry "somewhere" (S\NP)\(S\NP) : \x y. x y + location: Somewhere  @1
+e1176 entry "son" N : Son  @1
+e1177 entry "sorry" (S\NP)/S : \x y. Sorry(theme: y, cause: x)  @1
+e1182 entry "spanish" N/N : \x. x + attr: Spanish  @1
+e1183 entry "spare" (S\NP)/NP : \x y. Spare(agent: y, patient: x)  @1
+e1184 entry "speak" S : Speak  @1
+e1185 entry "spirit" N : Spirit  @1
+e1186 entry "spoke" (S\NP)/NP : \x y. Speak[time=past](agent: y, patient: x)  @1
+e1187 entry "spoken" S\NP : \x. Say(agent: x)  @1
+e1188 entry "spoken" S\NP : \x. Speak(patient: x)  @1
+e1189 entry "sposta" (S\NP)/(S\NP) : \x y. x y + mood=must  @1
+e1190 entry "sprang" S\NP : \x. Jump[time=past](agent: @other, time: x)  @1
+e1191 entry "stared" S\NP : \x. Stare[time=past](agent: x)  @1
+e1192 entry "start" S : Start  @1
+e1193 entry "start" S/NP : \x. Start(content: x)  @1
+e1194 entry "start" S/S : \x. Start(content: x)  @1
+e1196 entry "statements" NP\NP : \x. Statement[num=many](theme: x)  @1
+e1197 entry "stay" S\NP : \x. Stay(agent: x)  @1
+e1199 entry "steadily" S/S : \x. x + manner: Steady  @1
+e1203 entry "still" (S\NP)/(S\NP) : \x y. x y + manner: Still  @1
+e1205 entry "still" NP : Still(theme: @other)  @1
+e1206 entry "stream" N : Stream  @1
+e1207 entry "street" N : Street  @1
+e1208 entry "street" NP : Street  @1
+e1209 entry "strive" S/S : \x. Try(agent: @other, content: x)  @1
+e1210 entry "style" N : Style  @1
+e1211 entry "sue" S/NP : \x. Sue[mood=order](agent: @addressee, patient: x)  @1
+e1212 entry "sunday" NP : Sunday  @1
+e1213 entry "sung" S : Sing  @1
+e1214 entry "sure" S : Agree  @1
+e1215 entry "sure" S/S : \x. Sure(content: x)  @1
+e1216 entry "surprised" S\NP : \x. Surprised(theme: x)  @1
+e1217 entry "sweetie" S : Darling  @1
+e1218 entry "take" S/NP : \x. Take[mood=order](agent: @addressee, patient: x)  @1
+e1219 entry "take" S\NP : \x. Require(theme: x)  @1
+e1221 entry "talk" S : Talk(companion: @other)  @1
+e1222 entry "talk" S : Talk[mood=order](agent: @addressee)  @1
+e1223 entry "talk" S\NP : \x. Talk(agent: x)  @1
+e1224 entry "talked" S\NP : \x. Talk[time=past](agent: x)  @1
+e1225 entry "talking" S\NP : \x. Talk[aspect=ongoing](agent: x)  @1
+e1227 entry "tasted" (S\NP)/NP : \x y. Taste(experiencer: y, stimulus: x)  @1
+e1228 entry "teeth" NP : Tooth[num=many]  @1
+e1229 entry "tell" ((S\NP)/S)/NP : \x y z. Tell(agent: z, recipient: x, content: y)  @1
+e1230 entry "tell" (S/NP)/NP : \x y. Tell(recipient: x, content: y)  @1
+e1231 entry "tell" (S\NP)/NP : \x y. Tell(agent: y, degree: x)  @1
+e1232 entry "tell" (S\NP)/NP : \x y. Tell(agent: y, recipient: x)  @1
+e1235 entry "telling" S/NP : \x. Tell(recipient: x)  @1
+e1236 entry "ten" N : Ten  @1
+e1237 entry "ten" NP/NP : \x. x + quantity: Ten  @1
+e1238 entry "terrible" NP/NP : \x. x + attr: Terrible  @1
+e1239 entry "texture" N/N : \x. x + attr: Texture  @1
+e1241 entry "thank" S/NP : \x. Thank(recipient: x)  @1
+e1243 entry "thanksgiving" S : Thank  @1
+e1244 entry "that" NP : @other  @1
+e1245 entry "that" NP/N : \x. x + def=yes  @1
+e1246 entry "that" NP\NP : \x. x + standard: @other  @1
+e1247 entry "that" S/S : \x. x  @1
+e1248 entry "that" S/S : \x. x + def=yes  @1
+e1249 entry "that" S\S : \x. x  @1
+e1252 entry "that's" NP : @other  @1
+e1253 entry "the" (S\NP)/(S\NP) : \x y. x y + def=yes  @1
+e1254 entry "the" NP/N : \x. x + def=yes  @1
+e1255 entry "the" S/S : \x. x  @1
+e1259 entry "their" NP/NP : \x. x + possessor: @other  @1
+e1260 entry "them" NP : @other  @1
+e1261 entry "them" NP : @other[num=many]  @1
+e1262 entry "then" NP : Then  @1
+e1264 entry "then" S/S : \x. x + discourse: So  @1
+e1265 entry "then" S/S : \x. x + time: Then  @1
+e1266 entry "then" S\S : \x. So(op: x)  @1
+e1270 entry "there" (S\NP)\(S\NP) : \x y. x y + goal: There  @1
+e1271 entry "there" (S\NP)\(S\NP) : \x y. x y + location: There  @1
+e1272 entry "there" NP : @other  @1
+e1273 entry "there" NP : There  @1
+e1274 entry "there" N\N : \x. x + location: There  @1
+e1275 entry "there" S : Exist  @1
+e1276 entry "there" S/NP : \x. Exist(theme: x)  @1
+e1278 entry "there" S/S : \x. x  @1
+e1279 entry "therefore" S/S : \x. x + discourse: Therefore  @1
+e1280 entry "these" NP/N : \x. x + def=yes  @1
+e1281 entry "these" NP/NP : \x. @other[num=many](time: x)  @1
+e1282 entry "they" NP : @other  @1
+e1283 entry "they" NP : @other[num=many]  @1
+e1284 entry "they" S/S : \x. x + possessor: @other  @1
+e1285 entry "they're" NP : @other[num=many]  @1
+e1286 entry "thing" N : Thing  @1
+e1287 entry "thing" N/S : \x. Thing(relative: x)  @1
+e1288 entry "thing" NP/NP : \x. Thing[def=no](attr: x)  @1
+e1289 entry "thing" S/S : \x. x  @1
+e1290 entry "things" NP/NP : \x. Thing[num=many](attr: x)  @1
+e1291 entry "things" NP/S : \x. Thing[num=many](attr: x)  @1
+e1293 entry "think" (S\NP)/NP : \x y. Think(experiencer: y, content: x)  @1
+e1294 entry "think" (S\NP)/S : \x y. Think(experiencer: y, content: x)  @1
+e1295 entry "think" (S\NP)\NP : \x y. Think[mood=ask](experiencer: x, content: y)  @1
+e1296 entry "think" S : Think[mood=order](experiencer: @addressee)  @1
+e1297 entry "think" S\NP : \x. Think(experiencer: x)  @1
+e1299 entry "thinking" (S\NP)/NP : \x y. Think(experiencer: y, degree: x)  @1
+e1300 entry "thinking" S\NP : \x. Think(quantity: x)  @1
+e1301 entry "thirty" N : Thirty  @1
+e1302 entry "this" NP : @other  @1
+e1303 entry "this" NP/N : \x. x + def=yes  @1
+e1304 entry "this" S/S : \x. x  @1
+e1305 entry "this" S/S : \x. x + cause: @other  @1
+e1306 entry "those" NP : Example[num=many]  @1
+e1307 entry "those" NP/N : \x. x + def=yes  @1
+e1308 entry "thought" (S\NP)/NP : \x y. Think[time=past](experiencer: y, content: x)  @1
+e1309 entry "thought" (S\NP)/S : \x y. Think[time=past](experiencer: y, content: x)  @1
+e1311 entry "three" NP : Three  @1
+e1312 entry "three" NP/NP : \x. x + quantity: Three  @1
+e1313 entry "through" ((S\NP)\(S\NP))/NP : \x y z. y z + stimulus: x  @1
+e1314 entry "till" S/S : \x. Until(theme: x)  @1
+e1315 entry "time" N : Occasion  @1
+e1316 entry "time" N : RightTime  @1
+e1317 entry "time" N : Time  @1
+e1318 entry "time" N/S : \x. Time(relative: x)  @1
+e1319 entry "time" S/S : \x. x + aspect=habit  @1
+e1320 entry "time" S\NP : \x. Time(theme: x)  @1
+e1321 entry "times" NP : Repetition[num=many]  @1
+e1322 entry "times" NP : Sometimes  @1
+e1324 entry "to" (((S\NP)\NP)\((S\NP)\NP))/NP : \x y z w. y z w + recipient: x  @1
+e1325 entry "to" ((S\NP)/(S\NP))/S : \x y z. y z + purpose: x  @1
+e1327 entry "to" ((S\NP)\(S\NP))/NP : \x y z. y z + companion: x  @1
+e1332 entry "to" ((S\S)\(S\S))/NP : \x y z. y z + recipient: x  @1
+e1333 entry "to" (N\N)/S : \x y. y + purpose: x  @1
+e1334 entry "to" (S\NP)/(S\NP) : \x y. x y + mood=must  @1
+e1335 entry "to" (S\S)/NP : \x y. y + companion: x  @1
+e1337 entry "to" (S\S)/NP : \x y. y + recipient: x  @1
+e1338 entry "to" (S\S)/S : \x y. y + purpose: x  @1
+e1339 entry "to" NP/N : \x. x + time=future  @1
+e1346 entry "today" S\S : \x. x + time: Today  @1
+e1347 entry "told" (((S\NP)\NP)/S)/NP : \x y z w. Tell[time=past](agent: z, recipient: x, time: w, content: y)  @1
+e1348 entry "told" (S\NP)/NP : \x y. Tell[time=past](agent: y, recipient: x)  @1
+e1349 entry "told" (S\NP)/S : \x y. Tell[time=past](agent: y, content: x)  @1
+e1350 entry "too" (S\NP)\(S\NP) : \x y. x y + manner: Also  @1
+e1351 entry "too" N/N : \x. x + degree: Too  @1
+e1352 entry "too" NP : Too  @1
+e1353 entry "too" NP/NP : \x. x + degree: Excess  @1
+e1355 entry "top" N : Top  @1
+e1356 entry "toss" S : Toss  @1
+e1357 entry "toxic" NP\S : \x. Toxic(theme: x)  @1
+e1358 entry "train" S : Train  @1
+e1359 entry "treason" S\NP : \x. Treason(theme: x)  @1
+e1360 entry "tree" N : Tree  @1
+e1361 entry "tried" (S\NP)/S : \x y. Try[time=past](agent: y, content: x)  @1
+e1362 entry "trish" NP : Person "trish"  @1
+e1363 entry "true" S/S : \x. True(theme: x)  @1
+e1364 entry "trying" (S\NP)/S : \x y. Try[aspect=ongoing](agent: y, content: x)  @1
+e1365 entry "turn" S/S : \x. x  @1
+e1369 entry "two" NP/NP : \x. x + quantity: Two  @1
+e1370 entry "uh" S : Hesitate  @1
+e1371 entry "uh-huh" S : Agree  @1
+e1372 entry "uh-huh" S : Yes  @1
+e1373 entry "uhhuh" S : Backchannel  @1
+e1374 entry "um" S : Hesitate  @1
+e1375 entry "um" S/S : \x. x  @1
+e1377 entry "uncovered" ((S\NP)\NP)/NP : \x y z. Uncover[time=past](agent: y, patient: x, time: z)  @1
+e1378 entry "understand" S\NP : \x. Understand(experiencer: x)  @1
+e1379 entry "understand" S\NP : \x. Understand[mood=ask](experiencer: x)  @1
+e1380 entry "understood" S\NP : \x. Understand[time=past](experiencer: x)  @1
+e1382 entry "up" S\NP : \x. MakeLouder(patient: x)  @1
+e1384 entry "upon" (S\S)/NP : \x y. y + goal: x  @1
+e1385 entry "us" NP : @speaker[num=many]  @1
+e1386 entry "use" (S\NP)/NP : \x y. Need(experiencer: y, content: x)  @1
+e1387 entry "used" (S\NP)/NP : \x y. Use(agent: y, patient: x)  @1
+e1388 entry "usually" S/S : \x. x + time: Usually  @1
+e1390 entry "value" N : Value  @1
+e1391 entry "vehicle" NP : Vehicle  @1
+e1392 entry "very" N/N : \x. x + degree: Very  @1
+e1393 entry "very" NP/NP : \x. x + degree: Very  @1
+e1394 entry "visible" N/N : \x. x + attr: Visible  @1
+e1395 entry "wages" N : Wage[num=many]  @1
+e1396 entry "waist" NP : Waist  @1
+e1397 entry "wait" (S\NP)/NP : \x y. Wait(agent: y, location: x)  @1
+e1398 entry "wait" S : Wait  @1
+e1399 entry "walk" S\NP : \x. Walk(agent: x)  @1
+e1400 entry "walking" S\NP : \x. Walk(agent: x)  @1
+e1401 entry "wanna" (S\NP)/NP : \x y. Want(experiencer: y, content: x)  @1
+e1402 entry "wanna" S\NP : \x. Want(experiencer: x)  @1
+e1403 entry "want" (S\NP)/NP : \x y. Want(experiencer: y, content: x)  @1
+e1404 entry "want" (S\NP)/S : \x y. Want(experiencer: y, content: x)  @1
+e1405 entry "want" (S\NP)/S : \x y. Want[mood=ask](experiencer: y, content: x)  @1
+e1406 entry "want" (S\NP)\NP : \x y. Want(experiencer: x, content: y)  @1
+e1407 entry "want" S/S : \x. x  @1
+e1408 entry "want" S\NP : \x. Want(experiencer: x)  @1
+e1409 entry "wanted" (S\NP)/S : \x y. Want[time=past](experiencer: y, content: x)  @1
+e1410 entry "wanted" S : Want[time=past](experiencer: @speaker, content: @other)  @1
+e1411 entry "war" S : War  @1
+e1412 entry "was" (S\NP)/(S\NP) : \x y. x y + time=past  @1
+e1413 entry "was" (S\NP)/(S\NP) : \x y. x y + time=past + aspect=ongoing  @1
+e1414 entry "was" NP/N : \x. x + time=past  @1
+e1415 entry "was" S/NP : \x. Exist[time=past](theme: x)  @1
+e1416 entry "was" S/S : \x. x + time=past  @1
+e1417 entry "was" S/S : \x. x + time=past + mood=ask  @1
+e1418 entry "was" S\NP : \x. BeAt[time=past](theme: x)  @1
+e1420 entry "was" S\NP : \x. Located[time=past](theme: x)  @1
+e1421 entry "was" S\S : \x. x  @1
+e1422 entry "watches" (S\NP)/NP : \x y. Watch[aspect=habit](agent: y, stimulus: x)  @1
+e1423 entry "water" NP/NP : \x. x + attr: Water  @1
+e1424 entry "waved" ((S\NP)/NP)/NP : \x y z. Wave[time=past](agent: z, patient: x, quantity: y)  @1
+e1425 entry "wax" NP : Wax  @1
+e1426 entry "way" S\NP : \x. Way(theme: x)  @1
+e1427 entry "we" NP : @speaker  @1
+e1428 entry "we" NP : @speaker[num=many]  @1
+e1429 entry "we" S/S : \x. x + possessor: @speaker[num=many]  @1
+e1430 entry "we're" NP : @speaker  @1
+e1431 entry "we're" NP : @speaker[num=many]  @1
+e1432 entry "we've" NP : @speaker  @1
+e1433 entry "wears" (S\NP)/NP : \x y. Wear[aspect=habit](agent: y, patient: x)  @1
+e1434 entry "welcome" S\NP : \x. Welcome(theme: x)  @1
+e1435 entry "well" (S\NP)/(S\NP) : \x y. x y + mood=can  @1
+e1436 entry "well" (S\NP)\(S\NP) : \x y. x y + goal: Healthy  @1
+e1437 entry "well" S : Well  @1
+e1438 entry "well" S/S : \x. x  @1
+e1440 entry "well" S\S : \x. x  @1
+e1441 entry "went" (S\NP)/NP : \x y. Go[time=past](patient: y, goal: x)  @1
+e1442 entry "went" S/S : \x. x  @1
+e1443 entry "went" S\NP : \x. Go[time=past](agent: x)  @1
+e1444 entry "were" ((S\NP)\NP)/((S\NP)\NP) : \x y z. x y z + time=past  @1
+e1445 entry "were" (S\NP)/(S\NP) : \x y. x y + time=past  @1
+e1446 entry "were" (S\NP)/(S\NP) : \x y. x y + time=past + aspect=ongoing  @1
+e1447 entry "were" S\NP : \x. BeAt(theme: x)  @1
+e1449 entry "what" N : Query  @1
+e1450 entry "what" NP : Query  @1
+e1451 entry "what" NP : Thing  @1
+e1452 entry "what" NP/NP : \x. Thing(attr: x)  @1
+e1454 entry "what" NP/NP : \x. x + manner: Query  @1
+e1455 entry "what" NP/S : \x. Thing(attr: x)  @1
+e1456 entry "what" NP/S : \x. Thing(mod: x)  @1
+e1457 entry "what" NP/S : \x. Thing(relative: x)  @1
+e1458 entry "what" S/NP : \x. Query[mood=ask](theme: x)  @1
+e1459 entry "what" S/S : \x. x  @1
+e1460 entry "what" S\S : \x. x + result: Query  @1
+e1461 entry "what's" NP : Query  @1
+e1462 entry "whatever" NP : Whatever  @1
+e1463 entry "whatever" NP/S : \x. Whatever(attr: x)  @1
+e1465 entry "when" ((S\NP)\(S\NP))/S : \x y z. y z + time: x  @1
+e1467 entry "when" (NP\NP)/S : \x y. y + time: x  @1
+e1469 entry "when" (S\S)/S : \x y. y + time: x  @1
+e1473 entry "where" (N\N)/S : \x y. y + attr: x  @1
+e1474 entry "where" (S/S)/NP : \x y. y + condition: x  @1
+e1475 entry "where" NP/S : \x. Place(attr: x)  @1
+e1476 entry "where" NP/S : \x. Place(mod: x)  @1
+e1477 entry "which" NP : @other  @1
+e1478 entry "which" NP/NP : \x. x + attr: Query  @1
+e1479 entry "while" (S\S)/S : \x y. y + time: x  @1
+e1480 entry "while" N : While  @1
+e1482 entry "whilst" ((S\NP)\(S\NP))/S : \x y z. y z + time: x  @1
+e1483 entry "whispering" S : Whisper[aspect=ongoing]  @1
+e1484 entry "white" NP : White(compare: @other)  @1
+e1486 entry "who" NP : @other  @1
+e1488 entry "who" S/S : \x. x  @1
+e1489 entry "why" (S/S)\NP : \x y. y + cause: x  @1
+e1490 entry "why" NP : Query  @1
+e1491 entry "why" S : Surprise  @1
+e1492 entry "why" S/S : \x. x  @1
+e1494 entry "will" (S\NP)/(S\NP) : \x y. x y + time=future  @1
+e1495 entry "will" S/S : \x. x + time=future + mood=ask  @1
+e1496 entry "wine" NP : Wine  @1
+e1497 entry "wins" S/NP : \x. Win(patient: x)  @1
+e1498 entry "winter" N : Winter  @1
+e1499 entry "winter" S\NP : \x. Winter(theme: x)  @1
+e1502 entry "with" ((S\NP)\(S\NP))/NP : \x y z. y z + instrument: x  @1
+e1507 entry "with" ((S\NP)\(S\NP))/S : \x y z. y z + instrument: x  @1
+e1509 entry "with" (NP\NP)/NP : \x y. y + companion: x  @1
+e1510 entry "with" (N\N)/NP : \x y. y + companion: x  @1
+e1513 entry "with" (S\S)/NP : \x y. y + instrument: x  @1
+e1514 entry "with" (S\S)/NP : \x y. y + manner: x  @1
+e1519 entry "without" S/S : \x. x + polarity=neg  @1
+e1520 entry "wonderful" N/N : \x. x + attr: Wonderful  @1
+e1521 entry "word" N : Word  @1
+e1522 entry "words" NP : Word[num=many]  @1
+e1523 entry "work" (S\NP)/S : \x y. Work(mod: x, quantity: y)  @1
+e1524 entry "work" S\NP : \x. Work(theme: x)  @1
+e1525 entry "working" S : Work  @1
+e1526 entry "working" S\NP : \x. Work(agent: x)  @1
+e1529 entry "would" (S\NP)/(S\NP) : \x y. x y + mood=can  @1
+e1530 entry "would" (S\NP)/(S\NP) : \x y. x y + time=future  @1
+e1531 entry "would" (S\NP)/(S\NP) : \x y. x y + time=past + aspect=habit  @1
+e1532 entry "would" (S\NP)/S : \x y. Wish(experiencer: y, content: x)  @1
+e1533 entry "would" S/S : \x. x  @1
+e1536 entry "wouldn't" (S\NP)/(S\NP) : \x y. x y + polarity=neg  @1
+e1537 entry "wouldn't" (S\NP)/(S\NP) : \x y. x y + polarity=neg + mood=can  @1
+e1538 entry "wow" S/S : \x. x + discourse: Wow  @1
+e1539 entry "written" (S\NP)/NP : \x y. Write(agent: y, patient: x)  @1
+e1540 entry "wrong" S\NP : \x. Wrong[mood=ask](theme: x)  @1
+e1541 entry "xxx" S : Unclear  @1
+e1542 entry "xxx" S/S : \x. x  @1
+e1543 entry "yeah" NP/NP : \x. x + discourse: Yes  @1
+e1544 entry "yeah" S : Yes  @1
+e1545 entry "yeah" S/S : \x. x + discourse: Yes  @1
+e1546 entry "year" N : Year  @1
+e1547 entry "year" NP : Year  @1
+e1548 entry "yes" S : Yes  @1
+e1550 entry "you" NP : @addressee  @1
+e1551 entry "you" NP : @addressee[num=many]  @1
+e1552 entry "you" NP : @other  @1
+e1553 entry "you" NP\NP : \x. x  @1
+e1554 entry "you" S/S : \x. x  @1
+e1555 entry "you" S/S : \x. x + possessor: @addressee  @1
+e1556 entry "you" S\NP : \x. @addressee(theme: x)  @1
+e1561 entry "you'd" NP : @addressee  @1
+e1562 entry "you're" NP : @addressee  @1
+e1563 entry "your" NP/NP : \x. x + possessor: @addressee  @1
+e1564 entry "your" S/S : \x. x + possessor: @addressee  @1
+e1565 entry "yourself" NP : @addressee  @1
+e1566 entry "yummy" N/N : \x. x + attr: Tasty  @1

@@ -557,6 +557,14 @@ fn norm(t: &Term, fuel: &mut u32) -> Option<Term> {
             for (_, c) in &mut m.roles {
                 *c = norm(c, fuel)?;
             }
+            // Children filled in by substitution must return to the
+            // canonical order when a role repeats.
+            if m.roles
+                .windows(2)
+                .any(|w| matches!(w, [a, b] if a.0 == b.0))
+            {
+                sort_roles(&mut m.roles);
+            }
             Some(Term::node(m))
         }
         Term::Add(base, r, u) => {

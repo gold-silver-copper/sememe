@@ -122,6 +122,22 @@ fn to_gnode(p: &Program, a: &AnnNode) -> Result<GNode> {
 fn tidy(g: &mut GNode) {
     g.anchors.sort_unstable();
     g.anchors.dedup();
+    if g.anchors.is_empty() {
+        // A head with no word of its own ("where's dad?": the copula only
+        // carries tense) is expressed by its first feature word, which then
+        // carries those features lexically.
+        if let Some(w) = g
+            .feats
+            .iter()
+            .flat_map(|(_, _, an)| an.iter().copied())
+            .min()
+        {
+            g.anchors = vec![w];
+            for (_, _, an) in &mut g.feats {
+                an.retain(|x| *x != w);
+            }
+        }
+    }
     if let Some(&last) = g.anchors.last() {
         let mut run = vec![last];
         for &w in g.anchors.iter().rev().skip(1) {
@@ -353,7 +369,7 @@ fn build(p: &Program, g: &GNode, core: &[u32], top: bool) -> Result<Built> {
     });
 
     // Base category.
-    let has_det = g.feats.iter().any(|(_, _, an)| !an.is_empty());
+    let has_det = g.feats.iter().any(|(_, _, an)| an.iter().any(|w| *w < h0));
     let first_conjunct = if coordination {
         deps.iter()
             .filter_map(|(a, _, d)| match d {
@@ -526,7 +542,7 @@ fn build(p: &Program, g: &GNode, core: &[u32], top: bool) -> Result<Built> {
         }
     }
     if cur_cat == Cat::atom(ATOM_N) && !clause {
-        bail!("a noun phrase never got its determiner");
+        bail!("a noun phrase never got its determiner (feature words only on the right)");
     }
     Ok(Built {
         cat: cur_cat,
