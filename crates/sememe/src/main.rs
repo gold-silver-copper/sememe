@@ -251,6 +251,17 @@ fn main() -> Result<()> {
             }
             for _ in 0..rounds {
                 t.round()?;
+                if t.stopped_improving(10) {
+                    eprintln!(
+                        "stage {} has stopped improving at round {}",
+                        t.state.stage, t.state.round
+                    );
+                    std::fs::write(
+                        t.dir.join("STAGE_DONE"),
+                        format!("{} {}\n", t.state.stage, t.state.round),
+                    )?;
+                    break;
+                }
             }
         }
         Cmd::ProbeAnnotate { run, probe, lines } => {

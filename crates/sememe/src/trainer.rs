@@ -80,6 +80,12 @@ pub struct State {
     pub annotated: BTreeSet<String>,
     /// Base seed.
     pub seed: u64,
+    /// Held-out sets of this and every earlier stage, all scored each round.
+    #[serde(default)]
+    pub heldout: BTreeMap<String, PathBuf>,
+    /// Rounds at which each stage started.
+    #[serde(default)]
+    pub stage_starts: Vec<(String, u32)>,
 }
 
 /// The result of scoring a change.
@@ -265,11 +271,30 @@ impl Trainer {
             )
         };
         std::fs::write(dir.join("pid"), std::process::id().to_string())?;
+        let mut state = state;
+        if state.stage != cfg.stage || state.stage_starts.is_empty() {
+            if !state.stage_starts.is_empty() {
+                eprintln!(
+                    "moving up: stage {} -> {} at round {}",
+                    state.stage, cfg.stage, state.round
+                );
+            }
+            let start = if state.stage == cfg.stage {
+                1
+            } else {
+                state.round + 1
+            };
+            state.stage = cfg.stage.clone();
+            state.stage_starts.push((cfg.stage.clone(), start));
+        }
+        for (k, v) in &cfg.heldout {
+            state.heldout.insert(k.clone(), v.clone());
+        }
         let corpus =
             Corpus::load(&cfg.train).with_context(|| format!("loading {}", cfg.train.display()))?;
         let (index, freq) = word_index(&corpus);
         let mut heldout = BTreeMap::new();
-        for (k, path) in &cfg.heldout {
+        for (k, path) in &state.heldout {
             heldout.insert(k.clone(), Corpus::load(path)?);
         }
         let blimp = blimp::load(&cfg.blimp)?;
@@ -351,6 +376,33 @@ impl Trainer {
     fn recompute(&mut self) {
         self.program_bits = cost::program_bits(&self.program).total();
         self.data_bits = em::data_bits(&self.program, &self.stats);
+    }
+
+    /// Has the current stage stopped improving? Held-out bits per byte (of
+    /// the current stage's held-out set) fell by less than 0.5% over the
+    /// last `window` rounds of the stage, and BLiMP rose by less than 0.5
+    /// points.
+    pub fn stopped_improving(&self, window: usize) -> bool {
+        let rows: Vec<Metrics> = std::fs::read_to_string(self.dir.join("metrics.jsonl"))
+            .unwrap_or_default()
+            .lines()
+            .filter_map(|l| serde_json::from_str(l).ok())
+            .filter(|m: &Metrics| m.stage == self.state.stage)
+            .collect();
+        let key = self.cfg.heldout.keys().next().cloned().unwrap_or_default();
+        let (Some(last), Some(first)) = (
+            rows.last(),
+            rows.len().checked_sub(window + 1).and_then(|i| rows.get(i)),
+        ) else {
+            return false;
+        };
+        let (a, b) = (
+            first.heldout_bpb.get(&key).copied().unwrap_or(0.0),
+            last.heldout_bpb.get(&key).copied().unwrap_or(0.0),
+        );
+        let bpb_flat = a <= 0.0 || (a - b) / a < 0.005;
+        let blimp_flat = last.blimp_overall - first.blimp_overall < 0.5;
+        bpb_flat && blimp_flat
     }
 
     /// Total bits per byte of training text.

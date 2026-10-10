@@ -437,8 +437,12 @@ and rebalance.
   - program bits;
   - tokens per tier, and lines parsed per second;
   - changes accepted and rejected.
-- **"Stopped improving"** means held-out bits per byte fell by less than 0.5%
-  over the last 30 rounds, unless you find and justify a better rule.
+- **"Stopped improving"** means held-out bits per byte (of the current
+  stage's held-out set) fell by less than 0.5% over the last 10 rounds of the
+  stage, and filtered BLiMP rose by less than 0.5 points over them. (A round
+  on BabyLM 10M takes 35-40 minutes: exact scoring re-parses most of T
+  several times. A 30-round window would mean 20 hours of no progress before
+  moving up.)
 
 ### State, checkpoints, determinism
 
