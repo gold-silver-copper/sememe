@@ -171,6 +171,11 @@ fn load_program(p: &Option<PathBuf>) -> Result<Program> {
 
 fn main() -> Result<()> {
     let cli = Cli::parse();
+    // On Ctrl-C or SIGTERM, stop the model calls we started, then exit.
+    let _ = ctrlc::set_handler(|| {
+        opus::kill_children();
+        std::process::exit(130);
+    });
     rayon::ThreadPoolBuilder::new()
         .num_threads(cli.threads.clamp(1, 16))
         .build_global()?;

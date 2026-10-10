@@ -14,6 +14,7 @@ sememe-engine = { path = "../sememe-engine" }
 sememe-data = { path = "../sememe-data" }
 anyhow = "1"
 clap = { version = "4", features = ["derive"] }
+ctrlc = { version = "3", features = ["termination"] }
 rayon = "1"
 rustc-hash = "2"
 serde = { version = "1", features = ["derive"] }

@@ -394,6 +394,28 @@ fn run_agent(workdir: &Path, settings: &Path, prompt: &str, timeout: Duration) -
     finish(child, timeout)
 }
 
+/// Process IDs of running model calls, so they can be stopped with us.
+static CHILDREN: Mutex<Vec<u32>> = Mutex::new(Vec::new());
+
+/// Stop every running model call (on shutdown).
+pub fn kill_children() {
+    if let Ok(pids) = CHILDREN.lock() {
+        for pid in pids.iter() {
+            let _ = Command::new("kill").arg(pid.to_string()).status();
+        }
+    }
+}
+
+fn track(pid: u32, on: bool) {
+    if let Ok(mut v) = CHILDREN.lock() {
+        if on {
+            v.push(pid);
+        } else {
+            v.retain(|p| *p != pid);
+        }
+    }
+}
+
 /// True when model calls are stubbed (`SEMEME_STUB=1`), for CI.
 pub fn stubbed() -> bool {
     STUB.load(std::sync::atomic::Ordering::Relaxed)
@@ -486,6 +508,14 @@ fn run_claude(
 }
 
 fn finish(mut child: std::process::Child, timeout: Duration) -> Result<Value> {
+    let pid = child.id();
+    track(pid, true);
+    let out = finish_inner(&mut child, timeout);
+    track(pid, false);
+    out
+}
+
+fn finish_inner(child: &mut std::process::Child, timeout: Duration) -> Result<Value> {
     // Drain the pipes on threads so a large reply cannot block the child.
     let drain = |pipe: Option<Box<dyn std::io::Read + Send>>| {
         std::thread::spawn(move || {
