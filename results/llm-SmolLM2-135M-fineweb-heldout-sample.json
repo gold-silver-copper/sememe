@@ -1,0 +1,14 @@
+{
+ "model": "HuggingFaceTB/SmolLM2-135M",
+ "set": "fineweb-heldout-sample",
+ "bytes": 1000533,
+ "tokens": 219556,
+ "bits": 843773.9,
+ "bits_per_byte": 0.8433,
+ "context": 1024,
+ "stride": 512,
+ "seconds": 1093.1,
+ "docs": 222,
+ "start_token": "<|endoftext|>",
+ "roundtrip_mismatched_docs": 0
+}

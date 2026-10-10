@@ -105,6 +105,9 @@ enum Cmd {
     GenlexTrial {
         /// Annotation batch directory.
         batches: PathBuf,
+        /// Start from this program (default: the seed).
+        #[arg(long)]
+        program: Option<PathBuf>,
     },
     /// Send a sample of passages to the teacher once and report.
     TeachSample {
@@ -390,8 +393,8 @@ fn main() -> Result<()> {
             store::save(&p, &out)?;
             println!("{n} entries");
         }
-        Cmd::GenlexTrial { batches } => {
-            let mut p = Program::seed();
+        Cmd::GenlexTrial { batches, program } => {
+            let mut p = load_program(&program)?;
             let bs = annotate::load_batches(&batches)?;
             let mut ok = 0;
             let mut fails: std::collections::BTreeMap<String, usize> = Default::default();

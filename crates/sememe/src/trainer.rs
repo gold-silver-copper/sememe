@@ -1512,8 +1512,25 @@ impl Trainer {
                 m.units,
                 ops_.len()
             );
-            let groups = ops_.into_iter().map(|o| vec![o]).collect();
-            let (a, r) = self.accept_bulk(groups, "teacher", 0)?;
+            // New words and new readings of known words are scored apart: a
+            // few inconsistent readings of frequent words should not sink the
+            // new vocabulary.
+            let known: FxHashSet<String> = self
+                .program
+                .entries
+                .values()
+                .map(|e| e.form.clone())
+                .collect();
+            let (old_forms, new_forms): (Vec<Op>, Vec<Op>) = ops_
+                .into_iter()
+                .partition(|o| matches!(o, Op::AddEntry { form, .. } if known.contains(form)));
+            let (mut a, mut r) = (0, 0);
+            for part in [new_forms, old_forms] {
+                let groups = part.into_iter().map(|o| vec![o]).collect();
+                let (x, y) = self.accept_bulk(groups, "teacher", 0)?;
+                a += x;
+                r += y;
+            }
             m.from_teacher = a;
             m.accepted += a;
             m.rejected += r;

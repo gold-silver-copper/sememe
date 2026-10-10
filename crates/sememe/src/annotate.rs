@@ -661,6 +661,47 @@ pub fn ontology_text(p: &Program, passages: &[Passage]) -> String {
     s
 }
 
+/// How the program currently reads the passages' known words, so the
+/// teacher follows the conventions already learned (the same function word
+/// should mean the same thing every time).
+pub fn readings_text(p: &Program, passages: &[Passage]) -> String {
+    use std::collections::BTreeSet;
+    let words: BTreeSet<String> = passages
+        .iter()
+        .flat_map(|x| x.lines.iter())
+        .flat_map(|l| Line::parse(l).words.into_iter().map(|w| w.form))
+        .collect();
+    let cn = p.cat_names();
+    let mut out = String::new();
+    for w in &words {
+        let mut seen = 0;
+        for e in p.entries.values().filter(|e| &e.form == w) {
+            if seen >= 3 {
+                break;
+            }
+            // Context-learned meanings are not conventions yet.
+            if e.sem.show(p).contains("Ctx") {
+                continue;
+            }
+            out.push_str(&format!(
+                "  {w} := {} : {}\n",
+                e.cat.show(&cn),
+                e.sem.show(p)
+            ));
+            seen += 1;
+        }
+    }
+    if out.is_empty() {
+        return String::new();
+    }
+    format!(
+        "## How the program already reads some of these words\nFollow these analyses (the same word, \
+         especially a function word, should get the same concept, feature and value every time) unless one is \
+         clearly wrong for the passage. `x + f=v` means the word sets feature f=v; `\\x. x` means it carries no \
+         meaning of its own.\n{out}\n"
+    )
+}
+
 /// How passages are shown to the teacher.
 pub fn passages_text(passages: &[Passage]) -> String {
     let mut s = String::new();
@@ -738,9 +779,10 @@ pub fn annotate(
     store_dir: &Path,
 ) -> Result<Batch> {
     let onto_text = ontology_text(p, &passages);
+    let readings = readings_text(p, &passages);
     let system = system_prompt(guide);
     let prompt = format!(
-        "## Current ontology\n{onto_text}\n## Passages\n{}",
+        "## Current ontology\n{onto_text}\n{readings}## Passages\n{}",
         passages_text(&passages)
     );
     let mut batch = Batch {
