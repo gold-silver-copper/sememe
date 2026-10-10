@@ -4,8 +4,15 @@ version = "0.1.0"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
+description = "The fixed engine that runs a sememe program: parse, generate, reason, score."
 
 [lints]
 workspace = true
 
 [dependencies]
+rustc-hash = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[build-dependencies]
+sha2 = "0.10"

@@ -1,0 +1,2 @@
+iter 0: parse 107s; before: data 7.7715 + program 0.0000 bpb; after M-step: data 4.7371 + program 0.0066 = 4.7436 bpb (counts 43 KB); unknown 100.0%; 231305 distinct events
+lex=4.005 expand=0.212 gap=0.190 case=0.098 role_next=0.047 mode=0.029 frag_more=0.029 speaker_rank=0.016 

@@ -1,0 +1,14 @@
+# sememe program: the grammar (categories, combining rules, inflections).
+
+/// A sentence or clause.
+a0 atom S  @0 seed
+/// A noun phrase: something that refers.
+a1 atom NP  @0 seed
+/// A noun: a description that still needs a determiner to refer.
+a2 atom N  @0 seed
+
+/// Forward application: X/Y Y => X.
+g0 rule fapp  @0 seed
+/// Backward application: Y X\Y => X.
+g1 rule bapp  @0 seed
+

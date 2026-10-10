@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["crates/sememe-engine", "crates/sememe", "crates/sememe-model"]
+members = ["crates/sememe-engine", "crates/sememe", "crates/sememe-model", "crates/sememe-data"]
 
 [workspace.package]
 edition = "2024"
