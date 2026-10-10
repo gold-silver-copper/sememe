@@ -893,14 +893,12 @@ impl<'m> Parser<'m> {
             (None, None) => 0,
         };
         let limit = best.saturating_add(cost::BEAM_DELTA);
-        let mut di = done.into_iter().peekable();
-        let mut ci = cands.into_iter().peekable();
         // Building meanings is the expensive step; derivations that differ
         // only spuriously build the same meaning, so stop after a bounded
         // number of attempts even if the beam is not full.
         let mut attempts = 0;
-        let mut di = di.take_while(|d| d.score <= limit).peekable();
-        let mut ci = ci.take_while(|c| c.score <= limit).peekable();
+        let mut di = done.into_iter().take_while(|d| d.score <= limit).peekable();
+        let mut ci = cands.into_iter().take_while(|c| c.score <= limit).peekable();
         while out.len() < BEAM && attempts < 3 * BEAM {
             let take_done = match (di.peek(), ci.peek()) {
                 (Some(d), Some(c)) => d.score <= c.score,
