@@ -887,6 +887,7 @@ impl Trainer {
         };
         let mut total = Overlap::default();
         let mut by_src: BTreeMap<String, Overlap> = BTreeMap::new();
+        let (cmap, rmap) = self.name_maps();
         for b in &self.probe {
             for pass in &b.passages {
                 let mut ctx = sememe_engine::context::Context::new();
@@ -897,9 +898,10 @@ impl Trainer {
                         .iter()
                         .filter(|u| u.passage == pass.id && u.line == li)
                     {
-                        let Ok(ann) = annotate::parse_meaning(&u.meaning) else {
+                        let Ok(mut ann) = annotate::parse_meaning(&u.meaning) else {
                             continue;
                         };
+                        annotate::rename(&mut ann, &cmap, &rmap);
                         let want = NTree::from_ann(&ann);
                         let got = a
                             .fragments
