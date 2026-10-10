@@ -1,0 +1,18 @@
+# Downloaded papers: most cannot be redistributed. Links are in references/README.md.
+references/*.pdf
+references/*.html
+
+/target
+/scratch
+
+# Training and evaluation data: never committed. data/fetch.sh re-downloads it.
+data/*
+!data/fetch.sh
+!data/README.md
+
+# Per-round program versions, checkpoints and run state (milestone copies are committed under program/)
+/runs/*/store/
+/runs/*/checkpoints/
+/runs/*/ledger.jsonl
+/runs/*/loop.log
+/worktrees/
