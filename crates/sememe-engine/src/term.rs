@@ -267,20 +267,25 @@ impl Term {
 
     /// Function composition `\z. f (g z)`, normalized.
     pub fn compose(f: &Term, g: &Term) -> Option<Term> {
-        let inner = Term::App(Arc::new(g.shift(1, 0)), Arc::new(Term::Var(0)));
-        Term::Lam(Arc::new(Term::App(
-            Arc::new(f.shift(1, 0)),
-            Arc::new(inner),
-        )))
-        .normalize()
+        let lift = |t: &Term| {
+            if t.is_closed() {
+                t.clone()
+            } else {
+                t.shift(1, 0)
+            }
+        };
+        let inner = Term::App(Arc::new(lift(g)), Arc::new(Term::Var(0)));
+        Term::Lam(Arc::new(Term::App(Arc::new(lift(f)), Arc::new(inner)))).normalize()
     }
 
     /// Type raising `\f. f a`.
     pub fn raise(a: &Term) -> Term {
-        Term::Lam(Arc::new(Term::App(
-            Arc::new(Term::Var(0)),
-            Arc::new(a.shift(1, 0)),
-        )))
+        let a = if a.is_closed() {
+            a.clone()
+        } else {
+            a.shift(1, 0)
+        };
+        Term::Lam(Arc::new(Term::App(Arc::new(Term::Var(0)), Arc::new(a))))
     }
 
     /// Coordination of two terms of the same type with `k` arguments:
@@ -380,9 +385,76 @@ impl Term {
         }
     }
 
-    /// Apply this term to an argument and normalize.
+    /// Apply this term to an argument and normalize. Both are usually
+    /// closed normal forms (every meaning in the chart is): then the
+    /// function is not normalized again and the argument needs no shifting.
     pub fn apply(&self, arg: &Term) -> Option<Term> {
+        if let Term::Lam(body) = self
+            && self.is_closed()
+            && arg.is_closed()
+        {
+            let mut fuel = FUEL;
+            let t = norm(&body.subst_closed(0, arg), &mut fuel)?;
+            return (t.size() <= MAX_SIZE).then_some(t);
+        }
         Term::App(Arc::new(self.clone()), Arc::new(arg.clone())).normalize()
+    }
+
+    /// True if the term has no free variables.
+    pub fn is_closed(&self) -> bool {
+        self.max_free(0).is_none()
+    }
+
+    /// The largest free variable index (relative to the term's top), if any.
+    fn max_free(&self, depth: u32) -> Option<u32> {
+        match self {
+            Term::Var(i) => i.checked_sub(depth),
+            Term::Lam(b) => b.max_free(depth + 1),
+            Term::App(a, b) | Term::Add(a, _, b) => match (a.max_free(depth), b.max_free(depth)) {
+                (Some(x), Some(y)) => Some(x.max(y)),
+                (x, y) => x.or(y),
+            },
+            Term::Feat(a, _, _) => a.max_free(depth),
+            Term::Node(n) => n.roles.iter().filter_map(|(_, c)| c.max_free(depth)).max(),
+        }
+    }
+
+    /// Substitute a closed term for variable `j` and lower the variables
+    /// above it (one beta step under the binder of `j`): no shifting of the
+    /// closed argument is needed.
+    fn subst_closed(&self, j: u32, s: &Term) -> Term {
+        match self {
+            Term::Var(i) => {
+                if *i == j {
+                    s.clone()
+                } else if *i > j {
+                    Term::Var(i - 1)
+                } else {
+                    Term::Var(*i)
+                }
+            }
+            Term::Lam(b) => Term::Lam(Arc::new(b.subst_closed(j + 1, s))),
+            Term::App(f, a) => Term::App(
+                Arc::new(f.subst_closed(j, s)),
+                Arc::new(a.subst_closed(j, s)),
+            ),
+            Term::Node(n) => {
+                if n.roles.is_empty() {
+                    return self.clone();
+                }
+                let mut m = (**n).clone();
+                for (_, t) in &mut m.roles {
+                    *t = t.subst_closed(j, s);
+                }
+                Term::node(m)
+            }
+            Term::Add(t, r, u) => Term::Add(
+                Arc::new(t.subst_closed(j, s)),
+                *r,
+                Arc::new(u.subst_closed(j, s)),
+            ),
+            Term::Feat(t, f, v) => Term::Feat(Arc::new(t.subst_closed(j, s)), *f, *v),
+        }
     }
 
     /// Normal form: beta-reduce and perform `Add`/`Feat` on nodes. `None`
@@ -543,7 +615,11 @@ fn norm(t: &Term, fuel: &mut u32) -> Option<Term> {
             let f = norm(f, fuel)?;
             if let Term::Lam(body) = &f {
                 *fuel = fuel.checked_sub(1)?;
-                let reduced = Term::beta(body, a);
+                let reduced = if a.is_closed() {
+                    body.subst_closed(0, a)
+                } else {
+                    Term::beta(body, a)
+                };
                 norm(&reduced, fuel)
             } else {
                 Some(Term::App(Arc::new(f), Arc::new(norm(a, fuel)?)))
