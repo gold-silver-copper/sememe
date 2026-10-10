@@ -547,17 +547,92 @@ pub fn system_prompt(guide: &str) -> String {
     )
 }
 
-/// The ontology listing for the prompt.
-pub fn ontology_text(p: &Program) -> String {
-    use sememe_engine::term::TermNames;
+/// The ontology listing for the prompt. While the ontology is small, all
+/// of it; once it is large, the relevant slice (concepts used by the
+/// passages' known words, their ancestors and siblings, the top levels and
+/// the most-used concepts) in full, plus a name index of the rest.
+pub fn ontology_text(p: &Program, passages: &[Passage]) -> String {
+    use sememe_engine::term::{Head, TermNames};
+    use std::collections::BTreeSet;
+    const SMALL: usize = 400;
+    let mut full: BTreeSet<u32> = BTreeSet::new();
+    let large = p.concepts.len() > SMALL;
+    if large {
+        let words: BTreeSet<String> = passages
+            .iter()
+            .flat_map(|x| x.lines.iter())
+            .flat_map(|l| Line::parse(l).words.into_iter().map(|w| w.form))
+            .collect();
+        let mut uses: std::collections::BTreeMap<u32, usize> = std::collections::BTreeMap::new();
+        for e in p.entries.values() {
+            let mine = words.contains(&e.form);
+            e.sem.for_each_node(&mut |n| {
+                if let Head::Concept(c) = n.head {
+                    *uses.entry(c).or_default() += 1;
+                    if mine {
+                        full.insert(c);
+                    }
+                }
+            });
+        }
+        // Ancestors and siblings of the passage's concepts.
+        for c in full.clone() {
+            for a in p.ancestors(c) {
+                full.insert(a);
+            }
+            let parent = p.parent(c);
+            full.extend(
+                p.concepts
+                    .iter()
+                    .filter(|(_, x)| x.parent == parent)
+                    .map(|(k, _)| *k)
+                    .take(12),
+            );
+        }
+        // Top levels.
+        for (k, x) in &p.concepts {
+            if x.parent == sememe_engine::program::TOP
+                || p.parent(x.parent) == sememe_engine::program::TOP
+            {
+                full.insert(*k);
+            }
+        }
+        // The most used named (not context-learned) concepts.
+        let mut by_use: Vec<(usize, u32)> = uses
+            .iter()
+            .filter(|(c, _)| {
+                p.concepts
+                    .get(c)
+                    .is_some_and(|x| !x.name.starts_with("Ctx"))
+            })
+            .map(|(c, n)| (*n, *c))
+            .collect();
+        by_use.sort_unstable_by(|a, b| b.cmp(a));
+        full.extend(by_use.into_iter().take(SMALL).map(|(_, c)| c));
+    }
     let mut s = String::new();
     s.push_str("Concepts (Name < Parent: doc):\n");
-    for c in p.concepts.values() {
+    for (id, c) in &p.concepts {
+        if large && !full.contains(id) {
+            continue;
+        }
         s.push_str(&format!(
             "  {} < {}: {}\n",
             c.name,
             p.concept_name(c.parent),
             c.meta.doc.lines().next().unwrap_or("")
+        ));
+    }
+    if large {
+        let rest: Vec<&str> = p
+            .concepts
+            .iter()
+            .filter(|(id, c)| !full.contains(id) && !c.name.starts_with("Ctx"))
+            .map(|(_, c)| c.name.as_str())
+            .collect();
+        s.push_str(&format!(
+            "Other concepts (names only; use one if it fits, with its exact name): {}\n",
+            rest.join(", ")
         ));
     }
     s.push_str("Roles (name: Domain -> Range: doc):\n");
@@ -662,7 +737,7 @@ pub fn annotate(
     double: bool,
     store_dir: &Path,
 ) -> Result<Batch> {
-    let onto_text = ontology_text(p);
+    let onto_text = ontology_text(p, &passages);
     let system = system_prompt(guide);
     let prompt = format!(
         "## Current ontology\n{onto_text}\n## Passages\n{}",
