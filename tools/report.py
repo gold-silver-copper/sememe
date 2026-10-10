@@ -64,6 +64,29 @@ for key, lab in [("probe_f1", "probe agreement (F1 with teacher)"), ("paraphrase
 ax.set_xlabel("round"); ax.set_ylim(0, 1); ax.legend(fontsize=8); ax.set_title("Does it learn meaning?")
 fig.tight_layout(); fig.savefig(f"{out}/meaning.png", dpi=130)
 
+# Tokens per byte of training text, per round, by tier (should fall).
+train_bytes = None
+try:
+    man = json.load(open("data/prepared/babylm/manifest.json"))
+    train_bytes = sum(v["bytes"] for k, v in man.get("files", man).items() if "train10M" in k) if isinstance(man, dict) else None
+except Exception:
+    train_bytes = None
+if train_bytes:
+    fig, ax = plt.subplots(figsize=(9, 4.5))
+    tiers = sorted({r["tier"] for r in ledger})
+    prev_ts = 0
+    for t in tiers:
+        ys = []
+        prev = 0
+        for r in rows:
+            cur = sum(x["input"] + x["cache_write"] + x["output"] for x in ledger if x["tier"] == t and x["ts"] <= r["ts"])
+            ys.append((cur - prev) / train_bytes)
+            prev = cur
+        ax.plot(rounds, ys, marker=".", label=t)
+    ax.set_xlabel("round"); ax.set_ylabel("Opus tokens per training byte (this round)"); ax.legend(fontsize=8)
+    ax.set_title("Model tokens per byte of training text, by tier")
+    fig.tight_layout(); fig.savefig(f"{out}/tokens.png", dpi=130)
+
 last = rows[-1] if rows else {}
 summary = {"rounds": len(rows), "last": last, "tokens_total": tokens_until(1e18),
            "tokens_by_tier": {t: sum(r["input"] + r["cache_write"] + r["output"] for r in ledger if r["tier"] == t) for t in {r["tier"] for r in ledger}}}
