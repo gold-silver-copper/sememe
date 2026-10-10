@@ -1396,29 +1396,9 @@ impl Trainer {
         let infl = learn::infl_candidates(&self.program, 3);
         if !infl.is_empty() {
             eprintln!("round {round}: {} inflection candidates", infl.len());
-            for g in infl {
-                // Every word ending in the suffix can now be read with it.
-                let suffix = g.iter().find_map(|o| match o {
-                    Op::AddInfl { add, .. } => Some(add.clone()),
-                    _ => None,
-                });
-                let forms: Vec<String> = match suffix {
-                    Some(sfx) => self
-                        .freq
-                        .keys()
-                        .filter(|w| w.ends_with(&sfx))
-                        .cloned()
-                        .collect(),
-                    None => Vec::new(),
-                };
-                match self.evaluate(&g, Some(&forms)) {
-                    Ok(e) if e.delta < 0 => {
-                        self.commit(e, &g, "infl")?;
-                        m.accepted += 1;
-                    }
-                    _ => m.rejected += 1,
-                }
-            }
+            let (a, r) = self.accept_bulk(infl, "infl", 2)?;
+            m.accepted += a;
+            m.rejected += r;
         }
         // Slow tier.
         if self.cfg.slow_every > 0
