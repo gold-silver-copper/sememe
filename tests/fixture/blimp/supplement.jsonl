@@ -1,0 +1,2 @@
+{"paradigm":"hypernym","phenomenon":"hypernym","good":"If she has a dog, it must be the case that she has a mammal.","bad":"If she has a dog, it must be the case that she has a chihuahua.","pair_id":0}
+{"paradigm":"hypernym","phenomenon":"hypernym","good":"She doesn't have a dog, so she doesn't have a chihuahua.","bad":"She doesn't have a chihuahua, so she doesn't have a dog.","pair_id":1}

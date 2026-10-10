@@ -1,6 +1,7 @@
 //! The sememe trainer.
 #![allow(dead_code)]
 
+mod agents;
 mod analyze;
 mod annotate;
 mod blimp;
@@ -189,6 +190,12 @@ fn main() -> Result<()> {
                 em_every: 5,
                 max_rounds: u32::MAX,
                 teacher: !no_teacher,
+                slow_every: 3,
+                slow_tasks: vec![
+                    agents::Task::Consolidate,
+                    agents::Task::Name,
+                    agents::Task::Generalize,
+                ],
             };
             let teacher = cfg.teacher;
             let mut t = trainer::Trainer::open(cfg)?;
@@ -336,4 +343,55 @@ fn main() -> Result<()> {
         }
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    /// One loop step on the committed fixture with a stubbed teacher and a
+    /// stubbed agent: the round runs, and the replayed operations log
+    /// rebuilds the same program.
+    #[test]
+    fn one_loop_step_with_stubs() {
+        crate::opus::STUB.store(true, std::sync::atomic::Ordering::Relaxed);
+        let root = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+        std::env::set_current_dir(&root).unwrap();
+        let run = "ci-fixture";
+        let _ = std::fs::remove_dir_all(root.join("runs").join(run));
+        let mut held = std::collections::BTreeMap::new();
+        held.insert(
+            "fixture".to_string(),
+            root.join("tests/fixture/fixture.docs"),
+        );
+        let cfg = crate::trainer::Config {
+            run: run.into(),
+            stage: "fixture".into(),
+            train: root.join("tests/fixture/fixture.docs"),
+            heldout: held,
+            blimp: root.join("tests/fixture/blimp"),
+            calls: 1,
+            passages_per_call: 4,
+            lines_per_passage: 3,
+            em_every: 1,
+            max_rounds: 1,
+            teacher: true,
+            slow_every: 1,
+            slow_tasks: vec![crate::agents::Task::Name],
+        };
+        let mut t = crate::trainer::Trainer::open(cfg).unwrap();
+        crate::opus::self_test(&t.opus).unwrap();
+        let m = t.round().unwrap();
+        assert_eq!(m.round, 1);
+        assert!(m.units > 0);
+        assert!(m.heldout_bpb.get("fixture").is_some_and(|b| *b > 0.0));
+        // Replaying the log from the seed rebuilds the structure.
+        let log = crate::ops::read_log(&root.join("runs").join(run).join("ops.jsonl")).unwrap();
+        let mut p = sememe_engine::program::Program::seed();
+        for l in &log {
+            crate::ops::apply(&mut p, &l.op, l.round).unwrap();
+        }
+        p.counts = t.program.counts.clone();
+        assert_eq!(p.to_files(), t.program.to_files());
+        let _ = std::fs::remove_dir_all(root.join("runs").join(run));
+        let _ = std::fs::remove_dir_all(root.join("data/annotations").join(run));
+    }
 }

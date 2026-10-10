@@ -57,6 +57,10 @@ pub struct Config {
     pub max_rounds: u32,
     /// Use the teacher (false: words from context and EM only).
     pub teacher: bool,
+    /// Run the slow tier every this many rounds (0: never).
+    pub slow_every: u32,
+    /// Slow-tier tasks.
+    pub slow_tasks: Vec<crate::agents::Task>,
 }
 
 /// What is saved between sessions.
@@ -871,6 +875,95 @@ impl Trainer {
         Ok((x1 + x2, y1 + y2))
     }
 
+    /// The slow tier: run agents in parallel (at most four), then score
+    /// their operation groups. Returns (accepted, rejected).
+    pub fn slow_tier(&mut self, tasks: &[crate::agents::Task]) -> Result<(u32, u32)> {
+        let this: &Trainer = self;
+        let outs: Vec<Vec<crate::agents::AgentOp>> = std::thread::scope(|s| {
+            let hs: Vec<_> = tasks
+                .iter()
+                .enumerate()
+                .map(|(k, task)| s.spawn(move || crate::agents::run(this, *task, k)))
+                .collect();
+            hs.into_iter()
+                .map(|h| match h.join() {
+                    Ok(Ok(v)) => v,
+                    Ok(Err(e)) => {
+                        eprintln!("agent failed: {e:#}");
+                        Vec::new()
+                    }
+                    Err(_) => Vec::new(),
+                })
+                .collect()
+        });
+        let (mut acc, mut rej) = (0, 0);
+        let mut renamed = false;
+        for ops_ in outs {
+            // Groups in first-seen order.
+            let mut groups: Vec<(String, Vec<Op>)> = Vec::new();
+            for o in ops_ {
+                match groups.iter_mut().find(|g| g.0 == o.group) {
+                    Some(g) => g.1.push(o.op),
+                    None => groups.push((o.group, vec![o.op])),
+                }
+            }
+            for (_, g) in groups {
+                let free = g
+                    .iter()
+                    .all(|op| matches!(op, Op::Rename { .. } | Op::SetDoc { .. }));
+                if free {
+                    let mut p = self.program.clone();
+                    if g.iter()
+                        .all(|op| ops::apply(&mut p, op, self.state.round + 1).is_ok())
+                    {
+                        self.program = p;
+                        let logged: Vec<Logged> = g
+                            .iter()
+                            .map(|op| Logged {
+                                round: self.state.round + 1,
+                                source: "agent".into(),
+                                op: op.clone(),
+                            })
+                            .collect();
+                        ops::log(&self.dir.join("ops.jsonl"), &logged)?;
+                        renamed |= g.iter().any(|op| matches!(op, Op::Rename { .. }));
+                        acc += 1;
+                    } else {
+                        rej += 1;
+                    }
+                    continue;
+                }
+                let only_entries = g
+                    .iter()
+                    .all(|op| matches!(op, Op::AddEntry { .. } | Op::AddConcept { .. }));
+                let forms: Vec<String> = g
+                    .iter()
+                    .filter_map(|op| match op {
+                        Op::AddEntry { form, .. } => Some(form.clone()),
+                        _ => None,
+                    })
+                    .collect();
+                let e = if only_entries {
+                    self.evaluate(&g, Some(&forms))
+                } else {
+                    self.evaluate(&g, None)
+                };
+                match e {
+                    Ok(e) if e.delta < 0 => {
+                        self.commit(e, &g, "agent")?;
+                        acc += 1;
+                    }
+                    _ => rej += 1,
+                }
+            }
+        }
+        if renamed {
+            // Printed symbols mention names: recount from fresh analyses.
+            self.full_em(1)?;
+        }
+        Ok((acc, rej))
+    }
+
     /// One round: (full EM pass), teacher wave, learning from context,
     /// pruning, the BLiMP gate, metrics, checkpoint.
     pub fn round(&mut self) -> Result<Metrics> {
@@ -935,6 +1028,17 @@ impl Trainer {
             eprintln!("round {round}: {} context candidates", changes.len());
             let (a, r) = self.accept_each(changes, "context")?;
             m.from_context = a;
+            m.accepted += a;
+            m.rejected += r;
+        }
+        // Slow tier.
+        if self.cfg.slow_every > 0
+            && round.is_multiple_of(self.cfg.slow_every)
+            && !self.cfg.slow_tasks.is_empty()
+        {
+            let tasks = self.cfg.slow_tasks.clone();
+            let (a, r) = self.slow_tier(&tasks)?;
+            eprintln!("round {round}: slow tier accepted {a} groups, rejected {r}");
             m.accepted += a;
             m.rejected += r;
         }

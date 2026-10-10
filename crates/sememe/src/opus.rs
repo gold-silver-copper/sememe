@@ -179,6 +179,19 @@ impl Opus {
         schema: &Value,
         timeout: Duration,
     ) -> Result<Reply> {
+        if stubbed() {
+            let value = stub_reply(prompt, schema);
+            let row = LedgerRow {
+                ts: now_secs(),
+                tier: format!("{tier:?}").to_lowercase(),
+                round,
+                outcome: "stub".into(),
+                purpose: purpose.to_string(),
+                ..LedgerRow::default()
+            };
+            self.write_row(&row);
+            return Ok(Reply { value, row });
+        }
         let mut backoff = 30u64;
         for attempt in 0..6 {
             self.acquire(tier);
@@ -276,6 +289,154 @@ impl Opus {
     }
 }
 
+impl Opus {
+    /// A headless coding agent: `claude -p` in `workdir` with an explicit
+    /// settings file (tool allow-list, denied paths). Permission checks are
+    /// never skipped: anything not allowed is denied.
+    pub fn agent(
+        &self,
+        round: u32,
+        purpose: &str,
+        workdir: &Path,
+        settings: &Path,
+        prompt: &str,
+        timeout: Duration,
+    ) -> Result<LedgerRow> {
+        if stubbed() {
+            // The stub agent documents the top concept.
+            std::fs::create_dir_all(workdir.join("agent"))?;
+            std::fs::write(
+                workdir.join("agent/ops.jsonl"),
+                "{\"group\": \"g1\", \"why\": \"stub\", \"op\": {\"op\": \"set_doc\", \"kind\": \"concept\", \"item\": \"Thing\", \"doc\": \"Anything at all.\"}}\n",
+            )?;
+            let row = LedgerRow {
+                ts: now_secs(),
+                tier: "agent".into(),
+                round,
+                outcome: "stub".into(),
+                purpose: purpose.to_string(),
+                ..LedgerRow::default()
+            };
+            self.write_row(&row);
+            return Ok(row);
+        }
+        self.acquire(Tier::Agent);
+        let started = Instant::now();
+        let out = run_agent(workdir, settings, prompt, timeout);
+        self.release(Tier::Agent);
+        let mut row = LedgerRow {
+            ts: now_secs(),
+            tier: "agent".into(),
+            round,
+            secs: started.elapsed().as_secs_f64(),
+            purpose: purpose.to_string(),
+            ..LedgerRow::default()
+        };
+        match out {
+            Ok(v) => {
+                let usage = v.get("usage").unwrap_or(&Value::Null);
+                let g = |k: &str| usage.get(k).and_then(Value::as_u64).unwrap_or(0);
+                row.input = g("input_tokens");
+                row.cache_write = g("cache_creation_input_tokens");
+                row.cache_read = g("cache_read_input_tokens");
+                row.output = g("output_tokens");
+                let is_error = v.get("is_error").and_then(Value::as_bool).unwrap_or(false);
+                row.outcome = if is_error {
+                    "error".into()
+                } else {
+                    "ok".into()
+                };
+                if is_error {
+                    let text = v
+                        .get("result")
+                        .and_then(Value::as_str)
+                        .unwrap_or_default()
+                        .to_string();
+                    if text.to_lowercase().contains("limit") {
+                        row.outcome = "limit".into();
+                        self.pause(reset_secs(&text).unwrap_or(3600));
+                    }
+                }
+            }
+            Err(e) => {
+                row.outcome = if e.to_string().contains("timeout") {
+                    "timeout".into()
+                } else {
+                    "error".into()
+                };
+            }
+        }
+        self.write_row(&row);
+        Ok(row)
+    }
+}
+
+fn run_agent(workdir: &Path, settings: &Path, prompt: &str, timeout: Duration) -> Result<Value> {
+    let settings_s = settings.to_string_lossy().to_string();
+    let mut child = Command::new("claude")
+        .current_dir(workdir)
+        .args([
+            "-p",
+            "--model",
+            MODEL,
+            "--output-format",
+            "json",
+            "--no-session-persistence",
+            "--settings",
+            &settings_s,
+            "--setting-sources",
+            "",
+            "--permission-mode",
+            "dontAsk",
+        ])
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()?;
+    if let Some(mut stdin) = child.stdin.take() {
+        stdin.write_all(prompt.as_bytes())?;
+    }
+    finish(child, timeout)
+}
+
+/// True when model calls are stubbed (`SEMEME_STUB=1`), for CI.
+pub fn stubbed() -> bool {
+    STUB.load(std::sync::atomic::Ordering::Relaxed)
+        || std::env::var("SEMEME_STUB").is_ok_and(|v| v == "1")
+}
+
+/// Force stubbed calls (tests).
+pub static STUB: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
+
+/// A canned reply: `ok` for the self-test; for the teacher, one unit per
+/// line whose meaning is the top concept anchored at the first word.
+fn stub_reply(prompt: &str, schema: &Value) -> Value {
+    let wants_units = schema
+        .get("properties")
+        .and_then(|p| p.get("units"))
+        .is_some();
+    if !wants_units {
+        return serde_json::json!({"ok": true});
+    }
+    let mut units = Vec::new();
+    let mut passage = String::new();
+    let mut line_no: Option<u64> = None;
+    for l in prompt.lines() {
+        let t = l.trim();
+        if let Some(rest) = t.strip_prefix("Passage ") {
+            passage = rest.trim_end_matches(':').to_string();
+        } else if let Some(rest) = t.strip_prefix("line ") {
+            line_no = rest.split([' ', ':']).next().and_then(|n| n.parse().ok());
+        } else if let Some(words) = t.strip_prefix("words: ") {
+            let n = words.split(" | ").count();
+            if let Some(li) = line_no {
+                units.push(serde_json::json!({"passage": passage, "line": li, "start": 0, "end": n, "meaning": "Thing^0"}));
+            }
+        }
+    }
+    serde_json::json!({"new_concepts": [], "new_roles": [], "new_features": [], "units": units})
+}
+
 /// Seconds until a reset time mentioned in a usage-limit message, if any.
 fn reset_secs(text: &str) -> Option<u64> {
     // Messages carry a unix timestamp after a `|`, or "resets in N minutes".
@@ -307,6 +468,8 @@ fn run_claude(
             MODEL,
             "--tools",
             "",
+            "--effort",
+            "medium",
             "--output-format",
             "json",
             "--no-session-persistence",
@@ -322,6 +485,10 @@ fn run_claude(
     if let Some(mut stdin) = child.stdin.take() {
         stdin.write_all(prompt.as_bytes())?;
     }
+    finish(child, timeout)
+}
+
+fn finish(mut child: std::process::Child, timeout: Duration) -> Result<Value> {
     // Drain the pipes on threads so a large reply cannot block the child.
     let drain = |pipe: Option<Box<dyn std::io::Read + Send>>| {
         std::thread::spawn(move || {

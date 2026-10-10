@@ -10,9 +10,9 @@ data/*
 !data/fetch.sh
 !data/README.md
 
-# Per-round program versions, checkpoints and run state (milestone copies are committed under program/)
-/runs/*/store/
-/runs/*/checkpoints/
-/runs/*/ledger.jsonl
-/runs/*/loop.log
+# Run state lives in runs/ (programs per round, checkpoints, ledgers, logs).
+# Only the active-run record is committed; milestone metrics and the
+# program are copied to results/ and program/.
+/runs/*
+!/runs/current-run.json
 /worktrees/
