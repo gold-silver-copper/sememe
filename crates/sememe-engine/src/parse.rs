@@ -876,13 +876,32 @@ impl<'m> Parser<'m> {
     /// construction is memoized by the inputs' meaning keys, so the many
     /// derivations that yield the same meaning are recognized unbuilt.
     fn materialize(&self, mut cands: Vec<Cand>, mut done: Vec<Item>) -> Vec<Item> {
+        // Only the best few can enter the beam: select them in linear time.
+        let keep = 4 * BEAM;
+        if cands.len() > keep {
+            cands.select_nth_unstable_by_key(keep, |a| a.score);
+            cands.truncate(keep);
+        }
         cands.sort_by_key(|a| a.score);
         done.sort_by_key(|a| a.score);
         let mut seen: FxHashMap<(u64, u64, bool), ()> = FxHashMap::default();
         let mut out: Vec<Item> = Vec::new();
+        let best = match (cands.first(), done.first()) {
+            (Some(c), Some(d)) => c.score.min(d.score),
+            (Some(c), None) => c.score,
+            (None, Some(d)) => d.score,
+            (None, None) => 0,
+        };
+        let limit = best.saturating_add(cost::BEAM_DELTA);
         let mut di = done.into_iter().peekable();
         let mut ci = cands.into_iter().peekable();
-        while out.len() < BEAM {
+        // Building meanings is the expensive step; derivations that differ
+        // only spuriously build the same meaning, so stop after a bounded
+        // number of attempts even if the beam is not full.
+        let mut attempts = 0;
+        let mut di = di.take_while(|d| d.score <= limit).peekable();
+        let mut ci = ci.take_while(|c| c.score <= limit).peekable();
+        while out.len() < BEAM && attempts < 3 * BEAM {
             let take_done = match (di.peek(), ci.peek()) {
                 (Some(d), Some(c)) => d.score <= c.score,
                 (Some(_), None) => true,
@@ -896,6 +915,7 @@ impl<'m> Parser<'m> {
                 }
             } else {
                 let Some(c) = ci.next() else { break };
+                attempts += 1;
                 let memo_key = (c.l.mkey, c.r.mkey, c.kind.code());
                 let cached = self.sem_memo.borrow().get(&memo_key).cloned();
                 let built = match cached {

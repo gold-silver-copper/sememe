@@ -9,6 +9,7 @@ mod corpus;
 mod em;
 mod genlex;
 mod learn;
+mod meaning;
 mod ops;
 mod opus;
 mod store;
@@ -36,6 +37,37 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Cmd {
+    /// Apply GENLEX candidates from stored batches to a program and save it
+    /// (for diagnosis; no scoring).
+    GenlexApply {
+        /// Annotation batch directory.
+        batches: PathBuf,
+        /// Output program directory.
+        #[arg(long)]
+        out: PathBuf,
+    },
+    /// Have the teacher annotate the meaning probe (once per run), with the
+    /// run's current ontology.
+    ProbeAnnotate {
+        /// Run name.
+        #[arg(long)]
+        run: String,
+        /// Probe set.
+        #[arg(long, default_value = "data/prepared/babylm/probe")]
+        probe: PathBuf,
+        /// Lines (with words) to annotate.
+        #[arg(long, default_value_t = 1000)]
+        lines: usize,
+    },
+    /// Have the teacher write paraphrase pairs (once per run).
+    Paraphrases {
+        /// Run name.
+        #[arg(long)]
+        run: String,
+        /// Pairs.
+        #[arg(long, default_value_t = 200)]
+        n: usize,
+    },
     /// Run (or resume) the training loop.
     Run {
         /// Run name (directory under runs/).
@@ -62,6 +94,12 @@ enum Cmd {
         /// Disable the teacher.
         #[arg(long)]
         no_teacher: bool,
+        /// Agents-alone baseline mode.
+        #[arg(long)]
+        agents_alone: bool,
+        /// Slow tier every N rounds (0: never).
+        #[arg(long, default_value_t = 3)]
+        slow_every: u32,
     },
     /// Convert stored annotations to candidate entries and report.
     GenlexTrial {
@@ -172,6 +210,8 @@ fn main() -> Result<()> {
             calls,
             passages,
             no_teacher,
+            agents_alone,
+            slow_every,
         } => {
             let mut held = std::collections::BTreeMap::new();
             held.insert(
@@ -189,13 +229,14 @@ fn main() -> Result<()> {
                 lines_per_passage: 3,
                 em_every: 5,
                 max_rounds: u32::MAX,
-                teacher: !no_teacher,
-                slow_every: 3,
+                teacher: !no_teacher && !agents_alone,
+                slow_every,
                 slow_tasks: vec![
                     agents::Task::Consolidate,
                     agents::Task::Name,
                     agents::Task::Generalize,
                 ],
+                agents_alone,
             };
             let teacher = cfg.teacher;
             let mut t = trainer::Trainer::open(cfg)?;
@@ -206,6 +247,132 @@ fn main() -> Result<()> {
             for _ in 0..rounds {
                 t.round()?;
             }
+        }
+        Cmd::ProbeAnnotate { run, probe, lines } => {
+            let dir = trainer::run_dir(&run);
+            let p = store::load(&dir.join("program"))?;
+            let corpus = corpus::Corpus::load(&probe)?;
+            let mut passages = Vec::new();
+            let mut count = 0;
+            'docs: for (di, d) in corpus.docs.iter().enumerate() {
+                for (k, chunk) in d.lines.chunks(3).enumerate() {
+                    if count >= lines {
+                        break 'docs;
+                    }
+                    count += chunk
+                        .iter()
+                        .filter(|l| !sememe_engine::text::Line::parse(l).words.is_empty())
+                        .count();
+                    passages.push(annotate::Passage {
+                        id: String::new(),
+                        doc: di,
+                        first_line: k * 3,
+                        lines: chunk.to_vec(),
+                    });
+                }
+            }
+            let guide = std::fs::read_to_string("docs/meaning-guide.md")?;
+            let opus = opus::Opus::new(&dir.join("ledger.jsonl"), &dirs_workdir())?;
+            let out = PathBuf::from("data/annotations").join(format!("{run}-probe"));
+            let groups: Vec<Vec<annotate::Passage>> = passages
+                .chunks(20)
+                .map(|g| {
+                    g.iter()
+                        .cloned()
+                        .enumerate()
+                        .map(|(i, mut x)| {
+                            x.id = format!("p{i}");
+                            x
+                        })
+                        .collect()
+                })
+                .collect();
+            eprintln!("{} passages in {} calls", passages.len(), groups.len());
+            let results: Vec<_> = std::thread::scope(|s| {
+                let hs: Vec<_> = groups
+                    .into_iter()
+                    .enumerate()
+                    .map(|(i, g)| {
+                        let (opus, p, guide, out) = (&opus, &p, &guide, &out);
+                        s.spawn(move || {
+                            annotate::annotate(opus, p, guide, 0, i as u32, g, false, out)
+                        })
+                    })
+                    .collect();
+                hs.into_iter().map(|h| h.join().ok()).collect()
+            });
+            let ok = results.iter().filter(|r| matches!(r, Some(Ok(_)))).count();
+            println!("{ok} probe batches stored in {}", out.display());
+        }
+        Cmd::Paraphrases { run, n } => {
+            let dir = trainer::run_dir(&run);
+            let opus = opus::Opus::new(&dir.join("ledger.jsonl"), &dirs_workdir())?;
+            let schema = serde_json::json!({"type": "object", "properties": {"pairs": {"type": "array", "items": {"type": "object", "properties": {"a": {"type": "string"}, "b": {"type": "string"}}, "required": ["a", "b"]}}}, "required": ["pairs"]});
+            let mut pairs: Vec<meaning::Paraphrase> = Vec::new();
+            for k in 0..n.div_ceil(50) {
+                let prompt = format!(
+                    "Write 50 pairs of short English sentences (3 to 10 words) in the everyday register of conversation with \
+                     children and simple stories. In each pair both sentences mean exactly the same thing but are worded \
+                     differently: different words (synonyms), active and passive, a name and a description, different word \
+                     order, contractions. Vary the topics. Batch {k}: do not repeat earlier batches' ideas."
+                );
+                let r = opus.structured(
+                    opus::Tier::Teacher,
+                    0,
+                    "paraphrases",
+                    "Reply with JSON only.",
+                    &prompt,
+                    &schema,
+                    std::time::Duration::from_secs(600),
+                )?;
+                let got: Vec<meaning::Paraphrase> =
+                    serde_json::from_value(r.value.get("pairs").cloned().unwrap_or_default())?;
+                pairs.extend(got);
+            }
+            pairs.truncate(n);
+            let out = PathBuf::from("data/annotations").join(format!("{run}-paraphrases.json"));
+            std::fs::create_dir_all("data/annotations")?;
+            std::fs::write(&out, serde_json::to_string_pretty(&pairs)?)?;
+            println!("{} pairs written to {}", pairs.len(), out.display());
+        }
+        Cmd::GenlexApply { batches, out } => {
+            let mut p = Program::seed();
+            let bs = annotate::load_batches(&batches)?;
+            let mut n = 0;
+            for b in bs.iter().filter(|b| !b.double) {
+                for r in &b.replies {
+                    learn::apply_proposals(&mut p, r, b.round);
+                }
+            }
+            for b in bs.iter().filter(|b| !b.double) {
+                for u in &b.valid {
+                    let Some(pass) = b.passages.iter().find(|x| x.id == u.passage) else {
+                        continue;
+                    };
+                    let Some(raw) = pass.lines.get(u.line) else {
+                        continue;
+                    };
+                    let line = sememe_engine::text::Line::parse(raw);
+                    let Ok(ann) = annotate::parse_meaning(&u.meaning) else {
+                        continue;
+                    };
+                    if let Ok(c) = genlex::convert(&p, u, &ann, &line) {
+                        for e in c.entries {
+                            let op = ops::Op::AddEntry {
+                                form: e.form,
+                                cat: e.cat,
+                                sem: e.sem,
+                                doc: String::new(),
+                            };
+                            if ops::apply(&mut p, &op, 1).is_ok() {
+                                n += 1;
+                            }
+                        }
+                    }
+                }
+            }
+            store::save(&p, &out)?;
+            println!("{n} entries");
         }
         Cmd::GenlexTrial { batches } => {
             let mut p = Program::seed();
@@ -376,6 +543,7 @@ mod tests {
             teacher: true,
             slow_every: 1,
             slow_tasks: vec![crate::agents::Task::Name],
+            agents_alone: false,
         };
         let mut t = crate::trainer::Trainer::open(cfg).unwrap();
         crate::opus::self_test(&t.opus).unwrap();

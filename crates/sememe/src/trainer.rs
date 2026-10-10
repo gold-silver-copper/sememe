@@ -61,6 +61,10 @@ pub struct Config {
     pub slow_every: u32,
     /// Slow-tier tasks.
     pub slow_tasks: Vec<crate::agents::Task>,
+    /// The comparison baseline: agents alone edit the program each round
+    /// (no teacher, no learning from context, no pruning); EM still counts.
+    #[serde(default)]
+    pub agents_alone: bool,
 }
 
 /// What is saved between sessions.
@@ -130,6 +134,10 @@ pub struct Trainer {
     pub gate: Option<blimp::Results>,
     /// Parse speed of the last full pass.
     pub lines_per_sec: f64,
+    /// Probe annotations (teacher meanings of held-aside training lines).
+    pub probe: Vec<Batch>,
+    /// Paraphrase pairs written by the teacher.
+    pub paraphrases: Vec<crate::meaning::Paraphrase>,
 }
 
 /// A metrics row.
@@ -191,6 +199,8 @@ pub struct Metrics {
     pub from_context: u32,
     /// Entries pruned.
     pub pruned: u32,
+    /// Meaning metrics.
+    pub meaning: crate::meaning::MeaningMetrics,
 }
 
 fn now() -> u64 {
@@ -280,7 +290,10 @@ impl Trainer {
             heldout,
             gate: None,
             lines_per_sec: 0.0,
+            probe: Vec::new(),
+            paraphrases: Vec::new(),
         };
+        t.load_meaning_sets();
         t.full_em(1)?;
         Ok(t)
     }
@@ -395,16 +408,32 @@ impl Trainer {
             Some(f) => self.affected(f),
             None => (0..self.corpus.docs.len()).collect(),
         };
-        let model = Model::new(Arc::new(p.clone()));
         let docs: Vec<&sememe_data::Doc> = ids
             .iter()
             .filter_map(|i| self.corpus.docs.get(*i))
             .collect();
-        let results = analyze::analyze(&model, &docs, false);
-        let (overlay, new_syms) = self.stats.overlay(&p, &ids, &results);
-        let mut syms = self.stats.syms.clone();
-        syms.extend(new_syms);
-        p.counts = em::m_step_events(&p, overlay.events.iter().map(|(e, n)| (e, *n)), &syms);
+        // Judge the change with its best counts: alternate parsing the
+        // affected documents and recounting (Viterbi EM), more rounds for
+        // bigger changes.
+        let iters = if ops.len() > 20 || forms.is_none() {
+            3
+        } else {
+            2
+        };
+        let mut results = Vec::new();
+        let mut overlay = None;
+        for _ in 0..iters {
+            let model = Model::new(Arc::new(p.clone()));
+            results = analyze::analyze(&model, &docs, false);
+            let (o, new_syms) = self.stats.overlay(&p, &ids, &results);
+            let mut syms = self.stats.syms.clone();
+            syms.extend(new_syms);
+            p.counts = em::m_step_events(&p, o.events.iter().map(|(e, n)| (e, *n)), &syms);
+            overlay = Some(o);
+        }
+        let Some(overlay) = overlay else {
+            anyhow::bail!("no evaluation pass")
+        };
         let program_bits = cost::program_bits(&p).total();
         let data_bits = em::overlay_bits(&p, &overlay);
         let delta =
@@ -505,6 +534,29 @@ impl Trainer {
 
     /// Send a wave of passages to the teacher, in parallel calls.
     pub fn teacher_wave(&mut self) -> Result<Vec<Batch>> {
+        // A round interrupted after its teacher wave reuses the stored batches.
+        let round = self.state.round + 1;
+        let stored: Vec<Batch> =
+            annotate::load_batches(&PathBuf::from("data/annotations").join(&self.cfg.run))?
+                .into_iter()
+                .filter(|b| b.round == round)
+                .collect();
+        if !stored.is_empty() {
+            eprintln!(
+                "round {round}: reusing {} stored teacher batches",
+                stored.len()
+            );
+            for b in stored.iter().filter(|b| !b.double) {
+                for p in &b.passages {
+                    for k in 0..p.lines.len() {
+                        self.state
+                            .annotated
+                            .insert(format!("{}:{}", p.doc, p.first_line + k));
+                    }
+                }
+            }
+            return Ok(stored);
+        }
         let passages = self.select_passages(self.cfg.calls * self.cfg.passages_per_call);
         let mut groups: Vec<Vec<Passage>> = vec![Vec::new(); self.cfg.calls.max(1)];
         for (i, p) in passages.into_iter().enumerate() {
@@ -513,6 +565,7 @@ impl Trainer {
             }
         }
         groups.retain(|g| !g.is_empty());
+        let _ = round;
         for g in &mut groups {
             for (k, p) in g.iter_mut().enumerate() {
                 p.id = format!("p{k}");
@@ -734,6 +787,126 @@ impl Trainer {
     // -----------------------------------------------------------------------
     // Evaluation and bookkeeping.
 
+    /// Load the probe annotations and paraphrase pairs, if they exist.
+    pub fn load_meaning_sets(&mut self) {
+        let base = PathBuf::from("data/annotations");
+        self.probe = annotate::load_batches(&base.join(format!("{}-probe", self.cfg.run)))
+            .unwrap_or_default();
+        if let Ok(text) =
+            std::fs::read_to_string(base.join(format!("{}-paraphrases.json", self.cfg.run)))
+        {
+            self.paraphrases = serde_json::from_str(&text).unwrap_or_default();
+        }
+    }
+
+    /// Meaning metrics: probe agreement, paraphrase agreement, one-word
+    /// concepts, teacher self-agreement.
+    pub fn meaning_metrics(&self) -> crate::meaning::MeaningMetrics {
+        use crate::meaning::{NTree, Overlap, overlap};
+        let model = Model::new(Arc::new(self.program.clone()));
+        let mut parser = sememe_engine::parse::Parser::new(&model);
+        let p = &self.program;
+        let mut m = crate::meaning::MeaningMetrics {
+            one_word_concepts: crate::meaning::one_word_share(p),
+            ..Default::default()
+        };
+        let mut total = Overlap::default();
+        let mut by_src: BTreeMap<String, Overlap> = BTreeMap::new();
+        for b in &self.probe {
+            for pass in &b.passages {
+                let mut ctx = sememe_engine::context::Context::new();
+                for (li, raw) in pass.lines.iter().enumerate() {
+                    let a = parser.parse_line(&mut ctx, raw);
+                    for u in b
+                        .valid
+                        .iter()
+                        .filter(|u| u.passage == pass.id && u.line == li)
+                    {
+                        let Ok(ann) = annotate::parse_meaning(&u.meaning) else {
+                            continue;
+                        };
+                        let want = NTree::from_ann(&ann);
+                        let got = a
+                            .fragments
+                            .iter()
+                            .max_by_key(|f| f.end.min(u.end).saturating_sub(f.start.max(u.start)))
+                            .and_then(|f| NTree::from_term(p, &f.meaning));
+                        let o = overlap(got.as_ref(), Some(&want));
+                        total.add(o);
+                        let src = self
+                            .corpus
+                            .source
+                            .get(pass.doc)
+                            .cloned()
+                            .unwrap_or_default();
+                        by_src.entry(src).or_default().add(o);
+                        m.probe_units += 1;
+                    }
+                }
+            }
+        }
+        m.probe_f1 = total.f1();
+        m.probe_by_source = by_src.into_iter().map(|(k, v)| (k, v.f1())).collect();
+        let (mut same, mut f1sum) = (0u32, 0f64);
+        for pp in &self.paraphrases {
+            let ma = parser.parse_line(&mut sememe_engine::context::Context::new(), &pp.a);
+            let mb = parser.parse_line(&mut sememe_engine::context::Context::new(), &pp.b);
+            let (Some(fa), Some(fb)) = (ma.fragments.first(), mb.fragments.first()) else {
+                continue;
+            };
+            if ma.fragments.len() == 1 && mb.fragments.len() == 1 && fa.meaning == fb.meaning {
+                same += 1;
+            }
+            let (ta, tb) = (
+                NTree::from_term(p, &fa.meaning),
+                NTree::from_term(p, &fb.meaning),
+            );
+            f1sum += overlap(ta.as_ref(), tb.as_ref()).f1();
+        }
+        if !self.paraphrases.is_empty() {
+            m.paraphrase_same = f64::from(same) / self.paraphrases.len() as f64;
+            m.paraphrase_f1 = f1sum / self.paraphrases.len() as f64;
+        }
+        // Teacher self-agreement: double-annotated lines against the first annotation.
+        let batches =
+            annotate::load_batches(&PathBuf::from("data/annotations").join(&self.cfg.run))
+                .unwrap_or_default();
+        let mut first: FxHashMap<(usize, usize, usize, usize), String> = FxHashMap::default();
+        for b in batches.iter().filter(|b| !b.double) {
+            for u in &b.valid {
+                if let Some(pass) = b.passages.iter().find(|x| x.id == u.passage) {
+                    first.insert(
+                        (pass.doc, pass.first_line + u.line, u.start, u.end),
+                        u.meaning.clone(),
+                    );
+                }
+            }
+        }
+        let mut agree = Overlap::default();
+        for b in batches.iter().filter(|b| b.double) {
+            for u in &b.valid {
+                let Some(pass) = b.passages.iter().find(|x| x.id == u.passage) else {
+                    continue;
+                };
+                let Some(other) = first.get(&(pass.doc, pass.first_line + u.line, u.start, u.end))
+                else {
+                    continue;
+                };
+                if let (Ok(x), Ok(y)) = (
+                    annotate::parse_meaning(&u.meaning),
+                    annotate::parse_meaning(other),
+                ) {
+                    agree.add(overlap(
+                        Some(&NTree::from_ann(&x)),
+                        Some(&NTree::from_ann(&y)),
+                    ));
+                }
+            }
+        }
+        m.teacher_agreement = agree.f1();
+        m
+    }
+
     /// Held-out bits per byte and unknown rate for each held-out set.
     pub fn heldout_scores(&self) -> (BTreeMap<String, f64>, BTreeMap<String, f64>) {
         let model = Model::new(Arc::new(self.program.clone()));
@@ -844,8 +1017,19 @@ impl Trainer {
     /// Add many entries as one change; if it does not pay, split it in two
     /// and try each half, recursively. Returns entries accepted.
     pub fn accept_bulk(&mut self, ops_: Vec<Op>, source: &str, depth: u32) -> Result<(u32, u32)> {
+        // Drop operations that do not apply to the current program.
+        let mut probe = self.program.clone();
+        let total = ops_.len();
+        let ops_: Vec<Op> = ops_
+            .into_iter()
+            .filter(|op| ops::apply(&mut probe, op, self.state.round + 1).is_ok())
+            .collect();
+        let invalid = (total - ops_.len()) as u32;
+        if invalid > 0 {
+            eprintln!("  dropped {invalid} operations that do not apply");
+        }
         if ops_.is_empty() {
-            return Ok((0, 0));
+            return Ok((0, invalid));
         }
         let forms: Vec<String> = ops_
             .iter()
@@ -984,6 +1168,12 @@ impl Trainer {
         if round.is_multiple_of(self.cfg.em_every) {
             self.full_em(1)?;
         }
+        if self.cfg.agents_alone {
+            let (a, r) = self.slow_tier(&[crate::agents::Task::Direct; 4])?;
+            m.accepted += a;
+            m.rejected += r;
+            return self.finish_round(m, started, snapshot);
+        }
         // Medium tier: the teacher.
         if self.cfg.teacher {
             let batches = self.teacher_wave()?;
@@ -1055,6 +1245,17 @@ impl Trainer {
             }
         }
         m.pruned = pruned;
+        self.finish_round(m, started, snapshot)
+    }
+
+    #[allow(clippy::type_complexity)]
+    fn finish_round(
+        &mut self,
+        mut m: Metrics,
+        started: Instant,
+        snapshot: (Program, Stats, Bits, Bits),
+    ) -> Result<Metrics> {
+        let round = m.round;
         // The BLiMP gate.
         let model = Model::new(Arc::new(self.program.clone()));
         let gate_now = blimp::evaluate(&model, &self.blimp, true);
@@ -1084,6 +1285,7 @@ impl Trainer {
         m.blimp_unknown_share = f64::from(b.overall.with_unknown) / f64::from(b.overall.n.max(1));
         m.blimp_fragment_share =
             f64::from(b.overall.bad_fragmented) / f64::from(b.overall.n.max(1));
+        m.meaning = self.meaning_metrics();
         let bytes = self.stats.bytes().max(1) as f64;
         m.train_bpb = float(self.data_bits) / bytes;
         m.program_bits = float(self.program_bits);

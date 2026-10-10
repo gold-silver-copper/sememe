@@ -98,7 +98,7 @@ pub fn gamma(n: u64) -> Bits {
 
 /// Longest fragment, in words. Longer punctuation-free runs get a forced
 /// fragment boundary at the cap.
-pub const MAX_FRAGMENT_WORDS: usize = 24;
+pub const MAX_FRAGMENT_WORDS: usize = 12;
 /// How many earlier entities a reference can point at (plus speaker and
 /// addressee).
 pub const REF_LOOKBACK: usize = 32;
@@ -112,6 +112,9 @@ pub const INFERENCE_DEPTH: usize = 1;
 pub const SPEAKER_LOOKBACK: usize = 8;
 /// Chart beam: analyses kept per span.
 pub const BEAM: usize = 12;
+/// Relative beam: chart items more than this many bits worse than the best
+/// item of their span are dropped.
+pub const BEAM_DELTA: Bits = 24 * ONE_BIT;
 /// Categories tried for an unknown word.
 pub const UNKNOWN_CATS: usize = 10;
 /// Largest category arity considered in derivations.
