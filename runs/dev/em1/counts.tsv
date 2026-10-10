@@ -1,0 +1,4285 @@
+# table	context	context	outcome	level (quantized count; see cost.rs)
+tag	0	-	<esc>	0
+tag	0	-	0	136
+tag	0	-	1	108
+tag	0	-	2	49
+tag	0	-	3	97
+tag	1	-	<esc>	0
+tag	1	-	0	105
+tag	1	-	1	135
+tag	2	-	<esc>	0
+tag	2	-	2	97
+tag	3	-	<esc>	0
+tag	3	-	0	97
+tag	3	-	3	98
+speaker_rank	-	-	<esc>	0
+speaker_rank	-	-	0	128
+speaker_rank	-	-	1	127
+speaker_rank	-	-	2	101
+speaker_rank	-	-	3	83
+speaker_rank	-	-	4	65
+speaker_rank	-	-	5	48
+speaker_rank	-	-	6	36
+speaker_rank	-	-	7	25
+speaker_rank	-	-	<new>	101
+speaker_name	-	-	<esc>	0
+speaker_name	-	-	"GGG"	11
+speaker_name	-	-	"GIN"	6
+speaker_name	-	-	"GMA"	49
+speaker_name	-	-	"GRA"	44
+speaker_name	-	-	"GRF"	6
+speaker_name	-	-	"GRM"	5
+speaker_name	-	-	"GRN"	2
+speaker_name	-	-	"GRO"	25
+speaker_name	-	-	"FRE"	5
+speaker_name	-	-	"FRI"	26
+speaker_name	-	-	"FAT"	66
+speaker_name	-	-	"FAD"	31
+speaker_name	-	-	"FCH"	49
+speaker_name	-	-	"INV"	66
+speaker_name	-	-	"HHH"	16
+speaker_name	-	-	"HAR"	11
+speaker_name	-	-	"HEI"	6
+speaker_name	-	-	"INV1"	30
+speaker_name	-	-	"INV2"	26
+speaker_name	-	-	"KKK"	5
+speaker_name	-	-	"KEI"	2
+speaker_name	-	-	"KAT"	21
+speaker_name	-	-	"KAR"	9
+speaker_name	-	-	"AX"	8
+speaker_name	-	-	"AL"	13
+speaker_name	-	-	"CH"	26
+speaker_name	-	-	"J2"	19
+speaker_name	-	-	"JW"	34
+speaker_name	-	-	"JN"	14
+speaker_name	-	-	"JO"	29
+speaker_name	-	-	"JE"	4
+speaker_name	-	-	"KT"	23
+speaker_name	-	-	"KF"	36
+speaker_name	-	-	"KL"	15
+speaker_name	-	-	"KN"	25
+speaker_name	-	-	"MW"	29
+speaker_name	-	-	"MU"	29
+speaker_name	-	-	"MR"	17
+speaker_name	-	-	"MX"	12
+speaker_name	-	-	"ME"	19
+speaker_name	-	-	"MC"	30
+speaker_name	-	-	"MB"	25
+speaker_name	-	-	"MA"	27
+speaker_name	-	-	"MI"	7
+speaker_name	-	-	"SC"	28
+speaker_name	-	-	"SS"	7
+speaker_name	-	-	"JAM"	14
+speaker_name	-	-	"JEA"	1
+speaker_name	-	-	"JJJ"	11
+speaker_name	-	-	"JOH"	1
+speaker_name	-	-	"JUS"	3
+speaker_name	-	-	"JUD"	8
+speaker_name	-	-	"MAL"	1
+speaker_name	-	-	"MAD"	24
+speaker_name	-	-	"MAR"	6
+speaker_name	-	-	"MCH"	50
+speaker_name	-	-	"MOT"	87
+speaker_name	-	-	"SIS2"	1
+speaker_name	-	-	"LEA"	6
+speaker_name	-	-	"LOU"	2
+speaker_name	-	-	"LLL"	14
+speaker_name	-	-	"LIN"	8
+speaker_name	-	-	"LIS"	5
+speaker_name	-	-	"OTH"	4
+speaker_name	-	-	"PAU"	23
+speaker_name	-	-	"PAR"	42
+speaker_name	-	-	"PER"	1
+speaker_name	-	-	"PLA"	1
+speaker_name	-	-	"NOE"	2
+speaker_name	-	-	"NNN"	6
+speaker_name	-	-	"NAN"	43
+speaker_name	-	-	"SAR"	2
+speaker_name	-	-	"SI2"	6
+speaker_name	-	-	"SIS"	57
+speaker_name	-	-	"SIB"	1
+speaker_name	-	-	"SUS"	2
+speaker_name	-	-	"SSS"	22
+speaker_name	-	-	"RRR"	15
+speaker_name	-	-	"RUS"	10
+speaker_name	-	-	"RIC"	30
+speaker_name	-	-	"ROB"	11
+speaker_name	-	-	"ROZ"	1
+speaker_name	-	-	"ROY"	5
+speaker_name	-	-	"RAC"	11
+speaker_name	-	-	"UNC"	7
+speaker_name	-	-	"UNK"	48
+speaker_name	-	-	"UNI"	18
+speaker_name	-	-	"URS"	47
+speaker_name	-	-	"TTT"	5
+speaker_name	-	-	"TOY"	6
+speaker_name	-	-	"TOM"	7
+speaker_name	-	-	"THA"	5
+speaker_name	-	-	"TEL"	3
+speaker_name	-	-	"TEA"	48
+speaker_name	-	-	"TER"	3
+speaker_name	-	-	"TCA"	9
+speaker_name	-	-	"WWW"	3
+speaker_name	-	-	"WAL"	1
+speaker_name	-	-	"WEN"	3
+speaker_name	-	-	"WOM"	6
+speaker_name	-	-	"VIS"	2
+speaker_name	-	-	"YYY"	1
+speaker_name	-	-	"BRO2"	3
+speaker_name	-	-	"XXX"	2
+speaker_name	-	-	"R"	27
+speaker_name	-	-	"Y"	29
+speaker_name	-	-	"B"	50
+speaker_name	-	-	"A"	51
+speaker_name	-	-	"E"	29
+speaker_name	-	-	"N"	9
+speaker_name	-	-	"M"	2
+speaker_name	-	-	"ART"	1
+speaker_name	-	-	"AUN"	2
+speaker_name	-	-	"AAA"	4
+speaker_name	-	-	"ADU"	3
+speaker_name	-	-	"AMY"	29
+speaker_name	-	-	"ANG"	10
+speaker_name	-	-	"CEC"	5
+speaker_name	-	-	"CAR"	16
+speaker_name	-	-	"CON"	1
+speaker_name	-	-	"COL"	39
+speaker_name	-	-	"CLA"	5
+speaker_name	-	-	"CHR"	1
+speaker_name	-	-	"CHI"	88
+speaker_name	-	-	"PAR1"	39
+speaker_name	-	-	"PAR3"	9
+speaker_name	-	-	"PAR2"	37
+speaker_name	-	-	"PAR4"	2
+speaker_name	-	-	"BOB"	12
+speaker_name	-	-	"BAB"	6
+speaker_name	-	-	"BBB"	2
+speaker_name	-	-	"BR2"	6
+speaker_name	-	-	"BRO"	56
+speaker_name	-	-	"EXP"	62
+speaker_name	-	-	"EX2"	7
+speaker_name	-	-	"ELS"	19
+speaker_name	-	-	"ELL"	4
+speaker_name	-	-	"EDN"	10
+speaker_name	-	-	"EEE"	2
+speaker_name	-	-	"CHI2"	1
+speaker_name	-	-	"DOU"	6
+speaker_name	-	-	"DIA"	16
+speaker_name	-	-	"DEN"	24
+speaker_name	-	-	"DEB"	7
+speaker_name	-	-	"DDD"	6
+speaker_name	-	-	"DAN"	10
+speaker_name	-	-	"DAD"	35
+speaker_name	-	-	"DYL"	3
+line_empty	0	-	<esc>	0
+line_empty	0	-	0	137
+line_empty	0	-	1	96
+line_empty	1	-	<esc>	0
+line_empty	1	-	0	136
+line_empty	1	-	1	5
+line_empty	2	-	<esc>	0
+line_empty	2	-	0	97
+line_empty	3	-	<esc>	0
+line_empty	3	-	0	105
+line_empty	3	-	1	13
+frag_more	-	-	<esc>	0
+frag_more	-	-	0	145
+frag_more	-	-	1	129
+mode	mod	-	<esc>	0
+mode	mod	-	0	154
+mode	<root>	-	<esc>	0
+mode	<root>	-	0	137
+mode	<root>	-	2	142
+concept	mod	<unknown>	<esc>	0
+concept	mod	<unknown>	<unknown>	154
+concept	<root>	<none>	<esc>	0
+concept	<root>	<none>	<unknown>	137
+feat_next	<root>	<unknown>	<esc>	0
+feat_next	<root>	<unknown>	<absent>	156
+role_next	mod	<unknown>	<esc>	0
+role_next	mod	<unknown>	mod	153
+role_next	mod	<unknown>	<absent>	130
+role_next	<root>	<unknown>	<esc>	0
+role_next	<root>	<unknown>	mod	130
+role_next	<root>	<unknown>	<absent>	155
+root_cat	-	-	<esc>	0
+root_cat	-	-	"NP"	127
+root_cat	-	-	"S"	145
+expand	"NP"	-	<esc>	0
+expand	"NP"	-	<lex>	127
+expand	"S"	-	<esc>	0
+expand	"S"	-	g0	167
+expand	"S"	-	<lex>	145
+expand	"S/S"	-	<esc>	0
+expand	"S/S"	-	<lex>	167
+new_cat	g0	"S"	<esc>	0
+new_cat	g0	"S"	"S"	167
+split	0	"S"	<esc>	0
+split	0	"S"	4294967297	167
+infl	"NP"	""	<esc>	0
+infl	"NP"	""	<absent>	127
+infl	"S"	""	<esc>	0
+infl	"S"	""	<absent>	145
+infl	"S/S"	""	<esc>	0
+infl	"S/S"	""	<absent>	167
+case	0	-	<esc>	0
+case	0	-	0	136
+case	0	-	1	137
+case	0	-	2	103
+case	0	-	3	72
+case	1	-	<esc>	0
+case	1	-	0	101
+case	1	-	1	122
+case	1	-	2	69
+case	1	-	3	53
+case	2	-	<esc>	0
+case	2	-	0	166
+case	2	-	1	138
+case	2	-	2	113
+case	2	-	3	90
+case	2	-	4	10
+gap	0	-	<esc>	0
+gap	0	-	"{\\***"	5
+gap	0	-	"{{{ "	1
+gap	0	-	"*** "	8
+gap	0	-	"...... -"	4
+gap	0	-	"(~ "	8
+gap	0	-	"(# "	29
+gap	0	-	"¡¦"	1
+gap	0	-	"_‘"	5
+gap	0	-	"‘“‘"	1
+gap	0	-	"* '"	1
+gap	0	-	"** "	4
+gap	0	-	"***"	1
+gap	0	-	"-¶"	1
+gap	0	-	"-= "	2
+gap	0	-	"-=="	2
+gap	0	-	"-- "	3
+gap	0	-	"## [ "	1
+gap	0	-	"'..."	2
+gap	0	-	"£"	2
+gap	0	-	"¡"	3
+gap	0	-	"¶"	11
+gap	0	-	"¿"	9
+gap	0	-	"[♪♪♪] "	1
+gap	0	-	"♪ ..."	2
+gap	0	-	", ("	1
+gap	0	-	" \""	9
+gap	0	-	" &"	12
+gap	0	-	" ("	15
+gap	0	-	"! "	27
+gap	0	-	"!["	26
+gap	0	-	"\"_"	28
+gap	0	-	"\"'"	45
+gap	0	-	"\"$"	1
+gap	0	-	"\"\""	28
+gap	0	-	"\" "	67
+gap	0	-	"\"("	1
+gap	0	-	"# "	58
+gap	0	-	"$ "	4
+gap	0	-	"'_"	4
+gap	0	-	"'`"	14
+gap	0	-	"'$"	1
+gap	0	-	"''"	9
+gap	0	-	"' "	12
+gap	0	-	"'\""	20
+gap	0	-	"(_"	2
+gap	0	-	"(*"	15
+gap	0	-	"(-"	1
+gap	0	-	"( "	49
+gap	0	-	"(\""	1
+gap	0	-	"('"	1
+gap	0	-	") "	4
+gap	0	-	"*["	23
+gap	0	-	"* "	42
+gap	0	-	", "	46
+gap	0	-	",\""	2
+gap	0	-	",,"	3
+gap	0	-	"-{"	2
+gap	0	-	"-["	1
+gap	0	-	"-="	13
+gap	0	-	"-'"	1
+gap	0	-	"-\""	2
+gap	0	-	"--"	41
+gap	0	-	"-("	16
+gap	0	-	".."	47
+gap	0	-	". "	31
+gap	0	-	"/ "	8
+gap	0	-	"; "	1
+gap	0	-	"= "	5
+gap	0	-	"?["	32
+gap	0	-	"[!"	1
+gap	0	-	"[ "	58
+gap	0	-	"[\""	31
+gap	0	-	"['"	5
+gap	0	-	"[("	1
+gap	0	-	"[/"	6
+gap	0	-	"[."	52
+gap	0	-	"[["	6
+gap	0	-	"[_"	4
+gap	0	-	"]["	6
+gap	0	-	"_`"	4
+gap	0	-	"{ "	1
+gap	0	-	"{\\"	37
+gap	0	-	"~ "	48
+gap	0	-	"[$=/"	4
+gap	0	-	"[$= "	4
+gap	0	-	"∴ "	2
+gap	0	-	"...................._"	1
+gap	0	-	"��"	4
+gap	0	-	"{...} "	6
+gap	0	-	"## ["	1
+gap	0	-	"##[ "	1
+gap	0	-	"�* "	1
+gap	0	-	"..."	47
+gap	0	-	".. "	11
+gap	0	-	". ."	51
+gap	0	-	"£ "	3
+gap	0	-	"¶ "	20
+gap	0	-	".. ."	2
+gap	0	-	"... "	42
+gap	0	-	".../"	1
+gap	0	-	"# .."	4
+gap	0	-	" // "	4
+gap	0	-	"⬄"	3
+gap	0	-	"†"	1
+gap	0	-	"’"	19
+gap	0	-	"‘"	60
+gap	0	-	"“"	89
+gap	0	-	"–"	60
+gap	0	-	"—"	28
+gap	0	-	"€"	1
+gap	0	-	"↫"	14
+gap	0	-	"♪"	52
+gap	0	-	"♫"	1
+gap	0	-	"☛"	1
+gap	0	-	".�� (."	1
+gap	0	-	"――――"	1
+gap	0	-	"[¶¶¶] "	3
+gap	0	-	". .."	1
+gap	0	-	"♪♪ "	12
+gap	0	-	"♪ - ♪ "	2
+gap	0	-	") - '"	1
+gap	0	-	"... ..."	2
+gap	0	-	"‘“"	15
+gap	0	-	"= = = "	93
+gap	0	-	"\"’"	17
+gap	0	-	"-- '"	3
+gap	0	-	".:`|~"	1
+gap	0	-	"-... "	1
+gap	0	-	"• "	17
+gap	0	-	"— "	1
+gap	0	-	"–'"	1
+gap	0	-	"– "	4
+gap	0	-	"“'"	19
+gap	0	-	"“_"	13
+gap	0	-	"‘_"	44
+gap	0	-	" �"	6
+gap	0	-	"********** ******"	1
+gap	0	-	"' - '"	5
+gap	0	-	"' - ("	1
+gap	0	-	"\"..."	16
+gap	0	-	"♪ - ( "	1
+gap	0	-	"“‘“"	1
+gap	0	-	"+-------------------------------------------------+ |"	2
+gap	0	-	"-..."	9
+gap	0	-	"♪ ["	2
+gap	0	-	"♪ ("	1
+gap	0	-	"♪ \""	9
+gap	0	-	"♪ '"	21
+gap	0	-	"     "	1
+gap	0	-	"♫  "	15
+gap	0	-	"*’"	2
+gap	0	-	"=* "	2
+gap	0	-	"[? "	11
+gap	0	-	"[/&"	1
+gap	0	-	"[$="	51
+gap	0	-	"[# "	7
+gap	0	-	"[ ["	1
+gap	0	-	"[ \""	1
+gap	0	-	"[! "	8
+gap	0	-	"� "	1
+gap	0	-	"¶... "	1
+gap	0	-	"** **** "	1
+gap	0	-	"# ..."	3
+gap	0	-	".... ..."	1
+gap	0	-	"['°'"	1
+gap	0	-	"? \""	1
+gap	0	-	"���� ��� ������' �������� ����� ������ ��� ������. _"	1
+gap	0	-	"――"	2
+gap	0	-	"= = = ¡"	1
+gap	0	-	":"	1
+gap	0	-	"="	42
+gap	0	-	"#"	5
+gap	0	-	"\""	101
+gap	0	-	"!"	19
+gap	0	-	" "	50
+gap	0	-	"'"	81
+gap	0	-	"&"	33
+gap	0	-	"%"	85
+gap	0	-	"$"	31
+gap	0	-	"*"	32
+gap	0	-	"("	78
+gap	0	-	"/"	6
+gap	0	-	"."	34
+gap	0	-	"-"	80
+gap	0	-	","	5
+gap	0	-	"{"	43
+gap	0	-	"~"	1
+gap	0	-	"`"	2
+gap	0	-	"["	110
+gap	0	-	"_"	57
+gap	0	-	"@"	1
+gap	0	-	"******* "	1
+gap	0	-	"---- "	1
+gap	0	-	"�"	46
+gap	0	-	"♪... "	1
+gap	0	-	"♪ .."	1
+gap	0	-	"** ** "	1
+gap	0	-	"_\"'"	1
+gap	0	-	"♫ ..."	3
+gap	0	-	"“‘"	52
+gap	0	-	"“’"	17
+gap	0	-	"“—"	1
+gap	0	-	"♫ "	34
+gap	0	-	"♪("	1
+gap	0	-	"♪'"	3
+gap	0	-	"♪ "	73
+gap	0	-	"♪~"	1
+gap	0	-	" } "	2
+gap	0	-	" (\""	1
+gap	0	-	" //"	2
+gap	0	-	" , "	3
+gap	0	-	"# \""	1
+gap	0	-	"# ("	3
+gap	0	-	"[??? "	1
+gap	0	-	" "	1
+gap	0	-	"/ "	1
+gap	0	-	"\"--"	1
+gap	0	-	"\".."	31
+gap	0	-	"\" ["	3
+gap	0	-	"\" ("	9
+gap	0	-	"\" '"	3
+gap	0	-	"\"\" "	2
+gap	0	-	"\"'_"	2
+gap	0	-	"+--------------------------------------------------------------+ |                                                              | | "	1
+gap	0	-	"¶¶ "	20
+gap	0	-	"****** "	1
+gap	0	-	"-- [ "	6
+gap	0	-	"\" “"	1
+gap	0	-	"‎.‎.‎. ���� ����‎, ������ �"	1
+gap	0	-	"*** ****** *** "	1
+gap	0	-	"’ ... "	2
+gap	0	-	"= = = ."	5
+gap	0	-	""	144
+gap	0	-	"\"... "	3
+gap	0	-	"������ ���� ������� ������ �� ‎.��"	1
+gap	0	-	"\"\" ("	4
+gap	0	-	"♫ ♫ "	1
+gap	0	-	"' ["	3
+gap	0	-	"'.."	11
+gap	0	-	"    "	2
+gap	0	-	"“' "	1
+gap	0	-	"\"’----"	1
+gap	0	-	"† \""	1
+gap	0	-	"\", , "	1
+gap	1	-	<esc>	0
+gap	1	-	" (�) ("	1
+gap	1	-	"-�"	1
+gap	1	-	"\"))/\""	1
+gap	1	-	"                            "	24
+gap	1	-	" \"\", \""	4
+gap	1	-	",”--“"	1
+gap	1	-	"),["	1
+gap	1	-	"), "	69
+gap	1	-	"),\""	2
+gap	1	-	")--"	7
+gap	1	-	")/("	1
+gap	1	-	") ="	1
+gap	1	-	") ("	33
+gap	1	-	")  "	1
+gap	1	-	") \""	19
+gap	1	-	") &"	2
+gap	1	-	") '"	34
+gap	1	-	") ["	5
+gap	1	-	") _"	14
+gap	1	-	")\" "	22
+gap	1	-	"):&"	1
+gap	1	-	"): "	5
+gap	1	-	"); "	35
+gap	1	-	"                                         "	11
+gap	1	-	")}["	17
+gap	1	-	")} "	9
+gap	1	-	" ���� "	1
+gap	1	-	",”’ "	2
+gap	1	-	")] "	1
+gap	1	-	"         "	34
+gap	1	-	"\" (����� "	1
+gap	1	-	"_'--"	1
+gap	1	-	"-,               "	1
+gap	1	-	": “["	1
+gap	1	-	"           _"	1
+gap	1	-	"            "	26
+gap	1	-	"                                  "	25
+gap	1	-	"\"              "	1
+gap	1	-	"***}"	3
+gap	1	-	" –"	1
+gap	1	-	" ‘"	51
+gap	1	-	" ’"	55
+gap	1	-	" “"	64
+gap	1	-	" ”"	1
+gap	1	-	" „"	1
+gap	1	-	" ₹"	2
+gap	1	-	" €"	9
+gap	1	-	" ----‘"	2
+gap	1	-	" ↫"	15
+gap	1	-	" −"	2
+gap	1	-	" ≈"	1
+gap	1	-	"\" (��� "	2
+gap	1	-	" '~ "	2
+gap	1	-	"                            _"	1
+gap	1	-	"                             "	22
+gap	1	-	" * * * "	1
+gap	1	-	" ', "	5
+gap	1	-	"() "	1
+gap	1	-	" ' ,"	1
+gap	1	-	" ' ("	14
+gap	1	-	" '  "	1
+gap	1	-	"----  "	3
+gap	1	-	"---- _"	1
+gap	1	-	"----\" "	26
+gap	1	-	"----' "	2
+gap	1	-	"----, "	11
+gap	1	-	":���, "	1
+gap	1	-	": �������, "	2
+gap	1	-	"\" (��, /"	2
+gap	1	-	"’,\" "	6
+gap	1	-	"’, "	29
+gap	1	-	"’--"	5
+gap	1	-	"\" () "	16
+gap	1	-	"’ _"	1
+gap	1	-	"’ \""	2
+gap	1	-	"’ ("	1
+gap	1	-	"’\" "	1
+gap	1	-	"\" (\"-"	1
+gap	1	-	"\" ( '"	1
+gap	1	-	"’;["	1
+gap	1	-	"’; "	16
+gap	1	-	" ��������) "	2
+gap	1	-	"'), "	4
+gap	1	-	"\" (, \""	1
+gap	1	-	"\" (, /"	4
+gap	1	-	", ’"	40
+gap	1	-	", ‘"	45
+gap	1	-	", ”"	1
+gap	1	-	", “"	65
+gap	1	-	", −"	1
+gap	1	-	"), ����, \""	1
+gap	1	-	",’--"	17
+gap	1	-	",’\" "	1
+gap	1	-	"\" (��� ���) "	2
+gap	1	-	"_                           "	1
+gap	1	-	" \"�\""	2
+gap	1	-	"- - "	1
+gap	1	-	"- , "	1
+gap	1	-	"\": { \""	1
+gap	1	-	"¡¡"	8
+gap	1	-	"_; -"	2
+gap	1	-	"_; `"	1
+gap	1	-	"_;\" "	2
+gap	1	-	",--_"	8
+gap	1	-	",--'"	4
+gap	1	-	",-- "	10
+gap	1	-	",--\""	27
+gap	1	-	"- [ "	1
+gap	1	-	" (, \"\") "	1
+gap	1	-	"\" (������, /"	3
+gap	1	-	"+/-"	3
+gap	1	-	"+, "	3
+gap	1	-	"+) "	2
+gap	1	-	"], “"	1
+gap	1	-	"♪ ♪"	5
+gap	1	-	"       `"	1
+gap	1	-	"        "	32
+gap	1	-	"_                         "	1
+gap	1	-	"_,            "	2
+gap	1	-	":\t$="	22
+gap	1	-	"             "	14
+gap	1	-	"***}{\\"	1
+gap	1	-	"]; \""	1
+gap	1	-	":��, "	1
+gap	1	-	":��) "	1
+gap	1	-	" (���� _"	1
+gap	1	-	" , \" "	3
+gap	1	-	" , , "	1
+gap	1	-	"\" + \""	2
+gap	1	-	", \"\", "	3
+gap	1	-	"--’"	1
+gap	1	-	"--‘"	8
+gap	1	-	"--“"	25
+gap	1	-	"_—"	1
+gap	1	-	":” "	2
+gap	1	-	"′′ "	2
+gap	1	-	" “'"	2
+gap	1	-	"\"), \""	3
+gap	1	-	" ‘_"	2
+gap	1	-	" ‘\""	1
+gap	1	-	" ― "	1
+gap	1	-	" — "	34
+gap	1	-	" – "	69
+gap	1	-	" • "	20
+gap	1	-	"_\"), "	2
+gap	1	-	"_:\" "	1
+gap	1	-	"_:  "	1
+gap	1	-	"_: \""	1
+gap	1	-	"_:--"	1
+gap	1	-	"\"]\" "	1
+gap	1	-	"”            "	1
+gap	1	-	": ���, \""	1
+gap	1	-	"-          "	1
+gap	1	-	"* ("	1
+gap	1	-	"*, "	6
+gap	1	-	"]: \""	1
+gap	1	-	" �®("	1
+gap	1	-	",’” "	1
+gap	1	-	"), \"\" ("	5
+gap	1	-	"                                              "	2
+gap	1	-	""	4
+gap	1	-	" (���� �����) "	1
+gap	1	-	", £ "	1
+gap	1	-	"£¶"	2
+gap	1	-	" ° "	3
+gap	1	-	" ± "	1
+gap	1	-	" ¶ "	11
+gap	1	-	"-                                 "	1
+gap	1	-	" · "	1
+gap	1	-	" £ "	1
+gap	1	-	"”         "	1
+gap	1	-	" *********"	1
+gap	1	-	"\"), \"'"	3
+gap	1	-	",――"	7
+gap	1	-	"-\" ("	1
+gap	1	-	" ¡®"	1
+gap	1	-	"_             "	2
+gap	1	-	"-_ "	1
+gap	1	-	"-; "	2
+gap	1	-	"-'-"	2
+gap	1	-	"-' "	1
+gap	1	-	"- -"	1
+gap	1	-	"- ("	4
+gap	1	-	"-  "	5
+gap	1	-	"- \""	5
+gap	1	-	"- _"	4
+gap	1	-	"-\" "	1
+gap	1	-	"-, "	30
+gap	1	-	"--("	6
+gap	1	-	"---"	3
+gap	1	-	"--\""	40
+gap	1	-	"-- "	55
+gap	1	-	"--'"	24
+gap	1	-	"--`"	1
+gap	1	-	"--_"	11
+gap	1	-	"-) "	2
+gap	1	-	": “‘"	3
+gap	1	-	" \"\" (\""	2
+gap	1	-	" \"\" ('"	1
+gap	1	-	"_,                    "	5
+gap	1	-	" ** "	4
+gap	1	-	" * ["	1
+gap	1	-	"), ', ' "	1
+gap	1	-	"’), "	1
+gap	1	-	"’”                                                  "	1
+gap	1	-	" × "	9
+gap	1	-	"--‘“_"	1
+gap	1	-	" (����� �����) "	1
+gap	1	-	"_,” "	9
+gap	1	-	"_,’ "	1
+gap	1	-	", * * "	1
+gap	1	-	"_,                     "	1
+gap	1	-	"),\" "	2
+gap	1	-	"), ("	7
+gap	1	-	"), \""	52
+gap	1	-	"), $"	1
+gap	1	-	"), '"	1
+gap	1	-	"¦"	1
+gap	1	-	"§"	2
+gap	1	-	"¢"	1
+gap	1	-	"£"	2
+gap	1	-	"¡"	12
+gap	1	-	"¬"	2
+gap	1	-	"­"	26
+gap	1	-	"©"	2
+gap	1	-	"¶"	1
+gap	1	-	"·"	7
+gap	1	-	"°"	30
+gap	1	-	"±"	3
+gap	1	-	"¿"	7
+gap	1	-	""	2
+gap	1	-	""	1
+gap	1	-	""	5
+gap	1	-	""	31
+gap	1	-	"×"	10
+gap	1	-	"÷"	7
+gap	1	-	"\" (���"	1
+gap	1	-	",' "	59
+gap	1	-	",\"["	2
+gap	1	-	",\" "	92
+gap	1	-	", `"	11
+gap	1	-	", {"	1
+gap	1	-	", _"	45
+gap	1	-	", ["	44
+gap	1	-	", $"	24
+gap	1	-	", '"	61
+gap	1	-	", &"	5
+gap	1	-	",  "	44
+gap	1	-	", #"	4
+gap	1	-	", \""	83
+gap	1	-	", -"	31
+gap	1	-	", ("	34
+gap	1	-	", *"	3
+gap	1	-	", ="	1
+gap	1	-	",--"	60
+gap	1	-	",- "	1
+gap	1	-	",, "	33
+gap	1	-	",) "	8
+gap	1	-	",= "	1
+gap	1	-	"\"                           "	1
+gap	1	-	" \"������������ � �����������\" \"("	1
+gap	1	-	" `"	30
+gap	1	-	" {"	22
+gap	1	-	" |"	2
+gap	1	-	" ~"	5
+gap	1	-	" @"	6
+gap	1	-	" ["	94
+gap	1	-	" ]"	2
+gap	1	-	" _"	75
+gap	1	-	"  "	100
+gap	1	-	" \""	94
+gap	1	-	" #"	37
+gap	1	-	" $"	56
+gap	1	-	" %"	1
+gap	1	-	" &"	52
+gap	1	-	" '"	86
+gap	1	-	" ("	88
+gap	1	-	" *"	11
+gap	1	-	" +"	16
+gap	1	-	" ,"	33
+gap	1	-	" -"	34
+gap	1	-	" /"	20
+gap	1	-	" :"	17
+gap	1	-	" ="	8
+gap	1	-	"\"["	1
+gap	1	-	"\"&"	12
+gap	1	-	"\"'"	16
+gap	1	-	"\"\""	1
+gap	1	-	"\" "	85
+gap	1	-	"\"-"	11
+gap	1	-	"\"("	2
+gap	1	-	"\")"	1
+gap	1	-	"\":"	1
+gap	1	-	"$ "	5
+gap	1	-	"% "	55
+gap	1	-	"'_"	26
+gap	1	-	"''"	34
+gap	1	-	"' "	90
+gap	1	-	"'\""	1
+gap	1	-	"'-"	29
+gap	1	-	"',"	5
+gap	1	-	"')"	10
+gap	1	-	"'("	2
+gap	1	-	"(-"	1
+gap	1	-	"(/"	1
+gap	1	-	"(\""	2
+gap	1	-	"('"	30
+gap	1	-	"),"	1
+gap	1	-	") "	86
+gap	1	-	")'"	3
+gap	1	-	")&"	1
+gap	1	-	"):"	2
+gap	1	-	")}"	35
+gap	1	-	")["	1
+gap	1	-	")\\"	1
+gap	1	-	"* "	10
+gap	1	-	"+ "	26
+gap	1	-	"+("	1
+gap	1	-	",["	29
+gap	1	-	",}"	2
+gap	1	-	",$"	1
+gap	1	-	",&"	10
+gap	1	-	", "	133
+gap	1	-	",\""	12
+gap	1	-	",,"	2
+gap	1	-	"-`"	3
+gap	1	-	"-_"	4
+gap	1	-	"-:"	1
+gap	1	-	"-'"	7
+gap	1	-	"-\""	3
+gap	1	-	"- "	52
+gap	1	-	"--"	83
+gap	1	-	"-)"	2
+gap	1	-	"/("	1
+gap	1	-	"/&"	1
+gap	1	-	"/ "	28
+gap	1	-	"/\""	1
+gap	1	-	":\t"	85
+gap	1	-	":&"	2
+gap	1	-	":\""	3
+gap	1	-	":#"	5
+gap	1	-	": "	78
+gap	1	-	":["	3
+gap	1	-	";["	3
+gap	1	-	"; "	94
+gap	1	-	";\""	4
+gap	1	-	";&"	26
+gap	1	-	";/"	28
+gap	1	-	"=\""	24
+gap	1	-	"= "	20
+gap	1	-	"=="	1
+gap	1	-	",} "	2
+gap	1	-	",{\\"	2
+gap	1	-	"[-"	1
+gap	1	-	"] "	84
+gap	1	-	"]["	1
+gap	1	-	"__"	1
+gap	1	-	"_["	4
+gap	1	-	"_-"	3
+gap	1	-	"_'"	1
+gap	1	-	"_ "	69
+gap	1	-	"` "	3
+gap	1	-	",_ "	3
+gap	1	-	",] "	47
+gap	1	-	"{\\"	4
+gap	1	-	"| "	6
+gap	1	-	"||"	44
+gap	1	-	"}\""	1
+gap	1	-	"} "	31
+gap	1	-	"~ "	1
+gap	1	-	"]: ♪ "	1
+gap	1	-	", * * '"	1
+gap	1	-	" �����\" (\""	1
+gap	1	-	" --- "	2
+gap	1	-	" -- \""	1
+gap	1	-	"'-- "	1
+gap	1	-	"\"     "	1
+gap	1	-	" ������ "	2
+gap	1	-	",” &"	1
+gap	1	-	",”--"	7
+gap	1	-	"\": \""	7
+gap	1	-	"                  "	20
+gap	1	-	" (§"	1
+gap	1	-	"’,” "	5
+gap	1	-	"(') "	2
+gap	1	-	",  �"	1
+gap	1	-	"/; "	1
+gap	1	-	" (, "	25
+gap	1	-	" (* "	9
+gap	1	-	" () "	48
+gap	1	-	" ($ "	4
+gap	1	-	" (\"_"	2
+gap	1	-	"/) "	16
+gap	1	-	" ( \""	9
+gap	1	-	"/, "	1
+gap	1	-	"/- "	1
+gap	1	-	"/\" "	1
+gap	1	-	":                                          | |                                                              | | "	1
+gap	1	-	"                         "	21
+gap	1	-	"/ /"	3
+gap	1	-	" (; "	38
+gap	1	-	"��"	17
+gap	1	-	"_:     "	1
+gap	1	-	"               "	15
+gap	1	-	" £, "	1
+gap	1	-	": �, �, �, "	1
+gap	1	-	"_        "	1
+gap	1	-	"',--"	1
+gap	1	-	"',' "	4
+gap	1	-	"', '"	11
+gap	1	-	"',\" "	17
+gap	1	-	"\" (��������� ���), \""	1
+gap	1	-	"\"; \""	2
+gap	1	-	"�, "	9
+gap	1	-	"  �"	20
+gap	1	-	"] = "	2
+gap	1	-	"] # "	5
+gap	1	-	"] - "	2
+gap	1	-	";—"	1
+gap	1	-	"      $"	11
+gap	1	-	"       "	26
+gap	1	-	"; \"’"	1
+gap	1	-	"); “"	4
+gap	1	-	" ) \""	2
+gap	1	-	" "	2
+gap	1	-	" ), "	3
+gap	1	-	"£ "	1
+gap	1	-	"; “’"	1
+gap	1	-	"° "	33
+gap	1	-	"°'"	1
+gap	1	-	"\" (���� ���) "	2
+gap	1	-	"] - ["	20
+gap	1	-	" : ���������; , \""	1
+gap	1	-	"(� "	1
+gap	1	-	" **** **** "	1
+gap	1	-	"                                                  "	2
+gap	1	-	"\" (\"�������\") \""	1
+gap	1	-	" � + � "	1
+gap	1	-	"), \" "	2
+gap	1	-	" (��) "	7
+gap	1	-	"                          "	19
+gap	1	-	",'--"	1
+gap	1	-	",'\" "	21
+gap	1	-	",' '"	5
+gap	1	-	" �  �"	2
+gap	1	-	"_‘, "	1
+gap	1	-	": �� ��; "	1
+gap	1	-	"¿, "	1
+gap	1	-	"_,                       "	1
+gap	1	-	"                                             "	2
+gap	1	-	" (), ("	2
+gap	1	-	"), ' ("	5
+gap	1	-	"’                          "	1
+gap	1	-	" - ( "	1
+gap	1	-	" — \""	4
+gap	1	-	": ������ "	1
+gap	1	-	":— “"	1
+gap	1	-	" - # "	5
+gap	1	-	" �����) "	1
+gap	1	-	"°®¿"	1
+gap	1	-	" ██ "	2
+gap	1	-	"                                                "	2
+gap	1	-	"}), "	1
+gap	1	-	"\" (�������� "	1
+gap	1	-	"' “"	1
+gap	1	-	"                              "	25
+gap	1	-	"           "	32
+gap	1	-	" ----, "	8
+gap	1	-	"−"	7
+gap	1	-	"∂"	1
+gap	1	-	"⁄"	25
+gap	1	-	"•"	3
+gap	1	-	"′"	37
+gap	1	-	"–"	63
+gap	1	-	"—"	60
+gap	1	-	"↫"	23
+gap	1	-	", � "	5
+gap	1	-	"%%% "	2
+gap	1	-	"), � ("	7
+gap	1	-	"÷£¬"	1
+gap	1	-	"_                     "	1
+gap	1	-	"―――― "	3
+gap	1	-	"\" = \""	2
+gap	1	-	"\" = ("	1
+gap	1	-	"\" — "	4
+gap	1	-	"\" – "	9
+gap	1	-	" ,, "	3
+gap	1	-	" , '"	2
+gap	1	-	" ,  "	2
+gap	1	-	"’,\" ’"	2
+gap	1	-	"——\" "	1
+gap	1	-	"), “"	6
+gap	1	-	"      | | "	1
+gap	1	-	" (��; \""	2
+gap	1	-	"\" (���, /"	7
+gap	1	-	"----\"  "	1
+gap	1	-	",’ ‘"	1
+gap	1	-	" \"��� �����\" "	1
+gap	1	-	": ���; "	2
+gap	1	-	": ���, "	3
+gap	1	-	": ���- "	1
+gap	1	-	" (�� ��), "	2
+gap	1	-	"\"\", \""	2
+gap	1	-	",\": "	1
+gap	1	-	",\"' "	9
+gap	1	-	",\" _"	1
+gap	1	-	",\" ["	1
+gap	1	-	",\" `"	1
+gap	1	-	",\" ("	4
+gap	1	-	",\" &"	1
+gap	1	-	",\" '"	2
+gap	1	-	",\" \""	36
+gap	1	-	",\", "	1
+gap	1	-	",\"--"	17
+gap	1	-	" -- "	46
+gap	1	-	" --&"	1
+gap	1	-	" - '"	3
+gap	1	-	" - $"	1
+gap	1	-	" - \""	15
+gap	1	-	" - ("	2
+gap	1	-	"°�"	1
+gap	1	-	" ���) "	2
+gap	1	-	"\" (�����; \""	1
+gap	1	-	"\"                              "	1
+gap	1	-	"–) "	1
+gap	1	-	" : �� ��� ����; "	1
+gap	1	-	" – \""	2
+gap	1	-	" – ("	1
+gap	1	-	"',” "	1
+gap	1	-	" ⋅ "	1
+gap	1	-	"_,                        "	4
+gap	1	-	" ] - [ "	14
+gap	1	-	") - ("	5
+gap	1	-	"_,              "	3
+gap	1	-	" (, ' "	1
+gap	1	-	" (, , "	1
+gap	1	-	"\", \"\", "	3
+gap	1	-	"                                                            "	1
+gap	1	-	"') - # "	1
+gap	1	-	"_,                "	1
+gap	1	-	"_,             "	4
+gap	1	-	": ; ; "	1
+gap	1	-	"                                                 "	1
+gap	1	-	", ������, "	1
+gap	1	-	"© �®"	1
+gap	1	-	" \"�� ������\" (\""	1
+gap	1	-	" ( \"["	1
+gap	1	-	";\"--"	1
+gap	1	-	" ( ) "	17
+gap	1	-	";\" ["	2
+gap	1	-	";\" |"	2
+gap	1	-	";\" ("	1
+gap	1	-	";\" \""	2
+gap	1	-	", �"	5
+gap	1	-	" ( ; "	10
+gap	1	-	") ♪ "	5
+gap	1	-	":—"	4
+gap	1	-	":“"	1
+gap	1	-	"_, ||_-"	1
+gap	1	-	"\"_) \""	1
+gap	1	-	"                 "	18
+gap	1	-	", ‘_"	3
+gap	1	-	", ‘\""	1
+gap	1	-	", “'"	2
+gap	1	-	", “("	1
+gap	1	-	", “_"	3
+gap	1	-	"_                          "	2
+gap	1	-	"_,                         "	3
+gap	1	-	"\"’"	2
+gap	1	-	"\"—"	8
+gap	1	-	" \"������ ������ ��� ���� �����\" (\""	1
+gap	1	-	"#:~:"	1
+gap	1	-	", £"	2
+gap	1	-	"-         "	3
+gap	1	-	"), ���, \""	3
+gap	1	-	", } "	1
+gap	1	-	",\" ’"	26
+gap	1	-	"—“"	13
+gap	1	-	"—”"	1
+gap	1	-	"—’"	2
+gap	1	-	", _ "	1
+gap	1	-	", ; "	2
+gap	1	-	", * "	4
+gap	1	-	", (\""	2
+gap	1	-	", , "	17
+gap	1	-	", - "	3
+gap	1	-	", \"("	3
+gap	1	-	", \" "	1
+gap	1	-	", \"\""	14
+gap	1	-	", \"'"	18
+gap	1	-	", \"["	7
+gap	1	-	", \"_"	13
+gap	1	-	",   "	5
+gap	1	-	", ''"	6
+gap	1	-	", '\""	1
+gap	1	-	", ' "	2
+gap	1	-	", '_"	4
+gap	1	-	", $ "	1
+gap	1	-	"--' "	4
+gap	1	-	"-- -"	5
+gap	1	-	"-- '"	3
+gap	1	-	"-- \""	3
+gap	1	-	"-- ["	1
+gap	1	-	"--\" "	31
+gap	1	-	"--\"_"	1
+gap	1	-	"----"	12
+gap	1	-	"                       "	19
+gap	1	-	"\", ', \""	7
+gap	1	-	": ������������ ����������� �������������) "	1
+gap	1	-	"\" (����� ���), "	1
+gap	1	-	"_,                            "	1
+gap	1	-	" / ∂"	1
+gap	1	-	"                                _"	1
+gap	1	-	"                                 "	25
+gap	1	-	" ] - ## [ "	1
+gap	1	-	"----’ "	2
+gap	1	-	"\", \""	59
+gap	1	-	"\", '"	2
+gap	1	-	"\", ("	6
+gap	1	-	"\",\" "	3
+gap	1	-	"          �            "	1
+gap	1	-	"”--“"	2
+gap	1	-	"] ' ["	1
+gap	1	-	"\" (����), "	1
+gap	1	-	"’ & "	5
+gap	1	-	"’ (_"	1
+gap	1	-	"%–"	1
+gap	1	-	"_           "	2
+gap	1	-	"      "	19
+gap	1	-	"′`"	1
+gap	1	-	"′-"	4
+gap	1	-	":                   "	1
+gap	1	-	"— "	3
+gap	1	-	"—\""	6
+gap	1	-	"—_"	5
+gap	1	-	"– "	13
+gap	1	-	"“ "	2
+gap	1	-	"”["	3
+gap	1	-	"” "	50
+gap	1	-	"’ "	66
+gap	1	-	"’-"	7
+gap	1	-	"‚ "	3
+gap	1	-	" � = "	2
+gap	1	-	" � (\""	1
+gap	1	-	" ] [ "	6
+gap	1	-	")—"	5
+gap	1	-	" �"	70
+gap	1	-	"                                      "	19
+gap	1	-	": ������� �������) ("	1
+gap	1	-	"’”                                     "	1
+gap	1	-	"\" (������ ���) "	1
+gap	1	-	": ����, "	3
+gap	1	-	"; \"'"	3
+gap	1	-	"; \"_"	5
+gap	1	-	"] ♪ "	2
+gap	1	-	"\"- \""	1
+gap	1	-	"\"--\""	9
+gap	1	-	"\"-- "	1
+gap	1	-	"\", \"\", \""	4
+gap	1	-	"] ♪♪ "	4
+gap	1	-	"'\" (_"	1
+gap	1	-	") (; "	1
+gap	1	-	") () "	5
+gap	1	-	"'_, "	1
+gap	1	-	" \"�\" "	2
+gap	1	-	"(�� ��), "	1
+gap	1	-	"' ��� "	1
+gap	1	-	" (����� "	1
+gap	1	-	",          "	1
+gap	1	-	" � "	38
+gap	1	-	", \"� ("	1
+gap	1	-	" (; ), "	1
+gap	1	-	" (-) "	1
+gap	1	-	" ��� ����� ������; "	1
+gap	1	-	"×==- ±"	1
+gap	1	-	"----‘"	5
+gap	1	-	"                                          "	5
+gap	1	-	"_,         "	1
+gap	1	-	" ---- "	25
+gap	1	-	"( �"	1
+gap	1	-	"÷�"	1
+gap	1	-	",**** "	1
+gap	1	-	": ��� ��-"	1
+gap	1	-	"-             "	1
+gap	1	-	"_                               "	1
+gap	1	-	": � ("	1
+gap	1	-	";” "	33
+gap	1	-	";’ "	2
+gap	1	-	"_            "	1
+gap	1	-	"\" (�) "	5
+gap	1	-	"\" (�, "	2
+gap	1	-	"\"                   "	1
+gap	1	-	";--"	12
+gap	1	-	";' "	22
+gap	1	-	";\"&"	6
+gap	1	-	";\" "	39
+gap	1	-	"; ("	3
+gap	1	-	"; \""	64
+gap	1	-	"; '"	29
+gap	1	-	"; ["	24
+gap	1	-	"; _"	10
+gap	1	-	"\" (\"���\" "	1
+gap	1	-	" ' (\""	1
+gap	1	-	" ·¡"	1
+gap	1	-	") ’"	1
+gap	1	-	")\", \""	4
+gap	1	-	"] - # "	1
+gap	1	-	" (, \""	9
+gap	1	-	", \"\" "	4
+gap	1	-	"-\" (�), "	1
+gap	1	-	", ----, "	1
+gap	1	-	"_,'\" "	1
+gap	1	-	", \"�"	1
+gap	1	-	"\" (���) "	14
+gap	1	-	" \"“"	2
+gap	1	-	" \"’"	1
+gap	1	-	":                              | |                                                 | |"	2
+gap	1	-	":\t="	1
+gap	1	-	") # "	2
+gap	1	-	") \"\""	1
+gap	1	-	") / "	1
+gap	1	-	") - "	10
+gap	1	-	":= "	12
+gap	1	-	": ["	4
+gap	1	-	": _"	19
+gap	1	-	": `"	1
+gap	1	-	": #"	1
+gap	1	-	": \""	57
+gap	1	-	":  "	1
+gap	1	-	": '"	25
+gap	1	-	": $"	2
+gap	1	-	": ("	35
+gap	1	-	": -"	2
+gap	1	-	": ="	1
+gap	1	-	":\" "	1
+gap	1	-	"                                       "	15
+gap	1	-	"\") (��) "	2
+gap	1	-	":- "	2
+gap	1	-	":--"	3
+gap	1	-	":, "	3
+gap	1	-	"://"	32
+gap	1	-	" ¶ -"	1
+gap	1	-	":_ "	1
+gap	1	-	" ~ \""	1
+gap	1	-	" ~, "	1
+gap	1	-	":×"	1
+gap	1	-	"'\"                           "	1
+gap	1	-	"°, "	9
+gap	1	-	"°) "	3
+gap	1	-	"   , "	1
+gap	1	-	";-- "	5
+gap	1	-	"     "	10
+gap	1	-	"    _"	2
+gap	1	-	"_,                  "	2
+gap	1	-	"] [+ "	1
+gap	1	-	" (��/"	1
+gap	1	-	",               "	1
+gap	1	-	"_, \"_"	1
+gap	1	-	"= ("	2
+gap	1	-	"= \""	1
+gap	1	-	"= ="	4
+gap	1	-	"=\":"	1
+gap	1	-	"=, "	5
+gap	1	-	"=--"	2
+gap	1	-	"=: "	1
+gap	1	-	" ***** *** "	1
+gap	1	-	" : \""	2
+gap	1	-	" , ‘"	1
+gap	1	-	"                                            "	8
+gap	1	-	"-     "	1
+gap	1	-	"\" (���), \""	1
+gap	1	-	"' — "	1
+gap	1	-	" ) - ( "	11
+gap	1	-	" (�'�� �����) "	1
+gap	1	-	",♪ ♪"	2
+gap	1	-	"\" (\"�\") "	1
+gap	1	-	", } _"	1
+gap	1	-	";, &"	1
+gap	1	-	"[] "	2
+gap	1	-	"\" (“"	1
+gap	1	-	"; “"	53
+gap	1	-	"; ‘"	8
+gap	1	-	"; ’"	8
+gap	1	-	"\" (����) "	5
+gap	1	-	"\"); "	2
+gap	1	-	"\"), "	37
+gap	1	-	"\") ("	1
+gap	1	-	"'\", \""	1
+gap	1	-	"� "	29
+gap	1	-	"�'"	2
+gap	1	-	" ♪ ♪ "	34
+gap	1	-	" -- [ "	1
+gap	1	-	" *** "	2
+gap	1	-	"\"                     "	1
+gap	1	-	",’ "	51
+gap	1	-	")\", "	2
+gap	1	-	",” "	78
+gap	1	-	",”["	3
+gap	1	-	")\" \""	1
+gap	1	-	")\"; "	1
+gap	1	-	"_                "	1
+gap	1	-	"],\" "	3
+gap	1	-	"], '"	1
+gap	1	-	"], \""	2
+gap	1	-	"], ("	1
+gap	1	-	"], ["	7
+gap	1	-	" ; ("	1
+gap	1	-	"                               "	24
+gap	1	-	"-’"	1
+gap	1	-	"-–"	1
+gap	1	-	", ♫ "	3
+gap	1	-	"- - [ "	1
+gap	1	-	"; * * * * "	1
+gap	1	-	", ', "	2
+gap	1	-	", ' ("	1
+gap	1	-	"/� = "	1
+gap	1	-	" (), "	33
+gap	1	-	" () ("	11
+gap	1	-	"_,\"--"	4
+gap	1	-	"; '), "	1
+gap	1	-	" \"�"	2
+gap	1	-	"_,           "	1
+gap	1	-	" (�����������) ("	1
+gap	1	-	" ('); "	3
+gap	1	-	"     | | "	2
+gap	1	-	"­¿"	1
+gap	1	-	" ', \""	3
+gap	1	-	"_); "	3
+gap	1	-	" , £ "	1
+gap	1	-	"_) _"	1
+gap	1	-	"’;--"	1
+gap	1	-	"_), "	12
+gap	1	-	"||||||||||||||"	1
+gap	1	-	"\", ', ' "	1
+gap	1	-	"――"	25
+gap	1	-	")\" = "	1
+gap	1	-	"] ["	51
+gap	1	-	"] ("	3
+gap	1	-	"] &"	3
+gap	1	-	"] '"	22
+gap	1	-	"] \""	13
+gap	1	-	"], "	53
+gap	1	-	"]--"	3
+gap	1	-	"]) "	1
+gap	1	-	"( �± �® · �"	1
+gap	1	-	"                                     "	23
+gap	1	-	"]; "	4
+gap	1	-	"): \"["	1
+gap	1	-	";"	50
+gap	1	-	":"	58
+gap	1	-	"="	29
+gap	1	-	"#"	29
+gap	1	-	"\""	56
+gap	1	-	" "	166
+gap	1	-	"&"	50
+gap	1	-	"%"	10
+gap	1	-	"$"	28
+gap	1	-	"+"	71
+gap	1	-	"*"	22
+gap	1	-	")"	27
+gap	1	-	"("	50
+gap	1	-	"/"	83
+gap	1	-	","	83
+gap	1	-	"~"	3
+gap	1	-	"}"	18
+gap	1	-	"|"	5
+gap	1	-	"`"	55
+gap	1	-	"["	35
+gap	1	-	"_"	66
+gap	1	-	"^"	8
+gap	1	-	"]"	7
+gap	1	-	"\\"	2
+gap	1	-	"@"	11
+gap	1	-	"_:    "	1
+gap	1	-	"'---- "	1
+gap	1	-	"                "	9
+gap	1	-	"÷==- ±"	1
+gap	1	-	"”                                              "	1
+gap	1	-	"---- "	26
+gap	1	-	"-- - '"	2
+gap	1	-	"-- - ["	1
+gap	1	-	"-- - ( "	2
+gap	1	-	"’—"	3
+gap	1	-	"\") = "	1
+gap	1	-	"�"	53
+gap	1	-	"{\\ "	1
+gap	1	-	"          "	35
+gap	1	-	"         '"	1
+gap	1	-	" “�” "	1
+gap	1	-	") — "	1
+gap	1	-	") – "	14
+gap	1	-	" (��� "	1
+gap	1	-	"\", ), "	1
+gap	1	-	"                                        "	12
+gap	1	-	"  ♫ "	3
+gap	1	-	";'” "	1
+gap	1	-	"’) ‘"	1
+gap	1	-	"­ �°  �"	1
+gap	1	-	"'\"                    "	1
+gap	1	-	"                      "	15
+gap	1	-	"”              "	1
+gap	1	-	" ​​"	13
+gap	1	-	"——\"  "	2
+gap	1	-	" (���, "	3
+gap	1	-	" (���) "	5
+gap	1	-	",\"), "	1
+gap	1	-	",” “"	15
+gap	1	-	" \"\" ("	17
+gap	1	-	" \"\", "	10
+gap	1	-	" _£ "	1
+gap	1	-	"              "	10
+gap	1	-	"-  ( "	2
+gap	1	-	"���� �����"	1
+gap	1	-	"//($"	1
+gap	1	-	", \",\" "	1
+gap	1	-	"\" (\"��\") "	1
+gap	1	-	"'\"--"	1
+gap	1	-	"-                    "	1
+gap	1	-	")}{\\"	2
+gap	1	-	")}{ "	1
+gap	1	-	")} {"	1
+gap	1	-	"_) "	9
+gap	1	-	"\"                       "	1
+gap	1	-	"_, "	58
+gap	1	-	"_,["	1
+gap	1	-	"_--"	19
+gap	1	-	"_\" "	5
+gap	1	-	"_ _"	5
+gap	1	-	"_ ["	1
+gap	1	-	"_ -"	1
+gap	1	-	"_ ("	31
+gap	1	-	"_ '"	2
+gap	1	-	"_ \""	2
+gap	1	-	"_  "	2
+gap	1	-	")}- "	1
+gap	1	-	")}--"	1
+gap	1	-	"_' "	1
+gap	1	-	"_: "	19
+gap	1	-	"_; "	41
+gap	1	-	" ‘’’"	3
+gap	1	-	"_] "	3
+gap	1	-	", �; "	1
+gap	1	-	"_――"	1
+gap	1	-	" ]: "	1
+gap	1	-	" ] \""	1
+gap	1	-	"\"’, "	1
+gap	1	-	"\" (�, /"	2
+gap	1	-	"\" (\"��������\") \""	1
+gap	1	-	" @ "	5
+gap	1	-	",'” "	2
+gap	1	-	" (; ) "	11
+gap	1	-	"(*) "	3
+gap	1	-	" [["	1
+gap	1	-	" [ "	3
+gap	1	-	" [\""	2
+gap	1	-	" _'"	3
+gap	1	-	" _ "	1
+gap	1	-	" _-"	6
+gap	1	-	"} -"	1
+gap	1	-	"} ("	1
+gap	1	-	"} \""	1
+gap	1	-	"} {"	5
+gap	1	-	" ] "	43
+gap	1	-	"                                           "	5
+gap	1	-	"}, "	3
+gap	1	-	" ` "	1
+gap	1	-	"♯ "	2
+gap	1	-	"}) "	1
+gap	1	-	"♭ "	1
+gap	1	-	"——” "	5
+gap	1	-	" {\""	1
+gap	1	-	" {\\"	5
+gap	1	-	" ~ "	2
+gap	1	-	" | "	16
+gap	1	-	" (��, ��), "	3
+gap	1	-	" # "	16
+gap	1	-	" \"["	3
+gap	1	-	" \"_"	25
+gap	1	-	" \"^"	4
+gap	1	-	" \"@"	1
+gap	1	-	" \"\""	22
+gap	1	-	" \" "	20
+gap	1	-	" \"'"	4
+gap	1	-	" \"&"	3
+gap	1	-	" \"("	11
+gap	1	-	" \"/"	1
+gap	1	-	" \"-"	7
+gap	1	-	"  ("	1
+gap	1	-	"   "	60
+gap	1	-	"  \""	2
+gap	1	-	"  '"	36
+gap	1	-	"  _"	4
+gap	1	-	" '_"	6
+gap	1	-	" '["	1
+gap	1	-	" ''"	2
+gap	1	-	" ' "	46
+gap	1	-	" '\""	1
+gap	1	-	" & "	40
+gap	1	-	" % "	5
+gap	1	-	" $ "	25
+gap	1	-	" + "	18
+gap	1	-	" * "	7
+gap	1	-	" ) "	30
+gap	1	-	" (_"	17
+gap	1	-	" (~"	4
+gap	1	-	" (`"	1
+gap	1	-	" ( "	25
+gap	1	-	" (\""	55
+gap	1	-	" ($"	7
+gap	1	-	" ('"	6
+gap	1	-	" (-"	4
+gap	1	-	" (/"	5
+gap	1	-	" /&"	2
+gap	1	-	" / "	27
+gap	1	-	" --"	1
+gap	1	-	" -\""	6
+gap	1	-	" - "	59
+gap	1	-	" , "	71
+gap	1	-	" ,\""	1
+gap	1	-	"¿ �"	1
+gap	1	-	" ; "	9
+gap	1	-	" : "	18
+gap	1	-	" = "	38
+gap	1	-	" °"	27
+gap	1	-	" ¶"	1
+gap	1	-	" ¿"	3
+gap	1	-	" £"	38
+gap	1	-	" ¥"	1
+gap	1	-	"’ “"	2
+gap	1	-	"’ ‘"	1
+gap	1	-	"’ ’"	5
+gap	1	-	"’”                        "	1
+gap	1	-	"\", ', "	2
+gap	1	-	",] ["	9
+gap	1	-	" = \"# "	4
+gap	1	-	",        "	1
+gap	1	-	"_,                   "	3
+gap	1	-	"] “"	3
+gap	1	-	" ) - "	3
+gap	1	-	"♭, "	1
+gap	1	-	"♭ ("	1
+gap	1	-	"©, "	1
+gap	1	-	", \"�\""	1
+gap	1	-	" (, ; ) "	1
+gap	1	-	" ♪ "	13
+gap	1	-	" ♫ "	1
+gap	1	-	") (; ) "	1
+gap	1	-	"                                                    "	2
+gap	1	-	" ♪ ["	7
+gap	1	-	"_ ’"	1
+gap	1	-	": “"	34
+gap	1	-	": ’"	5
+gap	1	-	": ‘"	31
+gap	1	-	" (, ; ; ), "	1
+gap	1	-	"°—"	1
+gap	1	-	"' - "	2
+gap	1	-	"' , "	2
+gap	1	-	"' \"_"	1
+gap	1	-	", \"�����\"/\""	1
+gap	1	-	"' = "	1
+gap	1	-	"): \""	6
+gap	1	-	", � = "	2
+gap	1	-	", � (\""	1
+gap	1	-	"                        "	19
+gap	1	-	"’” "	1
+gap	1	-	"\"' ("	1
+gap	1	-	"”                              "	1
+gap	1	-	" : ¤"	1
+gap	1	-	" * * "	7
+gap	1	-	" \"/\" "	1
+gap	1	-	"=- ·­"	1
+gap	1	-	"\"÷"	1
+gap	1	-	"\") "	57
+gap	1	-	"\"(\""	1
+gap	1	-	"\"--"	33
+gap	1	-	"\"- "	1
+gap	1	-	"\",("	1
+gap	1	-	"\",\""	4
+gap	1	-	"\", "	69
+gap	1	-	"\"/\""	3
+gap	1	-	" (����), "	2
+gap	1	-	"\" ["	3
+gap	1	-	"\" {"	1
+gap	1	-	"\" ("	67
+gap	1	-	"\" /"	1
+gap	1	-	"\" \""	19
+gap	1	-	"\"  "	2
+gap	1	-	"\" '"	3
+gap	1	-	"\" &"	1
+gap	1	-	"\"\" "	4
+gap	1	-	"\"' "	7
+gap	1	-	"\"; "	34
+gap	1	-	"\";["	1
+gap	1	-	"\": "	18
+gap	1	-	" �� "	2
+gap	1	-	" = %"	1
+gap	1	-	" = \""	1
+gap	1	-	" = ("	7
+gap	1	-	"\" (��) "	6
+gap	1	-	"\" (��; "	1
+gap	1	-	", “’"	2
+gap	1	-	"_,' "	2
+gap	1	-	"_, -"	3
+gap	1	-	"_, ("	6
+gap	1	-	"_, $"	1
+gap	1	-	"_, \""	3
+gap	1	-	"_, `"	2
+gap	1	-	"_, _"	23
+gap	1	-	"_,\" "	27
+gap	1	-	"_,--"	26
+gap	1	-	"--‘_"	1
+gap	1	-	"--’ "	1
+gap	1	-	"--” "	8
+gap	1	-	"/, /"	10
+gap	1	-	"'' ("	1
+gap	1	-	": \"\") "	1
+gap	1	-	"� �"	1
+gap	1	-	": ,\""	1
+gap	1	-	": / "	1
+gap	1	-	": ) "	2
+gap	1	-	"/∂\""	1
+gap	1	-	"\" | "	14
+gap	1	-	":  \""	1
+gap	1	-	" (≈"	1
+gap	1	-	": \"["	2
+gap	1	-	": \"_"	6
+gap	1	-	": \"\""	7
+gap	1	-	": \" "	4
+gap	1	-	": \"'"	14
+gap	1	-	": # "	1
+gap	1	-	": _-"	1
+gap	1	-	" (“"	1
+gap	1	-	" (†"	1
+gap	1	-	": [ "	13
+gap	1	-	"\" \"("	1
+gap	1	-	"\" , "	2
+gap	1	-	"\" - "	9
+gap	1	-	"\" ('"	3
+gap	1	-	"\" ( "	2
+gap	1	-	"\" (\""	36
+gap	1	-	"\" (_"	1
+gap	1	-	"\" + "	2
+gap	1	-	"\" = "	11
+gap	1	-	"-- - "	16
+gap	1	-	"-- [_"	1
+gap	1	-	"-- [ "	1
+gap	1	-	",—"	4
+gap	1	-	" \"£"	1
+gap	1	-	"”—"	1
+gap	1	-	"\", \"¡"	1
+gap	1	-	"()\" "	1
+gap	1	-	"                    "	22
+gap	1	-	" ♪ - ♪ "	9
+gap	1	-	"%, "	16
+gap	1	-	" \"; "	1
+gap	1	-	"%- "	1
+gap	1	-	"%) "	9
+gap	1	-	" \" ("	3
+gap	1	-	" \"\" "	23
+gap	1	-	"%  "	1
+gap	1	-	" \"(\""	1
+gap	1	-	" \", "	6
+gap	1	-	"(����) : "	2
+gap	1	-	"_                        "	4
+gap	1	-	" �®"	2
+gap	1	-	" �¦"	1
+gap	1	-	" [///] "	7
+gap	1	-	", (); ("	1
+gap	1	-	"_, “"	1
+gap	1	-	"\" “"	1
+gap	1	-	"_,        "	2
+gap	1	-	"\" - \""	2
+gap	1	-	"\" - #"	1
+gap	1	-	",                                             "	1
+gap	1	-	"\" -- "	2
+gap	1	-	": ♪♪ "	1
+gap	1	-	"                   "	20
+gap	1	-	" �, "	5
+gap	1	-	" � ("	5
+gap	1	-	" ¶¶ ¶¶ "	2
+gap	1	-	" ――――"	2
+gap	1	-	"                                    "	25
+gap	1	-	")];\" "	1
+gap	1	-	",--“"	17
+gap	1	-	",--‘"	17
+gap	1	-	")_; "	2
+gap	1	-	" ���� _"	1
+gap	1	-	"||||||||||"	5
+gap	1	-	", \"’"	4
+gap	1	-	"” \""	1
+gap	1	-	"” ("	17
+gap	1	-	"” ["	16
+gap	1	-	"”) "	5
+gap	1	-	"”, "	21
+gap	1	-	"”--"	21
+gap	1	-	"”: "	1
+gap	1	-	"”; "	11
+gap	1	-	"”;["	1
+gap	1	-	"_\"; "	4
+gap	1	-	"”—”"	1
+gap	1	-	"_\"--"	1
+gap	1	-	"_\", "	1
+gap	1	-	"_\" ("	2
+gap	1	-	") - # "	11
+gap	1	-	"\"\") "	3
+gap	1	-	"\" (������) "	2
+gap	1	-	"\"\" ("	1
+gap	1	-	"                           "	18
+gap	1	-	"\" (��), \"-"	1
+gap	1	-	" \"�����\" (\""	1
+gap	1	-	"_,          "	1
+gap	1	-	"—” "	4
+gap	1	-	"—“_"	1
+gap	1	-	"%), "	2
+gap	1	-	"--\"  "	1
+gap	1	-	"                     "	19
+gap	1	-	"                    _"	1
+gap	1	-	"_                       "	2
+gap	1	-	"'] "	3
+gap	1	-	"`, "	1
+gap	1	-	"'\" "	2
+gap	1	-	"' &"	1
+gap	1	-	"' '"	51
+gap	1	-	"' \""	17
+gap	1	-	"'  "	2
+gap	1	-	"' ("	15
+gap	1	-	"' _"	1
+gap	1	-	"' ["	24
+gap	1	-	"'' "	8
+gap	1	-	"') "	14
+gap	1	-	"', "	49
+gap	1	-	"'--"	22
+gap	1	-	"'-`"	2
+gap	1	-	"'; "	24
+gap	1	-	"    "	38
+gap	1	-	"   '"	3
+gap	1	-	"   _"	2
+gap	1	-	"  , "	18
+gap	1	-	"_,      "	2
+gap	1	-	" ‘’"	3
+gap	1	-	" ‘‘"	1
+gap	1	-	"’”                                                      "	1
+gap	1	-	" (�������� ���) "	1
+gap	1	-	"\" / \""	1
+gap	1	-	"'\"                                     "	1
+gap	1	-	" (�) "	2
+gap	1	-	"), \"���\", \""	2
+gap	1	-	"\" (), "	7
+gap	1	-	"” \" "	1
+gap	1	-	"                                   "	23
+gap	1	-	" \"������ ������\" (\""	1
+gap	1	-	" - ♪ "	1
+gap	1	-	"_              "	3
+gap	1	-	"\")() "	1
+gap	1	-	" \"+\" "	1
+gap	1	-	": ��, "	2
+gap	1	-	": ��- "	1
+gap	1	-	": ��; "	1
+gap	1	-	"¦·"	1
+gap	1	-	"_\"--\""	1
+gap	1	-	"                                "	28
+gap	1	-	"¡¡ "	2
+gap	1	-	"¡¦ "	1
+gap	1	-	"_,                 "	1
+gap	1	-	" �� ("	1
+gap	1	-	"/ ; "	1
+gap	1	-	"/ - "	1
+gap	1	-	": \"---- "	1
+gap	1	-	"_   "	1
+gap	1	-	" \" “"	1
+gap	1	-	"_ (_"	1
+gap	1	-	"       | | "	2
+gap	1	-	"_ = "	1
+gap	1	-	": ��� ���������), \""	1
+gap	1	-	"\", ) "	3
+gap	1	-	", - '"	1
+gap	1	-	"\", -\""	2
+gap	1	-	"\", , "	1
+gap	1	-	") − "	1
+gap	1	-	" (; '), "	1
+gap	2	-	<esc>	0
+gap	2	-	"._-- ... "	1
+gap	2	-	" , ), "	1
+gap	2	-	" \"\", \""	1
+gap	2	-	")) "	1
+gap	2	-	"))/"	1
+gap	2	-	"), "	46
+gap	2	-	"). "	70
+gap	2	-	").["	3
+gap	2	-	") ("	5
+gap	2	-	") \""	1
+gap	2	-	") _"	1
+gap	2	-	"_.........................._"	1
+gap	2	-	")\" "	7
+gap	2	-	"): "	1
+gap	2	-	"); "	9
+gap	2	-	"!” “"	4
+gap	2	-	"!” ’"	1
+gap	2	-	"’. ’"	2
+gap	2	-	"?'” "	2
+gap	2	-	".’--"	1
+gap	2	-	"! ... "	1
+gap	2	-	".’ ("	1
+gap	2	-	".’  "	1
+gap	2	-	": ������ ������ ���\"� �������, "	1
+gap	2	-	" (��������) "	1
+gap	2	-	".... “"	1
+gap	2	-	".—\""	2
+gap	2	-	".’ "	39
+gap	2	-	".’["	7
+gap	2	-	".”["	1
+gap	2	-	".” "	47
+gap	2	-	"\" (; ). "	1
+gap	2	-	" (���� �������� ���������; "	1
+gap	2	-	"”               "	1
+gap	2	-	": “_"	3
+gap	2	-	" → "	1
+gap	2	-	" “¡"	1
+gap	2	-	" ( ') "	1
+gap	2	-	".' ..."	1
+gap	2	-	"                                 _"	1
+gap	2	-	" ( \"\") "	6
+gap	2	-	":--_"	1
+gap	2	-	": ��; ) "	1
+gap	2	-	"!!!!: "	1
+gap	2	-	",... "	17
+gap	2	-	" ⟨"	3
+gap	2	-	" ‘"	22
+gap	2	-	" ’"	18
+gap	2	-	" “"	33
+gap	2	-	" ​"	1
+gap	2	-	" ‎"	2
+gap	2	-	" ₤"	1
+gap	2	-	" ----‘"	2
+gap	2	-	" ∂"	1
+gap	2	-	".      "	2
+gap	2	-	"\"). ("	1
+gap	2	-	".’” "	1
+gap	2	-	" '. "	7
+gap	2	-	" ', "	2
+gap	2	-	" ') "	1
+gap	2	-	" ' ("	1
+gap	2	-	"(, "	1
+gap	2	-	" '; "	1
+gap	2	-	"---- ("	1
+gap	2	-	"----\" "	1
+gap	2	-	"----. "	4
+gap	2	-	"----; "	1
+gap	2	-	":���, "	1
+gap	2	-	": �������) "	1
+gap	2	-	": �������, "	1
+gap	2	-	"’,\" "	1
+gap	2	-	"’, "	7
+gap	2	-	"’. "	17
+gap	2	-	"\" (, "	1
+gap	2	-	"\" () "	9
+gap	2	-	"’! "	4
+gap	2	-	"\" ( '"	1
+gap	2	-	"\" ( \""	1
+gap	2	-	"’? "	4
+gap	2	-	"’; "	1
+gap	2	-	"”          "	1
+gap	2	-	" ��������, "	1
+gap	2	-	"’_ "	1
+gap	2	-	" (��, \""	1
+gap	2	-	"'). "	2
+gap	2	-	"'), "	2
+gap	2	-	"\" (, \""	1
+gap	2	-	": , \""	1
+gap	2	-	", ’"	6
+gap	2	-	", ‘"	19
+gap	2	-	", “"	43
+gap	2	-	"\",\" \""	1
+gap	2	-	",’--"	2
+gap	2	-	"_). \""	1
+gap	2	-	"!”’ "	1
+gap	2	-	"\" − "	2
+gap	2	-	".)  \""	1
+gap	2	-	"¡¦"	1
+gap	2	-	", \"\" (). "	1
+gap	2	-	"?” ... "	1
+gap	2	-	"'\"                               "	1
+gap	2	-	",--_"	1
+gap	2	-	",---"	1
+gap	2	-	",-- "	2
+gap	2	-	",--\""	2
+gap	2	-	" \"\". ("	2
+gap	2	-	"+. "	3
+gap	2	-	"++ "	5
+gap	2	-	"+ \""	1
+gap	2	-	". \"... "	1
+gap	2	-	"] () "	1
+gap	2	-	"_.” "	1
+gap	2	-	" (����. "	1
+gap	2	-	" (����) "	1
+gap	2	-	", , , (; "	1
+gap	2	-	".,'\" "	1
+gap	2	-	"] ... "	1
+gap	2	-	"* ..."	1
+gap	2	-	" (�� ��) "	2
+gap	2	-	" (�� ��, "	1
+gap	2	-	"--“"	10
+gap	2	-	"\"?  "	1
+gap	2	-	" ... [_"	6
+gap	2	-	"\" + ���� (\""	1
+gap	2	-	". ’"	21
+gap	2	-	". ‘"	41
+gap	2	-	". “"	72
+gap	2	-	".\"--_"	9
+gap	2	-	" ” "	1
+gap	2	-	" “\""	2
+gap	2	-	" “_"	1
+gap	2	-	" ― "	1
+gap	2	-	" — "	8
+gap	2	-	" – "	49
+gap	2	-	" • "	1
+gap	2	-	"?’” "	1
+gap	2	-	"”?’ "	1
+gap	2	-	": ����������) "	1
+gap	2	-	": ����������, "	1
+gap	2	-	"  ..."	1
+gap	2	-	"*. "	1
+gap	2	-	". ♪ "	1
+gap	2	-	" . (\"\" "	1
+gap	2	-	"\" (��), \""	5
+gap	2	-	" ������� (\""	1
+gap	2	-	"_,       "	2
+gap	2	-	"'\"                                             "	1
+gap	2	-	"?\" () "	1
+gap	2	-	"), \"\" ("	1
+gap	2	-	"’.  "	8
+gap	2	-	"’.\" "	1
+gap	2	-	"\" (��� ��������), \""	1
+gap	2	-	".) _"	2
+gap	2	-	".)  "	1
+gap	2	-	".) \""	5
+gap	2	-	""	1
+gap	2	-	".). "	7
+gap	2	-	": ..."	1
+gap	2	-	".), "	20
+gap	2	-	" ...'. "	1
+gap	2	-	" (; ("	1
+gap	2	-	" (; \""	6
+gap	2	-	" (;, "	1
+gap	2	-	"”                                                 "	1
+gap	2	-	" ° "	1
+gap	2	-	" (☯) "	1
+gap	2	-	" ¶ "	2
+gap	2	-	"... ♪ ♪ "	4
+gap	2	-	"!!!\", "	1
+gap	2	-	".                    "	1
+gap	2	-	" © "	1
+gap	2	-	"?          "	1
+gap	2	-	".'\"--_"	1
+gap	2	-	":... "	1
+gap	2	-	",――"	1
+gap	2	-	".\", \""	2
+gap	2	-	"!—"	4
+gap	2	-	"- -"	1
+gap	2	-	"- ("	2
+gap	2	-	"-  "	1
+gap	2	-	"-, "	1
+gap	2	-	"---"	2
+gap	2	-	"--\""	20
+gap	2	-	"-- "	31
+gap	2	-	"--'"	4
+gap	2	-	"--_"	1
+gap	2	-	"-. "	5
+gap	2	-	"-) "	1
+gap	2	-	"′                      "	1
+gap	2	-	": ������, "	1
+gap	2	-	")’’, "	1
+gap	2	-	" ** "	1
+gap	2	-	". \"���������� ������ ��������������� �����������\"/\""	1
+gap	2	-	"’). "	1
+gap	2	-	"] ..."	3
+gap	2	-	" × "	2
+gap	2	-	" ...  "	1
+gap	2	-	" ... _"	1
+gap	2	-	" ... ["	1
+gap	2	-	" ...) "	1
+gap	2	-	" .... "	4
+gap	2	-	" ...; "	2
+gap	2	-	", * * "	1
+gap	2	-	"'.\" "	2
+gap	2	-	"'. '"	1
+gap	2	-	"'.  "	5
+gap	2	-	"?\" ’"	5
+gap	2	-	"), ("	1
+gap	2	-	"), \""	17
+gap	2	-	":) ("	1
+gap	2	-	": ) ("	1
+gap	2	-	": ), "	2
+gap	2	-	"(��, ��), "	1
+gap	2	-	"\" (-���) "	1
+gap	2	-	".\" - \""	2
+gap	2	-	"¡"	1
+gap	2	-	"­"	4
+gap	2	-	"°"	1
+gap	2	-	"¿"	1
+gap	2	-	""	2
+gap	2	-	"\") - \""	1
+gap	2	-	",' "	26
+gap	2	-	" “���-"	1
+gap	2	-	",\" "	54
+gap	2	-	", _"	6
+gap	2	-	", ["	3
+gap	2	-	", $"	1
+gap	2	-	", '"	36
+gap	2	-	", &"	1
+gap	2	-	",  "	27
+gap	2	-	", #"	1
+gap	2	-	", \""	58
+gap	2	-	", -"	2
+gap	2	-	", )"	1
+gap	2	-	", ("	17
+gap	2	-	",. "	4
+gap	2	-	",--"	36
+gap	2	-	",, "	4
+gap	2	-	" `"	1
+gap	2	-	" {"	3
+gap	2	-	" ~"	1
+gap	2	-	" ["	41
+gap	2	-	" _"	39
+gap	2	-	"  "	65
+gap	2	-	" !"	1
+gap	2	-	" \""	69
+gap	2	-	" #"	15
+gap	2	-	" $"	27
+gap	2	-	" &"	15
+gap	2	-	" '"	56
+gap	2	-	" ("	76
+gap	2	-	" +"	19
+gap	2	-	" ,"	4
+gap	2	-	" -"	3
+gap	2	-	" ."	32
+gap	2	-	" :"	4
+gap	2	-	" ="	1
+gap	2	-	" ?"	3
+gap	2	-	"! "	79
+gap	2	-	"!'"	3
+gap	2	-	"!-"	1
+gap	2	-	"!["	1
+gap	2	-	"\"'"	2
+gap	2	-	"\" "	63
+gap	2	-	"\"."	10
+gap	2	-	"\"-"	3
+gap	2	-	"\"="	1
+gap	2	-	"# "	1
+gap	2	-	"$$"	1
+gap	2	-	"% "	31
+gap	2	-	"' "	54
+gap	2	-	"'-"	2
+gap	2	-	"(\""	1
+gap	2	-	"('"	1
+gap	2	-	")."	4
+gap	2	-	") "	64
+gap	2	-	")}"	1
+gap	2	-	")_"	1
+gap	2	-	" \"��������\" (\""	1
+gap	2	-	"* "	1
+gap	2	-	"+ "	3
+gap	2	-	",["	7
+gap	2	-	",'"	2
+gap	2	-	", "	108
+gap	2	-	",."	2
+gap	2	-	"- "	27
+gap	2	-	"-."	4
+gap	2	-	"--"	54
+gap	2	-	".("	2
+gap	2	-	".."	22
+gap	2	-	".,"	1
+gap	2	-	".-"	16
+gap	2	-	".\""	6
+gap	2	-	". "	120
+gap	2	-	".&"	21
+gap	2	-	".'"	26
+gap	2	-	".:"	2
+gap	2	-	".{"	3
+gap	2	-	".}"	1
+gap	2	-	".["	39
+gap	2	-	"/["	1
+gap	2	-	"/="	1
+gap	2	-	"/ "	6
+gap	2	-	":-"	1
+gap	2	-	":+"	1
+gap	2	-	": "	42
+gap	2	-	";["	2
+gap	2	-	";!"	1
+gap	2	-	"; "	73
+gap	2	-	";&"	1
+gap	2	-	";."	32
+gap	2	-	" + \""	1
+gap	2	-	"= "	2
+gap	2	-	"\" (\"������ ������\") "	1
+gap	2	-	"?,"	2
+gap	2	-	"? "	76
+gap	2	-	"?["	1
+gap	2	-	"] "	45
+gap	2	-	"]|"	1
+gap	2	-	"_ "	38
+gap	2	-	"` "	2
+gap	2	-	" . . . \"'"	1
+gap	2	-	"\". \"�\" "	2
+gap	2	-	" (���������) "	1
+gap	2	-	",] "	5
+gap	2	-	"||"	1
+gap	2	-	"} "	8
+gap	2	-	" (') "	2
+gap	2	-	"°) . "	1
+gap	2	-	"!\"                  "	1
+gap	2	-	".’”—_"	2
+gap	2	-	": ����� ��������� �����; "	1
+gap	2	-	" (���. ������ �������) "	1
+gap	2	-	" -- $"	1
+gap	2	-	" -- ["	1
+gap	2	-	"., \"_"	1
+gap	2	-	"\" ( ; "	1
+gap	2	-	"\"    _"	1
+gap	2	-	"?_                "	1
+gap	2	-	" ’. "	1
+gap	2	-	": ������� ����������� ������; "	1
+gap	2	-	" (; ; ) "	4
+gap	2	-	" ... ... "	1
+gap	2	-	",” ("	1
+gap	2	-	",”--"	2
+gap	2	-	" ( , '"	1
+gap	2	-	"”), "	1
+gap	2	-	"”). "	1
+gap	2	-	"”): "	1
+gap	2	-	"\", \", \""	1
+gap	2	-	"_, “... "	1
+gap	2	-	"\": ["	1
+gap	2	-	"                 $"	1
+gap	2	-	".\", , "	1
+gap	2	-	" (£"	1
+gap	2	-	"!’” "	1
+gap	2	-	"_?\" "	5
+gap	2	-	"’?” "	1
+gap	2	-	": ���), "	1
+gap	2	-	" (; – "	1
+gap	2	-	" (����)\" = "	1
+gap	2	-	",  �"	1
+gap	2	-	"/; "	1
+gap	2	-	"?): \""	1
+gap	2	-	" ������ = "	1
+gap	2	-	" (, "	26
+gap	2	-	" (+ "	1
+gap	2	-	" () "	43
+gap	2	-	" ()."	1
+gap	2	-	" ($ "	2
+gap	2	-	" (\" "	1
+gap	2	-	"/) "	2
+gap	2	-	" ( ("	1
+gap	2	-	" ( \""	3
+gap	2	-	" ( ["	2
+gap	2	-	"/. "	1
+gap	2	-	" (: "	1
+gap	2	-	" (; "	41
+gap	2	-	"?\" - \""	3
+gap	2	-	"              $"	1
+gap	2	-	"?? - "	1
+gap	2	-	" (...). "	1
+gap	2	-	" (...) "	2
+gap	2	-	"”                       "	1
+gap	2	-	"--?\" "	1
+gap	2	-	" (��') "	1
+gap	2	-	"', '"	4
+gap	2	-	".,--"	3
+gap	2	-	".,' "	1
+gap	2	-	"., _"	2
+gap	2	-	"., &"	1
+gap	2	-	"., \""	5
+gap	2	-	"., ("	4
+gap	2	-	".,\" "	6
+gap	2	-	"�×"	1
+gap	2	-	".  ’"	24
+gap	2	-	"\"; ("	1
+gap	2	-	"\"; \""	1
+gap	2	-	"!\"   _"	1
+gap	2	-	"\";) "	1
+gap	2	-	").. "	3
+gap	2	-	"). ("	2
+gap	2	-	"). \""	13
+gap	2	-	").  "	1
+gap	2	-	").\" "	5
+gap	2	-	"� _"	1
+gap	2	-	" (; , ) "	1
+gap	2	-	"; , , "	1
+gap	2	-	"  �"	2
+gap	2	-	".)--\""	1
+gap	2	-	"? ’"	1
+gap	2	-	"? “"	2
+gap	2	-	"\" (, ; , , "	1
+gap	2	-	" (��������, ����� ��������; "	1
+gap	2	-	".- "	1
+gap	2	-	".--"	58
+gap	2	-	"., "	54
+gap	2	-	".,("	1
+gap	2	-	"..."	53
+gap	2	-	".. "	39
+gap	2	-	".)&"	1
+gap	2	-	".) "	35
+gap	2	-	".)["	1
+gap	2	-	" ) '"	1
+gap	2	-	".* "	4
+gap	2	-	".' "	42
+gap	2	-	".! "	2
+gap	2	-	" "	1
+gap	2	-	". {"	20
+gap	2	-	". `"	3
+gap	2	-	". _"	32
+gap	2	-	". ["	26
+gap	2	-	". ="	19
+gap	2	-	". '"	54
+gap	2	-	". &"	5
+gap	2	-	". $"	30
+gap	2	-	". #"	1
+gap	2	-	". \""	86
+gap	2	-	".  "	82
+gap	2	-	". /"	3
+gap	2	-	". -"	2
+gap	2	-	". ,"	1
+gap	2	-	". *"	7
+gap	2	-	". ("	48
+gap	2	-	".\"["	12
+gap	2	-	".\"("	1
+gap	2	-	".\"&"	3
+gap	2	-	".\" "	67
+gap	2	-	".= "	35
+gap	2	-	".? "	2
+gap	2	-	" ). "	4
+gap	2	-	".; "	21
+gap	2	-	".: "	3
+gap	2	-	" ); "	1
+gap	2	-	".] "	3
+gap	2	-	"._ "	22
+gap	2	-	"° "	5
+gap	2	-	"·."	1
+gap	2	-	"] - \""	1
+gap	2	-	"⊙/"	1
+gap	2	-	"\"?), "	1
+gap	2	-	"’?’  "	1
+gap	2	-	": ������� �������, "	1
+gap	2	-	"\" (�). \""	3
+gap	2	-	".--\""	17
+gap	2	-	".-- "	1
+gap	2	-	")), "	2
+gap	2	-	"'\"                        "	1
+gap	2	-	": �����, ) "	1
+gap	2	-	"\" (���). "	2
+gap	2	-	"\" (���) \""	1
+gap	2	-	" (�� \""	1
+gap	2	-	" (��, "	1
+gap	2	-	" (��) "	1
+gap	2	-	" ', ', \""	1
+gap	2	-	".\"  ["	1
+gap	2	-	":��, ?-"	1
+gap	2	-	".\" - "	1
+gap	2	-	".\" --"	1
+gap	2	-	".\" , "	1
+gap	2	-	",'--"	1
+gap	2	-	",'\" "	1
+gap	2	-	",' '"	2
+gap	2	-	" (? - "	1
+gap	2	-	": ����� �������� �������; "	1
+gap	2	-	"----?\" "	1
+gap	2	-	"...' '..."	1
+gap	2	-	" \". . . "	1
+gap	2	-	" . ("	2
+gap	2	-	" . \""	4
+gap	2	-	" .\" "	1
+gap	2	-	" ..."	30
+gap	2	-	" .. "	6
+gap	2	-	"?_ ("	1
+gap	2	-	"?_\" "	3
+gap	2	-	") (), "	2
+gap	2	-	". [+ "	2
+gap	2	-	"!\" (\""	2
+gap	2	-	" (��:�����?) "	1
+gap	2	-	"_)                _"	1
+gap	2	-	": �������� \"����\" ���������) ("	1
+gap	2	-	"---- [_"	1
+gap	2	-	".. \""	1
+gap	2	-	"..  "	1
+gap	2	-	".. ."	4
+gap	2	-	"..) "	1
+gap	2	-	"... "	83
+gap	2	-	"...\""	5
+gap	2	-	"...."	8
+gap	2	-	"...("	1
+gap	2	-	".., "	1
+gap	2	-	" \"?\" "	1
+gap	2	-	" - ) "	1
+gap	2	-	")() "	1
+gap	2	-	" = = "	1
+gap	2	-	"...\" "	10
+gap	2	-	".\" - ( "	1
+gap	2	-	"... ["	17
+gap	2	-	"... {"	2
+gap	2	-	"... ("	37
+gap	2	-	"... *"	3
+gap	2	-	"... \""	4
+gap	2	-	"... $"	9
+gap	2	-	"... '"	13
+gap	2	-	"... :"	1
+gap	2	-	"... ¶ "	1
+gap	2	-	"...' "	1
+gap	2	-	"...) "	1
+gap	2	-	".... "	48
+gap	2	-	"....."	1
+gap	2	-	"..., "	3
+gap	2	-	") ..."	9
+gap	2	-	"...{\\"	2
+gap	2	-	"]\". "	1
+gap	2	-	"...['"	1
+gap	2	-	" \"...["	1
+gap	2	-	" \"... "	2
+gap	2	-	"”                                       "	1
+gap	2	-	" ██ "	1
+gap	2	-	".'\" (_"	1
+gap	2	-	"\"\".\" "	1
+gap	2	-	"}). "	1
+gap	2	-	"._” "	1
+gap	2	-	". (?). "	1
+gap	2	-	".' \" "	1
+gap	2	-	" / ("	2
+gap	2	-	").—\""	1
+gap	2	-	" ----; "	1
+gap	2	-	" ----. "	1
+gap	2	-	" ----, "	1
+gap	2	-	") /. "	1
+gap	2	-	"⁄"	2
+gap	2	-	"•"	2
+gap	2	-	"′"	3
+gap	2	-	"‘"	2
+gap	2	-	"–"	41
+gap	2	-	"—"	38
+gap	2	-	"↫"	1
+gap	2	-	"... (# "	1
+gap	2	-	"_?” "	2
+gap	2	-	" . , "	2
+gap	2	-	" . [ "	3
+gap	2	-	"?’ "	30
+gap	2	-	"?” "	61
+gap	2	-	"?— "	1
+gap	2	-	" [...] "	3
+gap	2	-	"._] ‘"	1
+gap	2	-	"?\"                          "	1
+gap	2	-	"\" = \""	1
+gap	2	-	"\" (; \""	7
+gap	2	-	"\" — "	1
+gap	2	-	"\" – "	1
+gap	2	-	" . . .\" "	2
+gap	2	-	": \"’"	1
+gap	2	-	" , \""	4
+gap	2	-	"_: _-"	1
+gap	2	-	": ����� ���������� �������; "	1
+gap	2	-	": �������� ��� ������� ������������) "	1
+gap	2	-	"������� �����; "	1
+gap	2	-	"_!” "	2
+gap	2	-	". {\\"	1
+gap	2	-	".                "	2
+gap	2	-	". [ "	10
+gap	2	-	". [_"	37
+gap	2	-	". _'"	1
+gap	2	-	". (_"	2
+gap	2	-	". (\""	7
+gap	2	-	". ()"	1
+gap	2	-	". (/"	1
+gap	2	-	". ) "	1
+gap	2	-	". * "	1
+gap	2	-	". + "	1
+gap	2	-	". , "	7
+gap	2	-	". -("	1
+gap	2	-	". - "	10
+gap	2	-	". .\""	1
+gap	2	-	". . "	4
+gap	2	-	". .."	5
+gap	2	-	". / "	17
+gap	2	-	".  _"	3
+gap	2	-	".  ("	1
+gap	2	-	".   "	24
+gap	2	-	".  \""	63
+gap	2	-	".  '"	13
+gap	2	-	". \"-"	2
+gap	2	-	". \"'"	10
+gap	2	-	". \" "	12
+gap	2	-	". \"_"	13
+gap	2	-	". \"["	4
+gap	2	-	". $ "	1
+gap	2	-	". $="	1
+gap	2	-	". & "	13
+gap	2	-	". ' "	3
+gap	2	-	". '\""	2
+gap	2	-	". '_"	1
+gap	2	-	" - ?) "	2
+gap	2	-	", *** "	1
+gap	2	-	" − "	1
+gap	2	-	". £"	1
+gap	2	-	". ¡"	1
+gap	2	-	".\"—"	2
+gap	2	-	": [] ) "	1
+gap	2	-	" ��� ����, "	1
+gap	2	-	" ( ), "	2
+gap	2	-	"”, '"	1
+gap	2	-	"\"----"	1
+gap	2	-	" * * '"	1
+gap	2	-	"’”            "	1
+gap	2	-	": ���, "	1
+gap	2	-	": ���- "	1
+gap	2	-	" (�� ��). "	1
+gap	2	-	"; ���,) "	1
+gap	2	-	",\" \""	9
+gap	2	-	"... –"	8
+gap	2	-	"$\". "	1
+gap	2	-	",\"--"	1
+gap	2	-	",\". "	2
+gap	2	-	". (\"�\"(\""	1
+gap	2	-	"!”—"	1
+gap	2	-	" -- "	13
+gap	2	-	".'\" ("	1
+gap	2	-	" - \""	3
+gap	2	-	"!--’"	1
+gap	2	-	"!--“"	1
+gap	2	-	" ��� ("	1
+gap	2	-	"!_’ "	2
+gap	2	-	"!_” "	6
+gap	2	-	"”\" \"“"	1
+gap	2	-	"–. "	1
+gap	2	-	"..... $"	2
+gap	2	-	" (, '; , ') "	1
+gap	2	-	" – \""	1
+gap	2	-	")! + "	1
+gap	2	-	"., ---- --, "	1
+gap	2	-	" (, (\""	1
+gap	2	-	" (, ) "	20
+gap	2	-	" (, , "	4
+gap	2	-	" (, ; "	17
+gap	2	-	"\", \"\". "	1
+gap	2	-	"... ..\""	1
+gap	2	-	"... .. "	20
+gap	2	-	"\" (���������, "	1
+gap	2	-	" (��� ��; \""	1
+gap	2	-	": ����, \""	1
+gap	2	-	"’!” "	1
+gap	2	-	"’!’ "	1
+gap	2	-	" ( - "	1
+gap	2	-	" ( , "	1
+gap	2	-	" ( ) "	3
+gap	2	-	" � �; "	1
+gap	2	-	", �"	1
+gap	2	-	" ( ; "	5
+gap	2	-	"” – "	1
+gap	2	-	". . . . "	1
+gap	2	-	" (�����). "	1
+gap	2	-	" () () "	2
+gap	2	-	", — "	1
+gap	2	-	"’!  "	1
+gap	2	-	".’\"  "	1
+gap	2	-	"’!\" "	3
+gap	2	-	" (������ ��������; "	1
+gap	2	-	".\". "	4
+gap	2	-	".\", "	9
+gap	2	-	".\"--"	4
+gap	2	-	".\") "	4
+gap	2	-	".\"' "	2
+gap	2	-	".\"\" "	2
+gap	2	-	".\" ["	19
+gap	2	-	".\" ("	17
+gap	2	-	".\" -"	2
+gap	2	-	".\" \""	33
+gap	2	-	".\"  "	35
+gap	2	-	".\"; "	1
+gap	2	-	" \"�\", "	3
+gap	2	-	"(�� ��) "	1
+gap	2	-	"; (), "	1
+gap	2	-	"!  ’"	7
+gap	2	-	"”. \""	1
+gap	2	-	".”—"	1
+gap	2	-	": ����� ���) "	1
+gap	2	-	".\" –"	1
+gap	2	-	": ����� �����������, "	1
+gap	2	-	" \"�\"·"	1
+gap	2	-	") ... "	1
+gap	2	-	",\" ’"	1
+gap	2	-	"—“"	2
+gap	2	-	"—’"	1
+gap	2	-	", _ "	1
+gap	2	-	":������ ���������� �������, \""	1
+gap	2	-	".” “"	4
+gap	2	-	". ----, ---- "	1
+gap	2	-	", ) "	5
+gap	2	-	", . "	2
+gap	2	-	", - "	2
+gap	2	-	", \"("	1
+gap	2	-	", \" "	1
+gap	2	-	", \"\""	4
+gap	2	-	"--'_"	1
+gap	2	-	"--\" "	3
+gap	2	-	"--, "	1
+gap	2	-	"----"	1
+gap	2	-	"--- "	1
+gap	2	-	"--. "	2
+gap	2	-	": ���� ���, ) "	1
+gap	2	-	"\"; ; "	1
+gap	2	-	"\"; , "	1
+gap	2	-	"\"; ( "	1
+gap	2	-	"\"; ) "	5
+gap	2	-	")\"). "	3
+gap	2	-	"\", \""	36
+gap	2	-	"\", '"	1
+gap	2	-	"\" (����). "	1
+gap	2	-	"’ & "	1
+gap	2	-	"\",... .."	1
+gap	2	-	". �"	1
+gap	2	-	" \"� �\") "	1
+gap	2	-	"!'_ "	1
+gap	2	-	"!'\" "	2
+gap	2	-	"!' '"	2
+gap	2	-	"!'--"	5
+gap	2	-	"′ "	3
+gap	2	-	"– "	3
+gap	2	-	"” "	12
+gap	2	-	"’ "	33
+gap	2	-	"‚ "	1
+gap	2	-	": ��� ������) ("	1
+gap	2	-	"]), "	1
+gap	2	-	"]). "	2
+gap	2	-	"!\" ’"	7
+gap	2	-	" ( ; , "	1
+gap	2	-	" ( ; ) "	1
+gap	2	-	")–"	1
+gap	2	-	" �"	28
+gap	2	-	"! “"	4
+gap	2	-	"! ‘"	1
+gap	2	-	"! ’"	4
+gap	2	-	", �������) "	1
+gap	2	-	".{\\ "	1
+gap	2	-	" [... "	1
+gap	2	-	"., “"	3
+gap	2	-	".\"] \""	1
+gap	2	-	"”                        "	1
+gap	2	-	": ����; "	1
+gap	2	-	"(�����) : "	2
+gap	2	-	": ����) "	1
+gap	2	-	": �������� ���������� ����������​) ("	1
+gap	2	-	"; \"\""	1
+gap	2	-	"; ) "	7
+gap	2	-	"”           "	1
+gap	2	-	"; ; "	2
+gap	2	-	".’ ‘"	4
+gap	2	-	" (����,��������) "	1
+gap	2	-	":������; "	1
+gap	2	-	". \"�\" "	1
+gap	2	-	"\"-  "	1
+gap	2	-	"\"--\""	1
+gap	2	-	"’”      "	1
+gap	2	-	"˥ "	1
+gap	2	-	", [! "	1
+gap	2	-	",          '"	1
+gap	2	-	"...?\" ("	1
+gap	2	-	") (; "	1
+gap	2	-	"!'\"                         "	1
+gap	2	-	" ( ​["	1
+gap	2	-	" ( – "	1
+gap	2	-	"��, "	2
+gap	2	-	"\" ]; ; ; ), "	1
+gap	2	-	"(�� ��). "	2
+gap	2	-	" �-"	1
+gap	2	-	" � "	4
+gap	2	-	"!'\"                                    "	1
+gap	2	-	".”—_"	5
+gap	2	-	".”’ "	2
+gap	2	-	"?), "	2
+gap	2	-	": ����� ��������� �������; "	1
+gap	2	-	", �� ��) "	1
+gap	2	-	" (; ) ("	1
+gap	2	-	" (; ), "	1
+gap	2	-	": ����), "	1
+gap	2	-	" : ������� �������� ���� : "	1
+gap	2	-	"’’’ "	2
+gap	2	-	",’--‘"	1
+gap	2	-	".  \"'"	3
+gap	2	-	".  \"_"	1
+gap	2	-	".    "	13
+gap	2	-	" [...]\" "	2
+gap	2	-	".  (\""	1
+gap	2	-	"), () "	1
+gap	2	-	"\".\" "	1
+gap	2	-	"\". \""	23
+gap	2	-	"\". ("	1
+gap	2	-	"\".. "	1
+gap	2	-	"\".--"	1
+gap	2	-	"\".) "	4
+gap	2	-	": \"������� ������������ ���������\"; "	1
+gap	2	-	"\" (�������), "	1
+gap	2	-	" ---- "	3
+gap	2	-	"!_--"	1
+gap	2	-	"!_' "	2
+gap	2	-	"!_\" "	15
+gap	2	-	"!_ ("	2
+gap	2	-	"!’ "	30
+gap	2	-	" (), () "	1
+gap	2	-	"!” "	61
+gap	2	-	".\"—_"	8
+gap	2	-	";” "	8
+gap	2	-	"._] "	37
+gap	2	-	"._' "	1
+gap	2	-	"._ _"	1
+gap	2	-	"._--"	33
+gap	2	-	"._, "	11
+gap	2	-	"... \"\" "	1
+gap	2	-	";= "	1
+gap	2	-	"._; "	1
+gap	2	-	";. "	8
+gap	2	-	";' "	3
+gap	2	-	";\" "	17
+gap	2	-	"; \""	38
+gap	2	-	"; '"	6
+gap	2	-	"; ["	3
+gap	2	-	"; `"	1
+gap	2	-	"!!! "	6
+gap	2	-	"\" (���). \""	1
+gap	2	-	"-..."	1
+gap	2	-	"\"                                  "	1
+gap	2	-	"\" ... "	2
+gap	2	-	") “"	1
+gap	2	-	") ‘"	1
+gap	2	-	": ��, ������!, "	1
+gap	2	-	": ? ("	1
+gap	2	-	" (, \""	8
+gap	2	-	"��� ���������� �������, "	1
+gap	2	-	".'” "	1
+gap	2	-	" [! "	28
+gap	2	-	" [? "	50
+gap	2	-	": ��་���་��་�་�་) "	1
+gap	2	-	" ⟨⟩. "	8
+gap	2	-	", \"�"	1
+gap	2	-	"——?\" "	1
+gap	2	-	"(���, "	1
+gap	2	-	"\" (-���). \""	1
+gap	2	-	"”     "	1
+gap	2	-	"! [_"	20
+gap	2	-	"!――"	1
+gap	2	-	"! - "	1
+gap	2	-	"! (\""	1
+gap	2	-	"! \"_"	1
+gap	2	-	"!  '"	2
+gap	2	-	") .."	2
+gap	2	-	") . "	1
+gap	2	-	") -("	1
+gap	2	-	") , "	1
+gap	2	-	": \""	33
+gap	2	-	": '"	1
+gap	2	-	": $"	1
+gap	2	-	":\" "	3
+gap	2	-	":\"&"	1
+gap	2	-	" \"“�’�”\" "	1
+gap	2	-	",... ..\""	2
+gap	2	-	" (� �; "	1
+gap	2	-	" ~ \""	1
+gap	2	-	" ~. "	1
+gap	2	-	" (���������), "	1
+gap	2	-	"\". (\""	2
+gap	2	-	"\". \"-"	2
+gap	2	-	" ��� ���� �����; "	1
+gap	2	-	"..' ..."	1
+gap	2	-	"*.... (*"	1
+gap	2	-	"'?\" "	14
+gap	2	-	"?       "	1
+gap	2	-	"°, "	1
+gap	2	-	"°. "	3
+gap	2	-	"°) "	1
+gap	2	-	"'?;."	1
+gap	2	-	"'?; "	3
+gap	2	-	" \" () ("	1
+gap	2	-	". \"_'"	1
+gap	2	-	": �����) "	1
+gap	2	-	": �����, "	1
+gap	2	-	"    | | "	1
+gap	2	-	"] [! "	22
+gap	2	-	" (�� "	1
+gap	2	-	"-- ..."	1
+gap	2	-	" [? '"	2
+gap	2	-	"?—"	4
+gap	2	-	". \", "	1
+gap	2	-	"!\"), "	1
+gap	2	-	"/). \""	2
+gap	2	-	".', "	1
+gap	2	-	".' '"	9
+gap	2	-	".' \""	1
+gap	2	-	".'  "	11
+gap	2	-	".' ("	1
+gap	2	-	".' ["	4
+gap	2	-	".'\" "	2
+gap	2	-	" \"���\") "	1
+gap	2	-	"? ... "	1
+gap	2	-	".,      "	1
+gap	2	-	": �����), "	1
+gap	2	-	"\", ', ', "	1
+gap	2	-	"-                "	1
+gap	2	-	" (������, "	1
+gap	2	-	") § "	1
+gap	2	-	".: \""	2
+gap	2	-	".: _"	1
+gap	2	-	"...) ("	1
+gap	2	-	")\".\" "	1
+gap	2	-	". \"' \""	1
+gap	2	-	"%). \""	1
+gap	2	-	"'... "	10
+gap	2	-	"; “"	29
+gap	2	-	"; ‘"	1
+gap	2	-	"; ’"	2
+gap	2	-	"!\"  ’"	2
+gap	2	-	"\"); "	1
+gap	2	-	"\"). "	39
+gap	2	-	"\"), "	14
+gap	2	-	"\") ("	1
+gap	2	-	",... .. \""	1
+gap	2	-	" \", , , "	1
+gap	2	-	"� "	1
+gap	2	-	"\"; , ; , ) "	1
+gap	2	-	"!”--“"	1
+gap	2	-	" (�������, _"	1
+gap	2	-	" ♪ ♪ "	2
+gap	2	-	": ���� ������� ������), "	1
+gap	2	-	" *** "	1
+gap	2	-	")\"--"	1
+gap	2	-	",’ "	15
+gap	2	-	")\", "	4
+gap	2	-	")\". "	16
+gap	2	-	")\") "	1
+gap	2	-	",” "	42
+gap	2	-	"!\"' "	1
+gap	2	-	"!\" ("	17
+gap	2	-	"!\" '"	1
+gap	2	-	"!\" \""	12
+gap	2	-	"!\"  "	27
+gap	2	-	"!\" ["	2
+gap	2	-	"!\"\" "	1
+gap	2	-	"!\"--"	7
+gap	2	-	"!\", "	13
+gap	2	-	"!\". "	15
+gap	2	-	"!\") "	3
+gap	2	-	" – ) "	3
+gap	2	-	"- - \""	1
+gap	2	-	" (; ; ; ; ) "	1
+gap	2	-	". ---- "	5
+gap	2	-	": \"� �\") "	1
+gap	2	-	": \"������� ��������� �����;\" "	1
+gap	2	-	".; \""	2
+gap	2	-	"?--'"	2
+gap	2	-	"?--\""	1
+gap	2	-	"\" (). \""	1
+gap	2	-	"_!\" ("	1
+gap	2	-	"\" (-��). \""	1
+gap	2	-	" (������� �����) "	1
+gap	2	-	"’.... "	1
+gap	2	-	"....--"	1
+gap	2	-	"..... "	1
+gap	2	-	".... _"	5
+gap	2	-	"....\" "	1
+gap	2	-	".... ..."	2
+gap	2	-	" (). "	21
+gap	2	-	" (), "	17
+gap	2	-	" () ("	19
+gap	2	-	" (); "	2
+gap	2	-	".” ... "	3
+gap	2	-	"; -�"	1
+gap	2	-	". ♪ ["	3
+gap	2	-	" ( \"\") ("	1
+gap	2	-	"���"	1
+gap	2	-	",--\"'"	1
+gap	2	-	"!\" (), "	1
+gap	2	-	"._        _"	1
+gap	2	-	"?) "	5
+gap	2	-	"?. "	1
+gap	2	-	"?, "	11
+gap	2	-	"?--"	31
+gap	2	-	"?\" "	75
+gap	2	-	"?\"["	2
+gap	2	-	"? _"	18
+gap	2	-	"? ["	1
+gap	2	-	"? ("	2
+gap	2	-	"? '"	7
+gap	2	-	"? \""	22
+gap	2	-	"?  "	49
+gap	2	-	"?' "	41
+gap	2	-	"?; "	2
+gap	2	-	"?= "	1
+gap	2	-	"**** "	2
+gap	2	-	": �������� ��������� ���������; "	1
+gap	2	-	"?_ "	6
+gap	2	-	"?] "	17
+gap	2	-	" (� � "	1
+gap	2	-	".  \"’"	4
+gap	2	-	"_). "	6
+gap	2	-	"’;--"	2
+gap	2	-	": ��������� ����� ������� �������������, "	1
+gap	2	-	"/). "	1
+gap	2	-	"/), "	1
+gap	2	-	"――"	1
+gap	2	-	"] ["	1
+gap	2	-	"] '"	4
+gap	2	-	"], "	17
+gap	2	-	"]--"	1
+gap	2	-	"]. "	13
+gap	2	-	"]) "	4
+gap	2	-	"_!!! "	2
+gap	2	-	", \"..."	5
+gap	2	-	"]; "	1
+gap	2	-	"?\", \""	1
+gap	2	-	";"	7
+gap	2	-	":"	19
+gap	2	-	"?"	31
+gap	2	-	"="	6
+gap	2	-	"#"	2
+gap	2	-	"\""	20
+gap	2	-	"!"	22
+gap	2	-	" "	105
+gap	2	-	"&"	19
+gap	2	-	"$"	1
+gap	2	-	"+"	33
+gap	2	-	"("	24
+gap	2	-	"/"	44
+gap	2	-	"."	86
+gap	2	-	","	59
+gap	2	-	"~"	1
+gap	2	-	"|"	1
+gap	2	-	"`"	11
+gap	2	-	"["	2
+gap	2	-	"_"	29
+gap	2	-	"]"	2
+gap	2	-	"@"	1
+gap	2	-	"...\" (\""	1
+gap	2	-	" ����� (\""	1
+gap	2	-	": “... "	1
+gap	2	-	" ����� = "	1
+gap	2	-	" () , "	1
+gap	2	-	" () (\""	1
+gap	2	-	" _-'"	1
+gap	2	-	" (; , ). "	1
+gap	2	-	"...\" [ "	1
+gap	2	-	" (\"�����\") "	1
+gap	2	-	"----\""	1
+gap	2	-	"---- "	2
+gap	2	-	";� = "	1
+gap	2	-	"!\", ["	1
+gap	2	-	"!\", \""	7
+gap	2	-	"’—"	1
+gap	2	-	".!’ "	1
+gap	2	-	"’’’. "	1
+gap	2	-	"′        "	1
+gap	2	-	"----,\" "	1
+gap	2	-	"�"	14
+gap	2	-	". ___ ("	1
+gap	2	-	" (,), "	1
+gap	2	-	"._                    _"	1
+gap	2	-	" (�������)\" = "	1
+gap	2	-	"..\" \""	2
+gap	2	-	",... .."	36
+gap	2	-	" '; ; ; ) "	1
+gap	2	-	"_......................._"	1
+gap	2	-	". ... "	8
+gap	2	-	"].\" "	2
+gap	2	-	") – "	1
+gap	2	-	".--“"	1
+gap	2	-	"] == "	1
+gap	2	-	" (��������� "	1
+gap	2	-	" (��� ���, "	1
+gap	2	-	"]” ("	1
+gap	2	-	".= ="	2
+gap	2	-	" . . . . . . "	1
+gap	2	-	"?’”       "	1
+gap	2	-	"˨˩\" ]) "	1
+gap	2	-	"'.... "	1
+gap	2	-	"). ‘"	1
+gap	2	-	"). “"	3
+gap	2	-	".): \""	2
+gap	2	-	" ​​"	1
+gap	2	-	": �, �, � "	1
+gap	2	-	" (���; "	1
+gap	2	-	" (���, "	1
+gap	2	-	" (���) "	1
+gap	2	-	" (����, \""	2
+gap	2	-	".) “"	2
+gap	2	-	" \"\" ("	2
+gap	2	-	" \"\", "	5
+gap	2	-	" \"\". "	19
+gap	2	-	"-  ( "	1
+gap	2	-	"!; "	5
+gap	2	-	": ��� ���� ����; "	1
+gap	2	-	"!  "	50
+gap	2	-	"! \""	10
+gap	2	-	"! '"	10
+gap	2	-	"! ("	3
+gap	2	-	"! ["	1
+gap	2	-	"! _"	14
+gap	2	-	"!! "	10
+gap	2	-	"!\"'"	1
+gap	2	-	"!\" "	74
+gap	2	-	"!' "	47
+gap	2	-	"!) "	10
+gap	2	-	"!, "	7
+gap	2	-	"!--"	32
+gap	2	-	"   | | "	2
+gap	2	-	"!_ "	17
+gap	2	-	"”                         "	1
+gap	2	-	" (������, \""	1
+gap	2	-	"?\"; "	2
+gap	2	-	"?\") "	2
+gap	2	-	"?\". "	9
+gap	2	-	"?\"--"	3
+gap	2	-	"?\", "	3
+gap	2	-	"?\"\" "	1
+gap	2	-	"?\"  "	21
+gap	2	-	"?\" \""	17
+gap	2	-	"?\" '"	1
+gap	2	-	"?\" ("	10
+gap	2	-	"?\" ["	2
+gap	2	-	"'\", "	1
+gap	2	-	"             | | "	1
+gap	2	-	", ..., \""	1
+gap	2	-	"_. "	44
+gap	2	-	"_.["	4
+gap	2	-	"_, "	20
+gap	2	-	"_--"	1
+gap	2	-	"_ ."	2
+gap	2	-	"_ ("	3
+gap	2	-	"_! "	17
+gap	2	-	"_; "	5
+gap	2	-	"_? "	11
+gap	2	-	" (, , ) "	1
+gap	2	-	" (!), "	1
+gap	2	-	"...\"\". "	1
+gap	2	-	" ]. "	3
+gap	2	-	"——!\" "	1
+gap	2	-	"._--_"	2
+gap	2	-	".. [ "	2
+gap	2	-	" (; , "	3
+gap	2	-	" (; ) "	7
+gap	2	-	" [_"	1
+gap	2	-	" [ "	8
+gap	2	-	"?’, "	1
+gap	2	-	" ] "	2
+gap	2	-	" (; ; "	14
+gap	2	-	"}, "	3
+gap	2	-	" (, ]; \""	1
+gap	2	-	"}. "	1
+gap	2	-	"}) "	1
+gap	2	-	".. . "	2
+gap	2	-	"----,’ "	1
+gap	2	-	" (��, ��), "	3
+gap	2	-	" (��, ��). "	2
+gap	2	-	": ����� ��� ���� ��� "	1
+gap	2	-	" # "	12
+gap	2	-	" \"_"	1
+gap	2	-	" \" "	2
+gap	2	-	" \"'"	2
+gap	2	-	" \"("	3
+gap	2	-	"   "	18
+gap	2	-	"  '"	6
+gap	2	-	" '`"	1
+gap	2	-	" '-"	1
+gap	2	-	" ' "	17
+gap	2	-	" & "	7
+gap	2	-	" + "	1
+gap	2	-	" ) "	5
+gap	2	-	" (["	1
+gap	2	-	" (_"	1
+gap	2	-	" ( "	17
+gap	2	-	" (#"	1
+gap	2	-	" (\""	35
+gap	2	-	" ($"	1
+gap	2	-	" (/"	5
+gap	2	-	" (."	4
+gap	2	-	" / "	5
+gap	2	-	" . "	49
+gap	2	-	" .."	1
+gap	2	-	" - "	36
+gap	2	-	" , "	49
+gap	2	-	" ; "	3
+gap	2	-	" : "	2
+gap	2	-	" ? "	1
+gap	2	-	" ·"	1
+gap	2	-	" £"	7
+gap	2	-	" ¡"	1
+gap	2	-	" ?) "	1
+gap	2	-	"”                                          "	1
+gap	2	-	"_--\" "	1
+gap	2	-	": ���������) "	1
+gap	2	-	"; ... "	2
+gap	2	-	" = \"# "	1
+gap	2	-	"?!\" "	1
+gap	2	-	"\"; ; ), "	1
+gap	2	-	"–\", \""	1
+gap	2	-	"_.--"	13
+gap	2	-	"_.\" "	11
+gap	2	-	"_.\"["	1
+gap	2	-	"_. ("	1
+gap	2	-	"_.  "	6
+gap	2	-	"_. \""	2
+gap	2	-	"...\", "	2
+gap	2	-	"--'\"                                            "	1
+gap	2	-	"...\". "	3
+gap	2	-	"...\" ("	2
+gap	2	-	"...\" \""	1
+gap	2	-	"'!' "	1
+gap	2	-	"'!\" "	7
+gap	2	-	", (?) "	1
+gap	2	-	" (, ), "	4
+gap	2	-	" (, ) ("	2
+gap	2	-	" (, ); "	1
+gap	2	-	".                            "	1
+gap	2	-	". ♪ ♪ "	1
+gap	2	-	". () "	2
+gap	2	-	". (, "	1
+gap	2	-	". (; "	2
+gap	2	-	".     "	3
+gap	2	-	"| ("	1
+gap	2	-	" ♪ "	1
+gap	2	-	": ���� ���������, "	1
+gap	2	-	"'\"                 "	1
+gap	2	-	"#, "	1
+gap	2	-	"!), "	2
+gap	2	-	".                        | |                                                              | | "	1
+gap	2	-	" (����������� "	1
+gap	2	-	" ... "	54
+gap	2	-	".                              "	1
+gap	2	-	" ♪ ["	1
+gap	2	-	"”                                               "	1
+gap	2	-	"!”, "	1
+gap	2	-	"!”--"	4
+gap	2	-	"!” ("	3
+gap	2	-	"!” _"	1
+gap	2	-	": ��������, "	1
+gap	2	-	"?” “"	5
+gap	2	-	"? [_"	4
+gap	2	-	"?  _"	1
+gap	2	-	"?  \""	1
+gap	2	-	"?  '"	1
+gap	2	-	" (; : ) "	1
+gap	2	-	"_ ‘"	1
+gap	2	-	": “"	19
+gap	2	-	": ’"	1
+gap	2	-	": ‘"	9
+gap	2	-	" (), “"	1
+gap	2	-	". “_"	2
+gap	2	-	". “'"	2
+gap	2	-	".’ ... "	1
+gap	2	-	". – "	3
+gap	2	-	": ����� �������!, \""	1
+gap	2	-	"' \" "	1
+gap	2	-	"): \""	2
+gap	2	-	"!... "	10
+gap	2	-	") ( – "	1
+gap	2	-	"' [? "	1
+gap	2	-	"’’ "	1
+gap	2	-	"--!\" "	1
+gap	2	-	"\"'. "	1
+gap	2	-	"-; \""	1
+gap	2	-	" * * "	8
+gap	2	-	" ( – ) "	2
+gap	2	-	" \"����\", "	1
+gap	2	-	": ��� ����� �����) ("	1
+gap	2	-	".      $"	1
+gap	2	-	" (\"... "	1
+gap	2	-	"\") "	38
+gap	2	-	"\"--"	6
+gap	2	-	"\", "	44
+gap	2	-	"\"/\""	2
+gap	2	-	"\". "	71
+gap	2	-	"\".("	1
+gap	2	-	"\".:"	1
+gap	2	-	"\" ("	37
+gap	2	-	"\" #"	3
+gap	2	-	"\"\" "	2
+gap	2	-	"\"; "	22
+gap	2	-	"\": "	2
+gap	2	-	"\"? "	7
+gap	2	-	".’ ” "	1
+gap	2	-	" =- "	2
+gap	2	-	"?  ’"	2
+gap	2	-	"\"                "	1
+gap	2	-	" '× '. ' "	1
+gap	2	-	"\"] "	2
+gap	2	-	"\" (��) "	1
+gap	2	-	"\" (��, "	3
+gap	2	-	" 􏿾). "	1
+gap	2	-	": ��, �������� ������ ����; \""	1
+gap	2	-	"− ("	1
+gap	2	-	", “‘"	1
+gap	2	-	"]. [+ "	3
+gap	2	-	"_, \""	1
+gap	2	-	"_, _"	4
+gap	2	-	"_,--"	2
+gap	2	-	"._ ‘"	1
+gap	2	-	" ( , ) "	2
+gap	2	-	" ( , ; "	2
+gap	2	-	"... [ "	1
+gap	2	-	"?' _"	1
+gap	2	-	"?'\" "	1
+gap	2	-	"?'--"	3
+gap	2	-	"?'. "	1
+gap	2	-	"... ~ "	4
+gap	2	-	" - ..."	1
+gap	2	-	"... {\\"	7
+gap	2	-	". --- ; "	1
+gap	2	-	"\"                                                "	1
+gap	2	-	"� �"	1
+gap	2	-	"... [+ "	2
+gap	2	-	" (��, ��) "	1
+gap	2	-	", ), "	2
+gap	2	-	"... .."	38
+gap	2	-	"... , "	1
+gap	2	-	"... - "	1
+gap	2	-	"... * "	1
+gap	2	-	"... # ..."	2
+gap	2	-	"... ( "	4
+gap	2	-	"... '`"	4
+gap	2	-	"... \" "	1
+gap	2	-	"... # "	4
+gap	2	-	": ♪ "	1
+gap	2	-	": , "	1
+gap	2	-	": – \""	1
+gap	2	-	": ) "	1
+gap	2	-	": \"_"	1
+gap	2	-	" (−"	2
+gap	2	-	". ** "	1
+gap	2	-	" (“"	1
+gap	2	-	"****** "	1
+gap	2	-	" (, , , , , ; "	1
+gap	2	-	"\" . "	9
+gap	2	-	"\" (\""	17
+gap	2	-	"\" (/"	1
+gap	2	-	"\" (_"	1
+gap	2	-	"\" (~"	1
+gap	2	-	"\" ) "	3
+gap	2	-	"; ; ) "	1
+gap	2	-	"\" (�����). "	1
+gap	2	-	"-- - "	4
+gap	2	-	". ------ "	1
+gap	2	-	"!'\"                                         "	1
+gap	2	-	"... ♪ ["	3
+gap	2	-	"”—"	1
+gap	2	-	" ) ♪ "	1
+gap	2	-	" \"..."	14
+gap	2	-	";−; − "	1
+gap	2	-	"!!!!!! "	1
+gap	2	-	"%, "	2
+gap	2	-	"%. "	20
+gap	2	-	" \" ("	1
+gap	2	-	" \"\" "	2
+gap	2	-	"% ("	2
+gap	2	-	" \") "	1
+gap	2	-	" \".."	1
+gap	2	-	" \". "	2
+gap	2	-	".” ("	3
+gap	2	-	".” \""	3
+gap	2	-	" \"�����\" ("	1
+gap	2	-	".”. "	1
+gap	2	-	".”, "	1
+gap	2	-	"_ ... "	1
+gap	2	-	"._--“"	1
+gap	2	-	"... ♫ "	1
+gap	2	-	"... ♪ "	12
+gap	2	-	" [///] "	2
+gap	2	-	"\"; ; , \""	1
+gap	2	-	", \"... ("	1
+gap	2	-	"\", \"\" "	1
+gap	2	-	"\" - \""	1
+gap	2	-	": ���� ������; "	1
+gap	2	-	"\" (\"\"). "	1
+gap	2	-	" �; "	1
+gap	2	-	" �. "	2
+gap	2	-	" �) "	1
+gap	2	-	" �(\""	1
+gap	2	-	" �\" "	1
+gap	2	-	" ] ..."	2
+gap	2	-	", () "	1
+gap	2	-	", (; "	4
+gap	2	-	". - \""	2
+gap	2	-	". -- "	1
+gap	2	-	"*., "	1
+gap	2	-	"*.  "	1
+gap	2	-	"’ ... "	1
+gap	2	-	"\"                                              "	1
+gap	2	-	"\"” ("	1
+gap	2	-	"\"”. "	1
+gap	2	-	",--“"	3
+gap	2	-	",--‘"	2
+gap	2	-	": ������� \"����\" �����������; "	1
+gap	2	-	"$) "	1
+gap	2	-	"$; "	1
+gap	2	-	" ���� \""	1
+gap	2	-	" ���� ("	1
+gap	2	-	"⟩. "	3
+gap	2	-	".’  ’"	1
+gap	2	-	" (; ; ; ) "	1
+gap	2	-	"\"...\""	1
+gap	2	-	"\"... "	12
+gap	2	-	"” '"	1
+gap	2	-	"” ("	2
+gap	2	-	"”! "	1
+gap	2	-	"”) "	3
+gap	2	-	"”, "	2
+gap	2	-	"”--"	5
+gap	2	-	"”. "	25
+gap	2	-	"\" () – "	1
+gap	2	-	"”; "	2
+gap	2	-	"”—“"	1
+gap	2	-	"_\" ("	1
+gap	2	-	", ...), "	1
+gap	2	-	".’"	22
+gap	2	-	".–"	1
+gap	2	-	".—"	3
+gap	2	-	") - .."	1
+gap	2	-	"\"\". "	4
+gap	2	-	".' - '"	3
+gap	2	-	"...\"), "	1
+gap	2	-	").... "	1
+gap	2	-	"???? "	1
+gap	2	-	" . . . "	3
+gap	2	-	"—” "	1
+gap	2	-	"?... "	4
+gap	2	-	"... .. \""	1
+gap	2	-	"%). "	2
+gap	2	-	"?\"  ’"	1
+gap	2	-	" _____ "	1
+gap	2	-	". (). "	1
+gap	2	-	"\" � "	1
+gap	2	-	"\"         "	1
+gap	2	-	"'} "	1
+gap	2	-	"_.... "	2
+gap	2	-	"”;-- "	1
+gap	2	-	"'\" "	2
+gap	2	-	"._                   _"	1
+gap	2	-	"' '"	11
+gap	2	-	"' ("	2
+gap	2	-	"'! "	4
+gap	2	-	"') "	4
+gap	2	-	"'),"	1
+gap	2	-	"'. "	37
+gap	2	-	"', "	11
+gap	2	-	"': "	1
+gap	2	-	"';."	5
+gap	2	-	"'; "	1
+gap	2	-	"'? "	13
+gap	2	-	"_.'\" "	1
+gap	2	-	"    "	1
+gap	2	-	"   $"	1
+gap	2	-	"  , "	2
+gap	2	-	"!’ ("	1
+gap	2	-	"!’  "	1
+gap	2	-	"!’\" "	2
+gap	2	-	": ��������������� ����) "	1
+gap	2	-	"!’--"	1
+gap	2	-	") - # .."	1
+gap	2	-	", � + � "	1
+gap	2	-	"“) "	1
+gap	2	-	"“, "	1
+gap	2	-	"!... _"	1
+gap	2	-	".                                              | |                                                              | | "	1
+gap	2	-	" (�"	1
+gap	2	-	"  – "	1
+gap	2	-	": \"� �\" "	1
+gap	2	-	"_!\" "	6
+gap	2	-	"_!  "	1
+gap	2	-	" (�) "	1
+gap	2	-	"\" (), "	4
+gap	2	-	"\" (). "	6
+gap	2	-	"\" () ("	8
+gap	2	-	" (� "	1
+gap	2	-	"” . "	1
+gap	2	-	".                  "	1
+gap	2	-	": ������ �����) ("	1
+gap	2	-	", ..."	24
+gap	2	-	"�/);) "	1
+gap	2	-	"‘’, "	1
+gap	2	-	"\" (������), "	1
+gap	2	-	" (?), "	3
+gap	2	-	". ----.’ "	1
+gap	2	-	": �� ;"	1
+gap	2	-	"’”                                                "	1
+gap	2	-	": ��, "	1
+gap	2	-	"¡¡ "	1
+gap	2	-	" ( ; ("	1
+gap	2	-	" ������– \""	1
+gap	2	-	" !! "	5
+gap	2	-	" ��; "	1
+gap	2	-	". (\"�\"("	1
+gap	2	-	"/ (\""	1
+gap	2	-	"/ - "	1
+gap	2	-	". “’"	3
+gap	2	-	" ♫ ... "	2
+gap	2	-	": \"..."	1
+gap	2	-	"\" ..."	1
+gap	2	-	"_ '\""	1
+gap	2	-	"; ; ), "	1
+gap	2	-	":,) "	1
+gap	2	-	"\", ) "	1
+gap	2	-	"\", ' "	1
+gap	2	-	", ... "	5
+gap	2	-	". ..."	2
+gap	2	-	". .. "	2
+gap	2	-	" (?) "	4
+gap	2	-	" (, ; , : ; "	1
+gap	2	-	"\" () () "	1
+gap	3	-	<esc>	0
+gap	3	-	" = = ="	93
+gap	3	-	"! ]. "	1
+gap	3	-	"))."	1
+gap	3	-	"? = = ="	5
+gap	3	-	"),]"	1
+gap	3	-	")--"	1
+gap	3	-	").\""	3
+gap	3	-	"). "	36
+gap	3	-	").]"	33
+gap	3	-	") ."	1
+gap	3	-	") #"	1
+gap	3	-	") _"	1
+gap	3	-	") {"	5
+gap	3	-	")\"."	3
+gap	3	-	"): "	19
+gap	3	-	")?\""	1
+gap	3	-	".’\""	1
+gap	3	-	".” "	3
+gap	3	-	".”\""	1
+gap	3	-	"\" )?]"	1
+gap	3	-	"’!”"	1
+gap	3	-	"*** "	1
+gap	3	-	"***}"	1
+gap	3	-	",... "	10
+gap	3	-	",...\""	19
+gap	3	-	"--'\"]"	1
+gap	3	-	" ♫"	20
+gap	3	-	" ♪"	68
+gap	3	-	" —"	1
+gap	3	-	"...... -"	4
+gap	3	-	"???]"	1
+gap	3	-	".’”]"	1
+gap	3	-	"_?”"	3
+gap	3	-	" ')]"	1
+gap	3	-	"( !"	1
+gap	3	-	"——’”"	1
+gap	3	-	"----!\""	1
+gap	3	-	"----'\""	1
+gap	3	-	"----?\""	4
+gap	3	-	". . .'"	3
+gap	3	-	"’.\""	4
+gap	3	-	"\" ()."	2
+gap	3	-	"’!\""	2
+gap	3	-	", ♪"	7
+gap	3	-	":.. "	1
+gap	3	-	":..."	2
+gap	3	-	"¡¦"	3
+gap	3	-	"+. "	1
+gap	3	-	"++;"	1
+gap	3	-	"+)."	1
+gap	3	-	" (�����)."	1
+gap	3	-	"]...?"	5
+gap	3	-	"]...."	1
+gap	3	-	"]... "	23
+gap	3	-	"--”"	25
+gap	3	-	"_’"	1
+gap	3	-	" ::.]"	1
+gap	3	-	" ... - "	1
+gap	3	-	" ... . "	1
+gap	3	-	". ♪"	27
+gap	3	-	". ♫"	23
+gap	3	-	",    “  .............................."	1
+gap	3	-	"\" (��� ���������)."	1
+gap	3	-	"_:--"	2
+gap	3	-	"**?"	1
+gap	3	-	"*. "	2
+gap	3	-	"*? "	1
+gap	3	-	""	1
+gap	3	-	": ..."	3
+gap	3	-	"] ♪ ..."	1
+gap	3	-	"\" (����������)."	1
+gap	3	-	"!”"	52
+gap	3	-	"!’"	30
+gap	3	-	"-'."	1
+gap	3	-	"-\"."	1
+gap	3	-	"--?"	16
+gap	3	-	"--."	1
+gap	3	-	"--\""	40
+gap	3	-	"--!"	4
+gap	3	-	"-- "	44
+gap	3	-	"--]"	1
+gap	3	-	"-)."	1
+gap	3	-	"' \" ."	1
+gap	3	-	"’.”"	7
+gap	3	-	"’.’"	1
+gap	3	-	" **."	6
+gap	3	-	" ...\"."	1
+gap	3	-	" ....?"	1
+gap	3	-	".♪ "	2
+gap	3	-	"'..."	42
+gap	3	-	"'... ♪"	1
+gap	3	-	"¤"	1
+gap	3	-	"¶"	3
+gap	3	-	",'\""	1
+gap	3	-	",\"_"	1
+gap	3	-	",\"]"	3
+gap	3	-	",\"'"	2
+gap	3	-	", '"	4
+gap	3	-	", \""	4
+gap	3	-	", -"	1
+gap	3	-	", ,"	3
+gap	3	-	", ."	6
+gap	3	-	", *"	2
+gap	3	-	",.."	3
+gap	3	-	",. "	1
+gap	3	-	",--"	37
+gap	3	-	",- "	3
+gap	3	-	" {"	1
+gap	3	-	" ~"	1
+gap	3	-	" ]"	56
+gap	3	-	"  "	66
+gap	3	-	" !"	61
+gap	3	-	" \""	6
+gap	3	-	" #"	40
+gap	3	-	" )"	48
+gap	3	-	" *"	32
+gap	3	-	" ,"	27
+gap	3	-	" -"	30
+gap	3	-	" ."	76
+gap	3	-	" :"	21
+gap	3	-	" ;"	1
+gap	3	-	" ?"	62
+gap	3	-	"!?"	1
+gap	3	-	"!\""	67
+gap	3	-	"!!"	12
+gap	3	-	"! "	94
+gap	3	-	"!'"	41
+gap	3	-	"!)"	1
+gap	3	-	"!."	10
+gap	3	-	"!_"	2
+gap	3	-	"!]"	30
+gap	3	-	"\"]"	47
+gap	3	-	"\"}"	1
+gap	3	-	"\"'"	1
+gap	3	-	"\"\""	1
+gap	3	-	"\" "	12
+gap	3	-	"\"!"	19
+gap	3	-	"\"."	68
+gap	3	-	"\","	10
+gap	3	-	"\")"	16
+gap	3	-	"\"?"	48
+gap	3	-	"\":"	17
+gap	3	-	"\";"	2
+gap	3	-	"$$"	2
+gap	3	-	"%?"	3
+gap	3	-	"%."	27
+gap	3	-	"']"	16
+gap	3	-	"'!"	32
+gap	3	-	"' "	5
+gap	3	-	"'-"	1
+gap	3	-	"'."	59
+gap	3	-	"')"	1
+gap	3	-	"'?"	52
+gap	3	-	"(?"	3
+gap	3	-	"(!"	6
+gap	3	-	")/"	1
+gap	3	-	")."	62
+gap	3	-	"),"	6
+gap	3	-	")\""	3
+gap	3	-	")!"	1
+gap	3	-	") "	30
+gap	3	-	");"	1
+gap	3	-	"):"	29
+gap	3	-	")?"	1
+gap	3	-	")}"	15
+gap	3	-	")]"	31
+gap	3	-	"*?"	1
+gap	3	-	"*."	2
+gap	3	-	"*!"	1
+gap	3	-	"+)"	1
+gap	3	-	"+."	2
+gap	3	-	",]"	28
+gap	3	-	",_"	1
+gap	3	-	",'"	2
+gap	3	-	", "	34
+gap	3	-	",!"	9
+gap	3	-	",\""	33
+gap	3	-	",."	37
+gap	3	-	",)"	1
+gap	3	-	",?"	16
+gap	3	-	"-?"	7
+gap	3	-	"-\""	3
+gap	3	-	"-!"	1
+gap	3	-	"- "	31
+gap	3	-	"-."	22
+gap	3	-	"--"	58
+gap	3	-	"-*"	1
+gap	3	-	".*"	2
+gap	3	-	".)"	25
+gap	3	-	".."	62
+gap	3	-	".,"	9
+gap	3	-	".-"	1
+gap	3	-	".\""	94
+gap	3	-	". "	124
+gap	3	-	".!"	32
+gap	3	-	".'"	62
+gap	3	-	".:"	3
+gap	3	-	".;"	2
+gap	3	-	".?"	24
+gap	3	-	".="	26
+gap	3	-	".~"	1
+gap	3	-	".}"	2
+gap	3	-	"._"	50
+gap	3	-	".]"	86
+gap	3	-	"/]"	3
+gap	3	-	"/ "	2
+gap	3	-	":."	14
+gap	3	-	":\""	8
+gap	3	-	": "	73
+gap	3	-	":!"	1
+gap	3	-	":?"	3
+gap	3	-	":_"	1
+gap	3	-	";]"	2
+gap	3	-	"; "	15
+gap	3	-	";."	1
+gap	3	-	"=."	3
+gap	3	-	"=-"	8
+gap	3	-	"=="	1
+gap	3	-	"?,"	3
+gap	3	-	"?."	15
+gap	3	-	"?)"	1
+gap	3	-	"?'"	43
+gap	3	-	"?!"	2
+gap	3	-	"? "	109
+gap	3	-	"?\""	80
+gap	3	-	"??"	8
+gap	3	-	"?]"	40
+gap	3	-	"?_"	5
+gap	3	-	"]!"	53
+gap	3	-	"] "	27
+gap	3	-	"]."	88
+gap	3	-	"]?"	60
+gap	3	-	"];"	2
+gap	3	-	"]:"	28
+gap	3	-	"]]"	21
+gap	3	-	"_]"	13
+gap	3	-	"_,"	3
+gap	3	-	"_."	46
+gap	3	-	"_!"	6
+gap	3	-	"_?"	2
+gap	3	-	"_;"	1
+gap	3	-	"_:"	9
+gap	3	-	",]."	7
+gap	3	-	",]?"	1
+gap	3	-	"}]"	20
+gap	3	-	"}!"	1
+gap	3	-	"} "	6
+gap	3	-	"}."	7
+gap	3	-	"~?"	1
+gap	3	-	"~!"	1
+gap	3	-	" (')."	1
+gap	3	-	" -- -"	9
+gap	3	-	"\": {"	1
+gap	3	-	"]! \""	2
+gap	3	-	".'”"	11
+gap	3	-	" ()."	10
+gap	3	-	"/)."	1
+gap	3	-	"/.]"	1
+gap	3	-	"/-."	4
+gap	3	-	"��"	1
+gap	3	-	"]? \""	1
+gap	3	-	"!_.”"	1
+gap	3	-	".  ♫"	4
+gap	3	-	").--"	1
+gap	3	-	")..."	5
+gap	3	-	").\"]"	1
+gap	3	-	"] },"	1
+gap	3	-	"——”"	26
+gap	3	-	".--"	28
+gap	3	-	".,."	2
+gap	3	-	"..}"	1
+gap	3	-	"..]"	4
+gap	3	-	"..?"	5
+gap	3	-	"..-"	1
+gap	3	-	"..."	99
+gap	3	-	"..!"	2
+gap	3	-	".. "	38
+gap	3	-	"..\""	38
+gap	3	-	"..'"	13
+gap	3	-	".)."	1
+gap	3	-	".) "	2
+gap	3	-	".)]"	1
+gap	3	-	".()"	1
+gap	3	-	".'."	1
+gap	3	-	".'\""	34
+gap	3	-	".' "	8
+gap	3	-	".! "	19
+gap	3	-	"?"	1
+gap	3	-	". ~"	1
+gap	3	-	". _"	1
+gap	3	-	". ]"	21
+gap	3	-	". '"	8
+gap	3	-	". #"	4
+gap	3	-	". \""	50
+gap	3	-	".  "	6
+gap	3	-	". /"	1
+gap	3	-	". ."	53
+gap	3	-	". -"	2
+gap	3	-	". *"	28
+gap	3	-	".\"]"	48
+gap	3	-	".\"="	1
+gap	3	-	".\"?"	1
+gap	3	-	".\","	1
+gap	3	-	".\"."	3
+gap	3	-	".\")"	1
+gap	3	-	".\"'"	19
+gap	3	-	".\" "	28
+gap	3	-	".\"\""	7
+gap	3	-	".=-"	3
+gap	3	-	".?\""	1
+gap	3	-	".? "	1
+gap	3	-	" ). "	1
+gap	3	-	".: "	5
+gap	3	-	"¿!"	1
+gap	3	-	".]."	4
+gap	3	-	"._]"	24
+gap	3	-	"._\""	8
+gap	3	-	"._)"	3
+gap	3	-	"°?"	2
+gap	3	-	"°."	4
+gap	3	-	"·."	1
+gap	3	-	").’"	1
+gap	3	-	")))."	1
+gap	3	-	")) ."	1
+gap	3	-	" (��)."	1
+gap	3	-	" ]... "	1
+gap	3	-	" *** ****! "	1
+gap	3	-	"...' '..."	1
+gap	3	-	" . \""	1
+gap	3	-	"~ ♪"	1
+gap	3	-	" ..."	48
+gap	3	-	" .. "	1
+gap	3	-	"_............................"	1
+gap	3	-	"?_\"]"	1
+gap	3	-	" ' ... "	1
+gap	3	-	"�����)."	1
+gap	3	-	"..\"]"	1
+gap	3	-	"..\" "	1
+gap	3	-	"..\"\""	1
+gap	3	-	".. \""	9
+gap	3	-	".. !"	1
+gap	3	-	".. ."	22
+gap	3	-	".. ?"	10
+gap	3	-	"...]"	3
+gap	3	-	"...'"	9
+gap	3	-	"... "	80
+gap	3	-	"...!"	32
+gap	3	-	"...\""	45
+gap	3	-	"...#"	1
+gap	3	-	"...."	49
+gap	3	-	".../"	1
+gap	3	-	"...)"	9
+gap	3	-	"...?"	55
+gap	3	-	"...? "	43
+gap	3	-	"...?\""	4
+gap	3	-	"...=-"	1
+gap	3	-	"...\" "	5
+gap	3	-	"...\"?"	1
+gap	3	-	"...!\""	1
+gap	3	-	"...! "	1
+gap	3	-	"... _"	2
+gap	3	-	"... )"	1
+gap	3	-	"... *"	7
+gap	3	-	"... -"	1
+gap	3	-	"... ."	1
+gap	3	-	"...  "	1
+gap	3	-	"... #"	19
+gap	3	-	"... \""	17
+gap	3	-	"... ?"	12
+gap	3	-	"....\""	2
+gap	3	-	"....!"	1
+gap	3	-	".... "	14
+gap	3	-	"....?"	1
+gap	3	-	") ..."	1
+gap	3	-	" ----------”"	1
+gap	3	-	"._”]"	2
+gap	3	-	" @$#%!"	1
+gap	3	-	"' ♪"	4
+gap	3	-	" / ]"	1
+gap	3	-	" .............................."	1
+gap	3	-	" @#%!"	4
+gap	3	-	" (����, ����)."	1
+gap	3	-	"⬄"	3
+gap	3	-	") /. "	1
+gap	3	-	"’"	1
+gap	3	-	"”"	6
+gap	3	-	"–"	16
+gap	3	-	"—"	1
+gap	3	-	"♪"	52
+gap	3	-	"☚"	1
+gap	3	-	"!_”"	5
+gap	3	-	"!'”"	1
+gap	3	-	"?’."	1
+gap	3	-	"?”]"	1
+gap	3	-	"?]. "	7
+gap	3	-	". **"	1
+gap	3	-	". ,\""	2
+gap	3	-	". .\""	5
+gap	3	-	". .."	26
+gap	3	-	".   "	2
+gap	3	-	". \"'"	5
+gap	3	-	". \" "	6
+gap	3	-	"'?”"	1
+gap	3	-	". ------”"	1
+gap	3	-	"\"----"	19
+gap	3	-	" * * *"	1
+gap	3	-	"... ♪"	35
+gap	3	-	"... ♫"	1
+gap	3	-	"!”’"	8
+gap	3	-	" --\""	1
+gap	3	-	"-- ♪♪"	1
+gap	3	-	" - ?"	1
+gap	3	-	"!--”"	1
+gap	3	-	"!_”]"	1
+gap	3	-	"–)."	1
+gap	3	-	"++) {"	2
+gap	3	-	"\", \"\", "	1
+gap	3	-	" ]..."	2
+gap	3	-	"... ..."	1
+gap	3	-	"――”"	9
+gap	3	-	": ��, ��, ��, ��."	1
+gap	3	-	":—"	1
+gap	3	-	" **** **** !"	1
+gap	3	-	".\".]"	1
+gap	3	-	".\"--"	1
+gap	3	-	".\") "	1
+gap	3	-	".\"' "	1
+gap	3	-	"(�� ��)."	3
+gap	3	-	"”..."	5
+gap	3	-	".”’"	7
+gap	3	-	"”?’"	1
+gap	3	-	".\" ♪"	1
+gap	3	-	"—”"	15
+gap	3	-	"—’"	1
+gap	3	-	", . "	1
+gap	3	-	", - "	1
+gap	3	-	"--? "	1
+gap	3	-	"-- -"	1
+gap	3	-	"-- !"	1
+gap	3	-	"--!\""	1
+gap	3	-	"--\" "	1
+gap	3	-	"--\"]"	1
+gap	3	-	"----"	21
+gap	3	-	" \"������\"."	1
+gap	3	-	"----’\""	1
+gap	3	-	"-... "	2
+gap	3	-	"!'\"]"	6
+gap	3	-	"     ."	1
+gap	3	-	"      "	1
+gap	3	-	"”:"	1
+gap	3	-	"”?"	10
+gap	3	-	"”."	28
+gap	3	-	"”!"	1
+gap	3	-	"” "	1
+gap	3	-	"’."	13
+gap	3	-	"]).]"	1
+gap	3	-	"]) {"	1
+gap	3	-	"!...’"	2
+gap	3	-	"!\" ♪"	1
+gap	3	-	")♪"	8
+gap	3	-	" �"	5
+gap	3	-	"?”’"	3
+gap	3	-	" }}} "	1
+gap	3	-	"******"	4
+gap	3	-	"_!’"	2
+gap	3	-	"_!”"	11
+gap	3	-	") \"..."	1
+gap	3	-	" �?"	4
+gap	3	-	" �."	6
+gap	3	-	" �!"	1
+gap	3	-	" ...”"	1
+gap	3	-	" (����/����)."	1
+gap	3	-	" (-)."	1
+gap	3	-	" ,♪"	1
+gap	3	-	"\"..."	19
+gap	3	-	"\".. "	1
+gap	3	-	"----”"	24
+gap	3	-	".                                | |                                                              | +--------------------------------------------------------------+"	1
+gap	3	-	") = = ="	61
+gap	3	-	" --- ."	1
+gap	3	-	"!’\""	1
+gap	3	-	"... \" #"	1
+gap	3	-	"... ♪ .."	1
+gap	3	-	"!!!\""	1
+gap	3	-	" ♪♪"	19
+gap	3	-	" (�� �'�� ��� �'��)"	1
+gap	3	-	") ♫"	1
+gap	3	-	") ♪"	1
+gap	3	-	", \"\"."	1
+gap	3	-	" ¶¶"	20
+gap	3	-	"! \"]"	1
+gap	3	-	"_.........................."	1
+gap	3	-	":! "	2
+gap	3	-	":  "	22
+gap	3	-	":--"	41
+gap	3	-	":. "	18
+gap	3	-	"°? "	2
+gap	3	-	"°\"-"	1
+gap	3	-	"    !"	2
+gap	3	-	"     "	3
+gap	3	-	"    ."	4
+gap	3	-	"\" ]. "	1
+gap	3	-	"?’"	25
+gap	3	-	"?”"	66
+gap	3	-	". \"' "	1
+gap	3	-	",     “  .............................."	1
+gap	3	-	",   “  .............................."	1
+gap	3	-	".' \""	1
+gap	3	-	".'\"'"	1
+gap	3	-	".'\"]"	4
+gap	3	-	"_.’"	2
+gap	3	-	"_.”"	9
+gap	3	-	"?..\""	1
+gap	3	-	" '..."	1
+gap	3	-	" @#$%!"	1
+gap	3	-	"-- ♪"	1
+gap	3	-	" ) ..."	1
+gap	3	-	",  “  .............................."	1
+gap	3	-	"'”--"	1
+gap	3	-	"'”! "	3
+gap	3	-	"'...?"	4
+gap	3	-	"'...\""	1
+gap	3	-	"'... "	30
+gap	3	-	"\" (����)."	1
+gap	3	-	"\")?]"	1
+gap	3	-	"\").\""	1
+gap	3	-	"\"). "	2
+gap	3	-	"\").]"	4
+gap	3	-	"\")\"."	1
+gap	3	-	"�)"	5
+gap	3	-	"�."	3
+gap	3	-	" (�������)."	1
+gap	3	-	")\". "	2
+gap	3	-	")\")."	2
+gap	3	-	". *       *       *       *       *"	1
+gap	3	-	", ♫/"	1
+gap	3	-	"?--\""	1
+gap	3	-	".....]"	1
+gap	3	-	"......"	1
+gap	3	-	"....\"]"	1
+gap	3	-	" (). "	3
+gap	3	-	"”!’"	1
+gap	3	-	",----"	1
+gap	3	-	"?.\""	1
+gap	3	-	"?--"	1
+gap	3	-	"?\";"	1
+gap	3	-	"?\"."	7
+gap	3	-	"?\" "	4
+gap	3	-	"?\"\""	2
+gap	3	-	"?\"'"	2
+gap	3	-	"?\"]"	15
+gap	3	-	"? \""	24
+gap	3	-	"?  "	4
+gap	3	-	"?'\""	4
+gap	3	-	"??]"	1
+gap	3	-	"?]?"	3
+gap	3	-	"?]."	10
+gap	3	-	"  ♫"	4
+gap	3	-	"������"	1
+gap	3	-	" ---- ----"	2
+gap	3	-	"/).)"	1
+gap	3	-	"]! "	58
+gap	3	-	")... "	1
+gap	3	-	"].]"	1
+gap	3	-	"].\""	12
+gap	3	-	"]. "	93
+gap	3	-	"]? "	64
+gap	3	-	"]?\""	4
+gap	3	-	"]: "	22
+gap	3	-	";"	49
+gap	3	-	":"	76
+gap	3	-	"?"	120
+gap	3	-	"="	5
+gap	3	-	"#"	3
+gap	3	-	"\""	61
+gap	3	-	"!"	106
+gap	3	-	" "	89
+gap	3	-	"'"	23
+gap	3	-	"%"	1
+gap	3	-	"*"	31
+gap	3	-	")"	75
+gap	3	-	"("	1
+gap	3	-	"/"	10
+gap	3	-	"."	136
+gap	3	-	"-"	50
+gap	3	-	","	89
+gap	3	-	"~"	5
+gap	3	-	"}"	38
+gap	3	-	"|"	4
+gap	3	-	"_"	39
+gap	3	-	"]"	104
+gap	3	-	"'----\""	1
+gap	3	-	"********"	3
+gap	3	-	"----\""	45
+gap	3	-	"----!"	2
+gap	3	-	"----'"	3
+gap	3	-	"----."	5
+gap	3	-	", ... ."	1
+gap	3	-	", .... "	1
+gap	3	-	"(���, ���). "	1
+gap	3	-	"�"	2
+gap	3	-	"._”"	2
+gap	3	-	"._’"	2
+gap	3	-	"]..."	43
+gap	3	-	". .. '"	2
+gap	3	-	". ... "	1
+gap	3	-	"]. \""	12
+gap	3	-	"].\"]"	5
+gap	3	-	". = = ="	29
+gap	3	-	"’:--"	1
+gap	3	-	"... # .."	1
+gap	3	-	"'...? "	7
+gap	3	-	"-.. ♪"	1
+gap	3	-	" (���)."	1
+gap	3	-	" \"\" ."	1
+gap	3	-	" \"\". "	3
+gap	3	-	"! \""	25
+gap	3	-	"!!!"	1
+gap	3	-	"!\"]"	8
+gap	3	-	"!\"'"	3
+gap	3	-	"!\"\""	2
+gap	3	-	"!\" "	4
+gap	3	-	"!\"."	12
+gap	3	-	"!\")"	1
+gap	3	-	"!'\""	9
+gap	3	-	"!')"	1
+gap	3	-	"’ ..."	1
+gap	3	-	"!)]"	1
+gap	3	-	"!)."	1
+gap	3	-	"!_\""	7
+gap	3	-	"?\"?]"	1
+gap	3	-	"?\")."	1
+gap	3	-	"?\" ?"	1
+gap	3	-	"! = = ="	16
+gap	3	-	"_)]"	2
+gap	3	-	"_)."	9
+gap	3	-	"_.\""	20
+gap	3	-	"_.]"	13
+gap	3	-	"_\"]"	1
+gap	3	-	"_\"."	1
+gap	3	-	"_ ?"	1
+gap	3	-	"_!!"	1
+gap	3	-	"_!\""	3
+gap	3	-	"_?\""	2
+gap	3	-	"�..."	1
+gap	3	-	"....”"	15
+gap	3	-	"....’"	13
+gap	3	-	" ]? "	1
+gap	3	-	" ]. "	19
+gap	3	-	"!\"..."	1
+gap	3	-	" ]! "	1
+gap	3	-	" ] -"	3
+gap	3	-	"} -"	1
+gap	3	-	".. ? "	4
+gap	3	-	" ]?"	1
+gap	3	-	" ])"	1
+gap	3	-	" ]."	9
+gap	3	-	" ] "	22
+gap	3	-	"}--"	1
+gap	3	-	"}.\""	1
+gap	3	-	"♪ "	1
+gap	3	-	".. .\""	1
+gap	3	-	"!..."	10
+gap	3	-	" ~\""	1
+gap	3	-	" # "	5
+gap	3	-	" ##"	7
+gap	3	-	" \"]"	3
+gap	3	-	" \"."	3
+gap	3	-	" !\""	2
+gap	3	-	" ! "	21
+gap	3	-	"  ?"	26
+gap	3	-	"  ."	42
+gap	3	-	"  !"	22
+gap	3	-	"   "	41
+gap	3	-	" ']"	13
+gap	3	-	" '."	8
+gap	3	-	" '?"	1
+gap	3	-	" **"	5
+gap	3	-	" ):"	8
+gap	3	-	" )."	2
+gap	3	-	" ) "	11
+gap	3	-	" (?"	1
+gap	3	-	" /."	1
+gap	3	-	" . "	33
+gap	3	-	" .."	14
+gap	3	-	" -."	1
+gap	3	-	" --"	33
+gap	3	-	" - "	3
+gap	3	-	" -?"	1
+gap	3	-	" ,."	9
+gap	3	-	" ,\""	3
+gap	3	-	"??”"	1
+gap	3	-	" ;)"	1
+gap	3	-	" ; "	1
+gap	3	-	" : "	34
+gap	3	-	" ? "	22
+gap	3	-	" ?\""	1
+gap	3	-	" =-"	1
+gap	3	-	" ¶"	5
+gap	3	-	"?'”"	2
+gap	3	-	"' = = ="	1
+gap	3	-	"_.\"]"	2
+gap	3	-	"...\"\"]"	1
+gap	3	-	" *******"	1
+gap	3	-	"'! \""	1
+gap	3	-	". (?)"	1
+gap	3	-	" ♪ "	1
+gap	3	-	" ♫ "	1
+gap	3	-	".” ..."	2
+gap	3	-	" ...."	5
+gap	3	-	" ... "	33
+gap	3	-	" ...\""	1
+gap	3	-	" ...?"	4
+gap	3	-	"’?”"	4
+gap	3	-	"_--\""	2
+gap	3	-	"\")."	34
+gap	3	-	"\")]"	2
+gap	3	-	"\"(?"	1
+gap	3	-	"\"--"	6
+gap	3	-	" (����). "	1
+gap	3	-	"\".]"	25
+gap	3	-	"\".'"	1
+gap	3	-	"\". "	43
+gap	3	-	"\".\""	4
+gap	3	-	"\".."	3
+gap	3	-	"\".)"	1
+gap	3	-	"\"!'"	1
+gap	3	-	"\" ."	1
+gap	3	-	"\" #"	2
+gap	3	-	"\" ?"	1
+gap	3	-	"\"\"."	3
+gap	3	-	"\":."	1
+gap	3	-	"\": "	1
+gap	3	-	"\"?]"	5
+gap	3	-	"\"?\""	1
+gap	3	-	"\"? "	12
+gap	3	-	"\"?."	1
+gap	3	-	"--?”"	1
+gap	3	-	"\" (��)."	1
+gap	3	-	"*********"	1
+gap	3	-	" (��, ��)."	1
+gap	3	-	"... . "	18
+gap	3	-	"... ,\""	1
+gap	3	-	"... (?"	1
+gap	3	-	"... ' "	1
+gap	3	-	"... '?"	1
+gap	3	-	"... \" "	1
+gap	3	-	"... ##"	2
+gap	3	-	"... # "	3
+gap	3	-	"... ? "	1
+gap	3	-	"... ¶"	2
+gap	3	-	"*******"	4
+gap	3	-	"\" --"	1
+gap	3	-	"\" . "	1
+gap	3	-	",♪"	2
+gap	3	-	",”"	4
+gap	3	-	"’——\""	1
+gap	3	-	"%. "	4
+gap	3	-	" \" ?"	1
+gap	3	-	" \"\"."	22
+gap	3	-	"... ♪ "	1
+gap	3	-	"\" ♪"	6
+gap	3	-	"\" ♫"	5
+gap	3	-	" (��). "	1
+gap	3	-	"?\"----"	1
+gap	3	-	" �.]"	1
+gap	3	-	" �! "	1
+gap	3	-	"~|`:."	1
+gap	3	-	"!’”"	14
+gap	3	-	"]]! "	1
+gap	3	-	""	104
+gap	3	-	"--’”"	1
+gap	3	-	"\"... "	2
+gap	3	-	"\"...?"	3
+gap	3	-	"”! "	40
+gap	3	-	"”)."	1
+gap	3	-	"”--"	2
+gap	3	-	"”. "	46
+gap	3	-	"”? "	35
+gap	3	-	".’"	54
+gap	3	-	".”"	81
+gap	3	-	".♪"	1
+gap	3	-	".’”"	22
+gap	3	-	"????]"	1
+gap	3	-	"——\""	10
+gap	3	-	"\": \"\","	2
+gap	3	-	"']."	2
+gap	3	-	"']?"	1
+gap	3	-	": ��, �� ��, ��, ��."	1
+gap	3	-	"'\"?"	1
+gap	3	-	"' !"	3
+gap	3	-	"' ."	1
+gap	3	-	"' ?"	1
+gap	3	-	"'! "	19
+gap	3	-	"'!\""	2
+gap	3	-	"'!'"	1
+gap	3	-	"');"	1
+gap	3	-	"')."	4
+gap	3	-	"'.'"	2
+gap	3	-	"'. "	48
+gap	3	-	"'.!"	3
+gap	3	-	"'.\""	24
+gap	3	-	"'.."	2
+gap	3	-	"'.]"	6
+gap	3	-	"'-."	1
+gap	3	-	"'?]"	2
+gap	3	-	"'?\""	20
+gap	3	-	"'? "	37
+gap	3	-	"    "	12
+gap	3	-	"   !"	5
+gap	3	-	"   ."	15
+gap	3	-	"   ?"	1
+gap	3	-	"  ,."	1
+gap	3	-	"!’\"]"	1
+gap	3	-	".  | |                                                 | +-------------------------------------------------+"	2
+gap	3	-	"\" (). "	1
+gap	3	-	", ..."	1
+gap	3	-	"... ♪♪"	2
+gap	3	-	"(��, ��)."	1
+gap	3	-	". ♪ ♪"	1
+gap	3	-	"]... \""	1
+gap	3	-	"]...? "	4
+gap	3	-	",..."	28
+gap	3	-	" **** *************!"	1
+gap	3	-	"¡¦ "	3
+gap	3	-	" ! \""	3
+gap	3	-	"\" ..."	4
+gap	3	-	"++ = = ="	1
+gap	3	-	" - -..."	1
+gap	3	-	", ... "	1
+gap	3	-	". ..."	3
+gap	3	-	". .. "	1
+gap	3	-	"_.............."	1
+gap	4	-	<esc>	0
+gap	4	-	"���� �� �� ��� ‎- ��� ؟ "	1
+gap	4	-	"��� ���� ���� �� ������ ‎.� ������ ���� ������ ������"	1
+gap	4	-	"��� ‎, ���� ����� �� ��� ������� �����"	1
+gap	4	-	"(? "	7
+gap	4	-	"‎- ‎.��� ���� ������ ‎-"	1
+gap	4	-	"������) ؟"	1
+gap	4	-	"♪ ♪"	17
+gap	4	-	"‎.���� �� ���� ������ �����"	1
+gap	4	-	"*      *      *      *      *"	10
+gap	4	-	"‎.‎.‎.‎. ����‎, ���� �� ������ ���"	1
+gap	4	-	"��‎, ��� ������"	1
+gap	4	-	"---------------------"	4
+gap	4	-	"**?"	1
+gap	4	-	"***"	9
+gap	4	-	"� ��� ������ ������ �� ����� ‎.‎.‎. �����"	1
+gap	4	-	"����� ����� ���� ������� ‎.�� ��� ������"	1
+gap	4	-	"♫ ♫"	1
+gap	4	-	"-. "	1
+gap	4	-	"‎.��� ������� ���� ������� ������"	1
+gap	4	-	". . . . . ."	4
+gap	4	-	"‎.��� �� ���� � ����� ��� �����"	1
+gap	4	-	"¶"	17
+gap	4	-	"♪ ..."	2
+gap	4	-	"!\""	2
+gap	4	-	"! "	32
+gap	4	-	"\"\""	1
+gap	4	-	"# "	1
+gap	4	-	"%="	1
+gap	4	-	"' "	5
+gap	4	-	"'\""	1
+gap	4	-	"'."	1
+gap	4	-	"**"	37
+gap	4	-	",,"	1
+gap	4	-	",."	1
+gap	4	-	"--"	1
+gap	4	-	".."	17
+gap	4	-	". "	32
+gap	4	-	".!"	1
+gap	4	-	": "	1
+gap	4	-	"? "	35
+gap	4	-	"@?"	1
+gap	4	-	"‎.��� ����� ������ �����"	1
+gap	4	-	"[]"	1
+gap	4	-	"] "	1
+gap	4	-	"‎.‎.‎. �����‎, ����� �� �������"	1
+gap	4	-	"*** *********! "	1
+gap	4	-	"�� ����� ��� ��� ����� ���� ���� ؟"	1
+gap	4	-	"[¶¶¶]"	22
+gap	4	-	"..."	19
+gap	4	-	".. "	1
+gap	4	-	"‎.�� ���� ���� ��� ���"	1
+gap	4	-	"\"---- ----,"	1
+gap	4	-	"... "	10
+gap	4	-	"...."	2
+gap	4	-	"... #"	1
+gap	4	-	"*** **** !"	1
+gap	4	-	"♪♪"	5
+gap	4	-	"# .."	1
+gap	4	-	"[ ? "	9
+gap	4	-	"•"	14
+gap	4	-	"♪"	37
+gap	4	-	"♫"	8
+gap	4	-	"‎.‎. ���‎, ���‎, ��� ����"	1
+gap	4	-	"――――"	3
+gap	4	-	"��� ������ ��� ����� �� ������ ‎.��� �� ������"	1
+gap	4	-	"��‎, �� ����� ��� ‎- �����‎, ����� �� ��� ���� ‎-"	1
+gap	4	-	"���� ؟"	1
+gap	4	-	"‎.���‎, ��� �����"	1
+gap	4	-	"‎.��� ���� ����� ���� ��������"	1
+gap	4	-	"‎.����� ������"	2
+gap	4	-	"������� (������) ؟"	1
+gap	4	-	"\"'���� �� ������ ��� ������\""	1
+gap	4	-	"= = = .�� = = ="	1
+gap	4	-	"‎.‎. ��� �� ����� ������"	1
+gap	4	-	"‎-"	1
+gap	4	-	"‎.������"	1
+gap	4	-	"¶ ¶"	2
+gap	4	-	"��� ���� ���� ؟"	1
+gap	4	-	"��� �������� ����� ����� ��� ؟"	1
+gap	4	-	"��� ��� ؟ "	1
+gap	4	-	"‎.‎.‎. �����‎, ��� �� �����"	1
+gap	4	-	"------------------------------------"	2
+gap	4	-	"¶¶"	1
+gap	4	-	"‎.���� ������� �� ��� �����"	1
+gap	4	-	"‎.�� ���� �����‎, ����� ���� ������"	1
+gap	4	-	"‎.������ �� ������ ��� ��� �����"	1
+gap	4	-	"\"..."	2
+gap	4	-	"���� �� ������ ��� ������‎, ���� ���� ؟"	1
+gap	4	-	"♫♫"	1
+gap	4	-	"-..."	2
+gap	4	-	"��� ؟"	2
+gap	4	-	"‎! "	2
+gap	4	-	"‎.�����‎, ������ ���"	1
+gap	4	-	"*       *       *       *       *"	41
+gap	4	-	"‎.�� ������‎, ����� ����"	1
+gap	4	-	"‎.�� ����� ��� ���"	1
+gap	4	-	"--------------------------------------------------"	4
+gap	4	-	"���‎, ������‎, ��� �����"	1
+gap	4	-	"# '..."	1
+gap	4	-	"[♪♪♪]"	17
+gap	4	-	"‎.� ��� ������� ���� ��� �� ��� ���"	1
+gap	4	-	"¶... "	1
+gap	4	-	"*       *       *       *       *       *       *"	17
+gap	4	-	"���"	1
+gap	4	-	"��� �� ����� ‎.‎.‎. ������ ���� ��� ��� �������"	1
+gap	4	-	"‎.�� ����� ���� �������"	1
+gap	4	-	"?\" "	1
+gap	4	-	":"	1
+gap	4	-	"?"	42
+gap	4	-	"="	5
+gap	4	-	"#"	12
+gap	4	-	"\""	3
+gap	4	-	"!"	55
+gap	4	-	"'"	36
+gap	4	-	"*"	18
+gap	4	-	")"	14
+gap	4	-	"/"	1
+gap	4	-	"."	60
+gap	4	-	"-"	47
+gap	4	-	","	17
+gap	4	-	"_"	31
+gap	4	-	"]"	14
+gap	4	-	"��� ����� ��������� ؟"	1
+gap	4	-	"********"	1
+gap	4	-	"*** **** ****! "	1
+gap	4	-	"����� ��� ��� ���� ��� ��� �������� �� ��� ����� ���� ؟"	1
+gap	4	-	"‎.���� �� ���� ��"	1
+gap	4	-	"♪ .."	2
+gap	4	-	"‎.�� ���� �� ������‎, ��� ������"	1
+gap	4	-	"[♪♪♪] ‎-"	1
+gap	4	-	"♪ "	1
+gap	4	-	"�� ��� �� �������� ؟"	1
+gap	4	-	"‎.��� ���� �� �����"	1
+gap	4	-	"‎.������� �� ������‎, ��� ����� ������"	1
+gap	4	-	"♪♪♪"	20
+gap	4	-	"\".."	4
+gap	4	-	"��� �����‎, ���� ���� ؟"	1
+gap	4	-	"**********"	1
+gap	4	-	"*       *       *       *       *       *"	1
+gap	4	-	"@#?"	1
+gap	4	-	"*******"	2
+gap	4	-	"‎.��� ����� ����"	1
+gap	4	-	""	94
+gap	4	-	"��� �� ��������"	1
+gap	4	-	"��� ��� ����� �� �����"	1
+gap	4	-	"‎.� ������� ��� ������ ��� ������"	1
+gap	4	-	"‎.������ �����"	1
+gap	4	-	"' \""	1
+gap	4	-	"' #"	1
+gap	4	-	"'.\""	1
+gap	4	-	"'.."	3
+gap	4	-	"���‎, �� ������ ������ ����"	1
+gap	4	-	"��� ��� �� ������) ‎.��� ������ ����‎, ��� ������ ������"	1
+gap	4	-	"‎.� ���� ������ ����‎, ��� ������"	1
+gap	4	-	"‎.���� �� ���� ��� �����"	1

@@ -1,0 +1,1038 @@
+//! The owner process and the training loop.
+//!
+//! One `Trainer` holds the program and applies every change. A change is a
+//! list of typed operations; it is scored exactly: apply it to a copy of
+//! the program, re-parse every training document it can affect, recount
+//! (the M-step over the counts with those documents replaced) and compare
+//! program bits plus data bits over all of the training set. It is kept if
+//! the total goes down.
+
+use std::collections::{BTreeMap, BTreeSet};
+use std::path::{Path, PathBuf};
+use std::sync::Arc;
+use std::time::Instant;
+
+use anyhow::{Context as _, Result};
+use rustc_hash::{FxHashMap, FxHashSet};
+use sememe_engine::cost::{self, Bits, COST_HASH, TAG_ENTRY, Table, float};
+use sememe_engine::model::Model;
+use sememe_engine::program::Program;
+use sememe_engine::term::{Head, Node, Term};
+use sememe_engine::text::Line;
+use serde::{Deserialize, Serialize};
+
+use crate::analyze::{self, DocResult, Single};
+use crate::annotate::{self, Batch, Passage};
+use crate::blimp;
+use crate::corpus::Corpus;
+use crate::em::{self, Stats};
+use crate::genlex;
+use crate::learn;
+use crate::ops::{self, Logged, Op};
+use crate::opus::Opus;
+use crate::store;
+
+/// Settings for a run.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct Config {
+    /// Run name (directory under `runs/`).
+    pub run: String,
+    /// Stage name.
+    pub stage: String,
+    /// Training set.
+    pub train: PathBuf,
+    /// Held-out samples scored every round: name -> path.
+    pub heldout: BTreeMap<String, PathBuf>,
+    /// Prepared BLiMP directory.
+    pub blimp: PathBuf,
+    /// Teacher calls per wave.
+    pub calls: usize,
+    /// Passages per call.
+    pub passages_per_call: usize,
+    /// Lines per passage (at most).
+    pub lines_per_passage: usize,
+    /// Full EM pass every this many rounds.
+    pub em_every: u32,
+    /// Stop after this round.
+    pub max_rounds: u32,
+    /// Use the teacher (false: words from context and EM only).
+    pub teacher: bool,
+}
+
+/// What is saved between sessions.
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
+pub struct State {
+    /// Last completed round.
+    pub round: u32,
+    /// Stage.
+    pub stage: String,
+    /// Cost-code hash the run was started with.
+    pub cost_hash: String,
+    /// Lines already sent to the teacher: `doc:line`.
+    pub annotated: BTreeSet<String>,
+    /// Base seed.
+    pub seed: u64,
+}
+
+/// The result of scoring a change.
+pub struct Eval {
+    /// The changed program with recounted counts.
+    pub program: Program,
+    /// Documents re-parsed.
+    pub ids: Vec<usize>,
+    /// Their new analyses.
+    pub results: Vec<DocResult>,
+    /// New total minus old total (negative is better).
+    pub delta: i128,
+    /// New program bits.
+    pub program_bits: Bits,
+    /// New data bits.
+    pub data_bits: Bits,
+}
+
+/// The owner and its loop.
+pub struct Trainer {
+    /// Settings.
+    pub cfg: Config,
+    /// Run directory.
+    pub dir: PathBuf,
+    /// Saved state.
+    pub state: State,
+    /// The program.
+    pub program: Program,
+    /// The training set.
+    pub corpus: Corpus,
+    /// Analyses of the training set.
+    pub stats: Stats,
+    /// Word form -> documents containing it.
+    pub index: FxHashMap<String, Vec<u32>>,
+    /// Word form frequencies in the training set.
+    pub freq: FxHashMap<String, u64>,
+    /// Program bits.
+    pub program_bits: Bits,
+    /// Data bits.
+    pub data_bits: Bits,
+    /// Single-unknown lines from the last full pass.
+    pub singles: Vec<(usize, Single)>,
+    /// Model calls.
+    pub opus: Opus,
+    /// The meaning guide.
+    pub guide: String,
+    /// BLiMP pairs.
+    pub blimp: Vec<blimp::Pair>,
+    /// Held-out sets.
+    pub heldout: BTreeMap<String, Corpus>,
+    /// Last gating scores.
+    pub gate: Option<blimp::Results>,
+    /// Parse speed of the last full pass.
+    pub lines_per_sec: f64,
+}
+
+/// A metrics row.
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
+pub struct Metrics {
+    /// Round.
+    pub round: u32,
+    /// Stage.
+    pub stage: String,
+    /// Cost-code hash.
+    pub cost_hash: String,
+    /// Unix seconds.
+    pub ts: u64,
+    /// Held-out bits per byte by set.
+    pub heldout_bpb: BTreeMap<String, f64>,
+    /// Held-out unknown-word rate by set.
+    pub heldout_unknown: BTreeMap<String, f64>,
+    /// Training data bits per byte.
+    pub train_bpb: f64,
+    /// Program bits.
+    pub program_bits: f64,
+    /// Data bits.
+    pub data_bits: f64,
+    /// BLiMP reported accuracy by phenomenon.
+    pub blimp: BTreeMap<String, f64>,
+    /// BLiMP overall (reported, filtered).
+    pub blimp_overall: f64,
+    /// BLiMP on pairs with no unknowns or fragments.
+    pub blimp_clean: f64,
+    /// Share of pairs with an unknown word.
+    pub blimp_unknown_share: f64,
+    /// Share of pairs whose bad sentence split into fragments.
+    pub blimp_fragment_share: f64,
+    /// Tokens by tier: input+output, and cache reads.
+    pub tokens: BTreeMap<String, (u64, u64)>,
+    /// Lines parsed per second.
+    pub lines_per_sec: f64,
+    /// Changes accepted this round.
+    pub accepted: u32,
+    /// Changes rejected this round.
+    pub rejected: u32,
+    /// Program size counts.
+    pub entries: usize,
+    /// Concepts.
+    pub concepts: usize,
+    /// Rules.
+    pub rules: usize,
+    /// Training unknown-word rate.
+    pub unknown_rate: f64,
+    /// Teacher units annotated this round.
+    pub units: u32,
+    /// Units that failed validation.
+    pub units_dropped: u32,
+    /// Units GENLEX could not convert.
+    pub units_unconverted: u32,
+    /// Entries added from the teacher, from context, removed by pruning.
+    pub from_teacher: u32,
+    /// Entries added from context.
+    pub from_context: u32,
+    /// Entries pruned.
+    pub pruned: u32,
+}
+
+fn now() -> u64 {
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_secs())
+        .unwrap_or(0)
+}
+
+fn word_index(c: &Corpus) -> (FxHashMap<String, Vec<u32>>, FxHashMap<String, u64>) {
+    let mut index: FxHashMap<String, Vec<u32>> = FxHashMap::default();
+    let mut freq: FxHashMap<String, u64> = FxHashMap::default();
+    for (i, d) in c.docs.iter().enumerate() {
+        let mut seen: FxHashSet<String> = FxHashSet::default();
+        for l in &d.lines {
+            for w in Line::parse(l).words {
+                *freq.entry(w.form.clone()).or_default() += 1;
+                seen.insert(w.form);
+            }
+        }
+        for w in seen {
+            index.entry(w).or_default().push(i as u32);
+        }
+    }
+    (index, freq)
+}
+
+impl Trainer {
+    /// Start a new run from the seed program, or resume one.
+    pub fn open(cfg: Config) -> Result<Trainer> {
+        let dir = PathBuf::from("runs").join(&cfg.run);
+        std::fs::create_dir_all(&dir)?;
+        let state_path = dir.join("state.json");
+        let (state, program) = if state_path.exists() {
+            let state: State = serde_json::from_str(&std::fs::read_to_string(&state_path)?)?;
+            if state.cost_hash != COST_HASH {
+                anyhow::bail!(
+                    "run {} was started with cost code {} but this build has {}: the cost code is frozen for a run",
+                    cfg.run,
+                    state.cost_hash,
+                    COST_HASH
+                );
+            }
+            let p = store::load(&dir.join("program"))?;
+            eprintln!("resuming run {} at round {}", cfg.run, state.round);
+            (state, p)
+        } else {
+            (
+                State {
+                    round: 0,
+                    stage: cfg.stage.clone(),
+                    cost_hash: COST_HASH.to_string(),
+                    ..State::default()
+                },
+                Program::seed(),
+            )
+        };
+        let corpus =
+            Corpus::load(&cfg.train).with_context(|| format!("loading {}", cfg.train.display()))?;
+        let (index, freq) = word_index(&corpus);
+        let mut heldout = BTreeMap::new();
+        for (k, path) in &cfg.heldout {
+            heldout.insert(k.clone(), Corpus::load(path)?);
+        }
+        let blimp = blimp::load(&cfg.blimp)?;
+        let home = std::env::var("HOME").unwrap_or_else(|_| ".".into());
+        let opus = Opus::new(
+            &dir.join("ledger.jsonl"),
+            &PathBuf::from(home).join(".cache/claude-tmp/sememe-calls"),
+        )?;
+        let guide = std::fs::read_to_string("docs/meaning-guide.md")?;
+        let mut t = Trainer {
+            cfg,
+            dir,
+            state,
+            program,
+            corpus,
+            stats: Stats::default(),
+            index,
+            freq,
+            program_bits: 0,
+            data_bits: 0,
+            singles: Vec::new(),
+            opus,
+            guide,
+            blimp,
+            heldout,
+            gate: None,
+            lines_per_sec: 0.0,
+        };
+        t.full_em(1)?;
+        Ok(t)
+    }
+
+    fn docs(&self) -> Vec<&sememe_data::Doc> {
+        self.corpus.docs.iter().collect()
+    }
+
+    /// Re-parse the whole training set and recount, `iters` times.
+    pub fn full_em(&mut self, iters: usize) -> Result<()> {
+        for _ in 0..iters {
+            let t = Instant::now();
+            let model = Model::new(Arc::new(self.program.clone()));
+            let docs = self.docs();
+            let mut stats = Stats::default();
+            let mut singles = Vec::new();
+            let mut base = 0usize;
+            for chunk in docs.chunks(4096) {
+                let results = analyze::analyze(&model, chunk, false);
+                for (k, mut r) in results.into_iter().enumerate() {
+                    for s in r.singles.drain(..) {
+                        singles.push((base + k, s));
+                    }
+                    stats.push(&self.program, r);
+                }
+                base += chunk.len();
+            }
+            let secs = t.elapsed().as_secs_f64();
+            self.lines_per_sec = self.corpus.lines() as f64 / secs.max(1e-9);
+            self.program.counts = em::m_step(&self.program, &stats);
+            self.stats = stats;
+            self.singles = singles;
+            self.recompute();
+            eprintln!(
+                "full pass: {:.0}s ({:.0} lines/s), train {:.4} bpb (program {:.4} + data {:.4}), unknown {:.1}%",
+                secs,
+                self.lines_per_sec,
+                self.total_bpb(),
+                float(self.program_bits) / self.stats.bytes() as f64,
+                float(self.data_bits) / self.stats.bytes() as f64,
+                100.0 * self.stats.unknown_rate()
+            );
+        }
+        Ok(())
+    }
+
+    fn recompute(&mut self) {
+        self.program_bits = cost::program_bits(&self.program).total();
+        self.data_bits = em::data_bits(&self.program, &self.stats);
+    }
+
+    /// Total bits per byte of training text.
+    pub fn total_bpb(&self) -> f64 {
+        float(self.program_bits + self.data_bits) / self.stats.bytes().max(1) as f64
+    }
+
+    /// Documents a set of word forms can affect.
+    pub fn affected(&self, forms: &[String]) -> Vec<usize> {
+        let mut out: BTreeSet<usize> = BTreeSet::new();
+        for f in forms {
+            let words: Vec<&str> = f.split(' ').collect();
+            let Some(first) = words.first().and_then(|w| self.index.get(*w)) else {
+                continue;
+            };
+            for &d in first {
+                let ok = words.iter().skip(1).all(|w| {
+                    self.index
+                        .get(*w)
+                        .is_some_and(|v| v.binary_search(&d).is_ok())
+                });
+                if ok {
+                    out.insert(d as usize);
+                }
+            }
+        }
+        out.into_iter().collect()
+    }
+
+    /// Score a change exactly. `forms` are the word forms whose documents
+    /// it can affect (`None`: all documents).
+    pub fn evaluate(&self, ops: &[Op], forms: Option<&[String]>) -> Result<Eval> {
+        let mut p = self.program.clone();
+        let mut new_entries = Vec::new();
+        for op in ops {
+            if let Some(id) = ops::apply(&mut p, op, self.state.round + 1)?
+                && matches!(op, Op::AddEntry { .. })
+            {
+                new_entries.push(id);
+            }
+        }
+        // Provisional counts so the parser can find the new entries.
+        for id in &new_entries {
+            if let Some(e) = p.entries.get(id) {
+                let n = e
+                    .form
+                    .split(' ')
+                    .filter_map(|w| self.freq.get(w))
+                    .min()
+                    .copied()
+                    .unwrap_or(1)
+                    .max(1);
+                let key = (
+                    Table::Lex as u8,
+                    [cost::cat_key(&e.cat), cost::sem_key(&e.sem)],
+                );
+                let cc = p.counts.tables.entry(key).or_default();
+                cc.outs
+                    .insert(TAG_ENTRY | u64::from(*id), cost::level_of(n));
+            }
+        }
+        let ids: Vec<usize> = match forms {
+            Some(f) => self.affected(f),
+            None => (0..self.corpus.docs.len()).collect(),
+        };
+        let model = Model::new(Arc::new(p.clone()));
+        let docs: Vec<&sememe_data::Doc> = ids
+            .iter()
+            .filter_map(|i| self.corpus.docs.get(*i))
+            .collect();
+        let results = analyze::analyze(&model, &docs, false);
+        let (overlay, new_syms) = self.stats.overlay(&p, &ids, &results);
+        let mut syms = self.stats.syms.clone();
+        syms.extend(new_syms);
+        p.counts = em::m_step_events(&p, overlay.events.iter().map(|(e, n)| (e, *n)), &syms);
+        let program_bits = cost::program_bits(&p).total();
+        let data_bits = em::overlay_bits(&p, &overlay);
+        let delta =
+            (program_bits + data_bits) as i128 - (self.program_bits + self.data_bits) as i128;
+        Ok(Eval {
+            program: p,
+            ids,
+            results,
+            delta,
+            program_bits,
+            data_bits,
+        })
+    }
+
+    /// Keep an evaluated change.
+    pub fn commit(&mut self, eval: Eval, ops: &[Op], source: &str) -> Result<()> {
+        self.program = eval.program;
+        self.stats.replace(&self.program, &eval.ids, eval.results);
+        self.program_bits = eval.program_bits;
+        self.data_bits = eval.data_bits;
+        let logged: Vec<Logged> = ops
+            .iter()
+            .map(|op| Logged {
+                round: self.state.round + 1,
+                source: source.to_string(),
+                op: op.clone(),
+            })
+            .collect();
+        ops::log(&self.dir.join("ops.jsonl"), &logged)
+    }
+
+    // -----------------------------------------------------------------------
+    // The teacher wave.
+
+    /// Lines the program explains worst, weighted by how often their
+    /// unknown words occur in the training set, grouped into passages.
+    pub fn select_passages(&self, n: usize) -> Vec<Passage> {
+        let model_forms: FxHashSet<&str> = self
+            .program
+            .entries
+            .values()
+            .map(|e| e.form.as_str())
+            .collect();
+        let mut scored: Vec<(u64, usize, usize)> = Vec::new();
+        for (di, d) in self.corpus.docs.iter().enumerate() {
+            for (li, raw) in d.lines.iter().enumerate() {
+                if self.state.annotated.contains(&format!("{di}:{li}")) {
+                    continue;
+                }
+                let line = Line::parse(raw);
+                let nw = line.words.len();
+                if nw == 0 || nw > 20 {
+                    continue;
+                }
+                let mut v = 0f64;
+                for w in &line.words {
+                    if !model_forms.contains(w.form.as_str()) {
+                        v += (1.0 + *self.freq.get(&w.form).unwrap_or(&0) as f64).ln();
+                    }
+                }
+                // Value per word: short lines are cheaper to annotate.
+                let score = v / (2.0 + nw as f64).sqrt();
+                if score > 0.0 {
+                    scored.push(((score * 1000.0) as u64, di, li));
+                }
+            }
+        }
+        scored.sort_unstable_by(|a, b| b.cmp(a));
+        let mut out = Vec::new();
+        let mut used_docs: FxHashSet<usize> = FxHashSet::default();
+        for (_, di, li) in scored {
+            if out.len() >= n {
+                break;
+            }
+            if !used_docs.insert(di) {
+                continue;
+            }
+            let Some(d) = self.corpus.docs.get(di) else {
+                continue;
+            };
+            let first = li.saturating_sub(self.cfg.lines_per_passage.saturating_sub(1).min(2));
+            let lines: Vec<String> = d
+                .lines
+                .iter()
+                .skip(first)
+                .take(self.cfg.lines_per_passage)
+                .cloned()
+                .collect();
+            out.push(Passage {
+                id: format!("p{}", out.len()),
+                doc: di,
+                first_line: first,
+                lines,
+            });
+        }
+        out
+    }
+
+    /// Send a wave of passages to the teacher, in parallel calls.
+    pub fn teacher_wave(&mut self) -> Result<Vec<Batch>> {
+        let passages = self.select_passages(self.cfg.calls * self.cfg.passages_per_call);
+        let mut groups: Vec<Vec<Passage>> = vec![Vec::new(); self.cfg.calls.max(1)];
+        for (i, p) in passages.into_iter().enumerate() {
+            if let Some(g) = groups.get_mut(i % self.cfg.calls.max(1)) {
+                g.push(p);
+            }
+        }
+        groups.retain(|g| !g.is_empty());
+        for g in &mut groups {
+            for (k, p) in g.iter_mut().enumerate() {
+                p.id = format!("p{k}");
+            }
+        }
+        // About 5% of passages are annotated twice, to measure agreement.
+        let double: Vec<Passage> = groups
+            .iter()
+            .flat_map(|g| g.iter())
+            .filter(|p| {
+                sememe_data::hash64(
+                    self.state.seed + u64::from(self.state.round),
+                    &p.doc.to_le_bytes(),
+                )
+                .is_multiple_of(20)
+            })
+            .cloned()
+            .collect();
+        let round = self.state.round + 1;
+        let ann_dir = PathBuf::from("data/annotations").join(&self.cfg.run);
+        let p = &self.program;
+        let guide = &self.guide;
+        let opus = &self.opus;
+        let results: Vec<Result<Batch>> = std::thread::scope(|s| {
+            let mut handles = Vec::new();
+            for (i, g) in groups.iter().enumerate() {
+                let dir = ann_dir.clone();
+                let g = g.clone();
+                handles.push(s.spawn(move || {
+                    annotate::annotate(opus, p, guide, round, i as u32, g, false, &dir)
+                }));
+            }
+            if !double.is_empty() {
+                let dir = ann_dir.clone();
+                let mut d = double.clone();
+                for (k, p) in d.iter_mut().enumerate() {
+                    p.id = format!("p{k}");
+                }
+                let i = groups.len() as u32;
+                handles.push(
+                    s.spawn(move || annotate::annotate(opus, p, guide, round, i, d, true, &dir)),
+                );
+            }
+            handles
+                .into_iter()
+                .map(|h| {
+                    h.join()
+                        .unwrap_or_else(|_| Err(anyhow::anyhow!("teacher thread panicked")))
+                })
+                .collect()
+        });
+        let mut batches = Vec::new();
+        for r in results {
+            match r {
+                Ok(b) => {
+                    if !b.double {
+                        for p in &b.passages {
+                            for k in 0..p.lines.len() {
+                                self.state.annotated.insert(format!(
+                                    "{}:{}",
+                                    p.doc,
+                                    p.first_line + k
+                                ));
+                            }
+                        }
+                    }
+                    batches.push(b);
+                }
+                Err(e) => eprintln!("teacher call failed: {e:#}"),
+            }
+        }
+        Ok(batches)
+    }
+
+    /// Apply a batch's proposed types and convert its units to candidate
+    /// entries. Returns `(ops, units converted, units failed)`.
+    pub fn genlex(&mut self, batches: &[Batch]) -> (Vec<Op>, u32, u32) {
+        let mut type_ops = Vec::new();
+        for b in batches.iter().filter(|b| !b.double) {
+            for r in &b.replies {
+                type_ops.extend(learn::apply_proposals(&mut self.program, r, b.round));
+            }
+        }
+        if !type_ops.is_empty() {
+            let logged: Vec<Logged> = type_ops
+                .iter()
+                .map(|op| Logged {
+                    round: self.state.round + 1,
+                    source: "teacher".into(),
+                    op: op.clone(),
+                })
+                .collect();
+            let _ = ops::log(&self.dir.join("ops.jsonl"), &logged);
+            self.recompute();
+        }
+        let mut cands: BTreeMap<genlex::Cand, u32> = BTreeMap::new();
+        let (mut ok, mut bad) = (0, 0);
+        for b in batches.iter().filter(|b| !b.double) {
+            for u in &b.valid {
+                let Some(pass) = b.passages.iter().find(|x| x.id == u.passage) else {
+                    continue;
+                };
+                let Some(raw) = pass.lines.get(u.line) else {
+                    continue;
+                };
+                let line = Line::parse(raw);
+                let Ok(ann) = annotate::parse_meaning(&u.meaning) else {
+                    bad += 1;
+                    continue;
+                };
+                match genlex::convert(&self.program, u, &ann, &line) {
+                    Ok(c) => {
+                        ok += 1;
+                        for e in c.entries {
+                            *cands.entry(e).or_default() += 1;
+                        }
+                    }
+                    Err(_) => bad += 1,
+                }
+            }
+        }
+        let existing: FxHashSet<(String, String, String)> = {
+            let cn = self.program.cat_names();
+            self.program
+                .entries
+                .values()
+                .map(|e| (e.form.clone(), e.cat.show(&cn), e.sem.show(&self.program)))
+                .collect()
+        };
+        let ops = cands
+            .into_keys()
+            .filter(|c| !existing.contains(&(c.form.clone(), c.cat.clone(), c.sem.clone())))
+            .map(|c| Op::AddEntry {
+                form: c.form,
+                cat: c.cat,
+                sem: c.sem,
+                doc: String::new(),
+            })
+            .collect();
+        (ops, ok, bad)
+    }
+
+    /// Candidates from lines that parse except for one unknown word: a new
+    /// entry with a fresh concept, for words seen this way at least twice
+    /// with the same category.
+    pub fn context_candidates(&self) -> Vec<Vec<Op>> {
+        let cn = self.program.cat_names();
+        let mut groups: BTreeMap<(String, String), (u32, Term)> = BTreeMap::new();
+        for (_, s) in &self.singles {
+            let key = (s.form.clone(), s.cat.show(&cn));
+            let g = groups.entry(key).or_insert((0, s.sem.clone()));
+            g.0 += 1;
+        }
+        let mut out = Vec::new();
+        for ((form, cat), (n, sem)) in groups {
+            if n < 2 {
+                continue;
+            }
+            let base: String = form
+                .chars()
+                .filter(|c| c.is_ascii_alphanumeric())
+                .enumerate()
+                .map(|(i, c)| if i == 0 { c.to_ascii_uppercase() } else { c })
+                .collect();
+            if base.is_empty() {
+                continue;
+            }
+            let mut name = format!("Ctx{base}");
+            let mut k = 2;
+            while self.program.concept_by_name(&name).is_some() {
+                name = format!("Ctx{base}{k}");
+                k += 1;
+            }
+            let Some(c) = self.program.concept_by_name("Thing") else {
+                continue;
+            };
+            // Replace the Unknown head with the new concept (placeholder ID
+            // resolved by name after the concept op is applied).
+            let sem_text = replace_unknown(&sem, &name, &self.program);
+            let _ = c;
+            out.push(vec![
+                Op::AddConcept {
+                    name: name.clone(),
+                    parent: "Thing".into(),
+                    doc: format!("The meaning of \"{form}\" as {cat}, learned from the contexts it occurs in (not yet named)."),
+                },
+                Op::AddEntry {
+                    form,
+                    cat,
+                    sem: sem_text,
+                    doc: "Learned from context.".into(),
+                },
+            ]);
+        }
+        out
+    }
+
+    /// Try to remove entries the M-step barely uses.
+    pub fn prune_candidates(&self, max_uses: u64) -> Vec<(u32, String)> {
+        let mut uses: FxHashMap<u32, u64> = FxHashMap::default();
+        for ((t, _), cc) in &self.program.counts.tables {
+            if *t != Table::Lex as u8 {
+                continue;
+            }
+            for (o, q) in &cc.outs {
+                if o & 0xffff_ffff_0000_0000 == TAG_ENTRY {
+                    *uses.entry(*o as u32).or_default() += cost::level_value(*q);
+                }
+            }
+        }
+        self.program
+            .entries
+            .iter()
+            .filter(|(id, _)| uses.get(id).copied().unwrap_or(0) <= max_uses)
+            .map(|(id, e)| (*id, e.form.clone()))
+            .collect()
+    }
+
+    // -----------------------------------------------------------------------
+    // Evaluation and bookkeeping.
+
+    /// Held-out bits per byte and unknown rate for each held-out set.
+    pub fn heldout_scores(&self) -> (BTreeMap<String, f64>, BTreeMap<String, f64>) {
+        let model = Model::new(Arc::new(self.program.clone()));
+        let mut bpb = BTreeMap::new();
+        let mut unk = BTreeMap::new();
+        for (k, c) in &self.heldout {
+            let docs: Vec<&sememe_data::Doc> = c.docs.iter().collect();
+            let rs = analyze::analyze(&model, &docs, false);
+            let bits: Bits = rs.iter().map(|r| r.bits).sum();
+            let bytes: u64 = rs.iter().map(|r| r.bytes).sum();
+            let u: u64 = rs.iter().map(|r| u64::from(r.unknowns)).sum();
+            let w: u64 = rs.iter().map(|r| u64::from(r.words)).sum();
+            bpb.insert(k.clone(), float(bits) / bytes.max(1) as f64);
+            unk.insert(k.clone(), u as f64 / w.max(1) as f64);
+        }
+        (bpb, unk)
+    }
+
+    fn tokens(&self) -> BTreeMap<String, (u64, u64)> {
+        let mut out: BTreeMap<String, (u64, u64)> = BTreeMap::new();
+        if let Ok(text) = std::fs::read_to_string(self.dir.join("ledger.jsonl")) {
+            for l in text.lines() {
+                if let Ok(r) = serde_json::from_str::<crate::opus::LedgerRow>(l) {
+                    let e = out.entry(r.tier.clone()).or_default();
+                    e.0 += r.input + r.cache_write + r.output;
+                    e.1 += r.cache_read;
+                }
+            }
+        }
+        out
+    }
+
+    /// Save the program and state (full snapshot of the program every 10
+    /// rounds in the store; the current program always).
+    pub fn checkpoint(&self) -> Result<()> {
+        store::save(&self.program, &self.dir.join("program"))?;
+        if self.state.round.is_multiple_of(10) {
+            store::save(
+                &self.program,
+                &self
+                    .dir
+                    .join("store")
+                    .join(format!("r{:05}", self.state.round)),
+            )?;
+        }
+        std::fs::write(
+            self.dir.join("state.json"),
+            serde_json::to_string_pretty(&self.state)?,
+        )?;
+        Ok(())
+    }
+
+    fn append_metrics(&self, m: &Metrics) -> Result<()> {
+        use std::io::Write as _;
+        let mut f = std::fs::OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(self.dir.join("metrics.jsonl"))?;
+        writeln!(f, "{}", serde_json::to_string(m)?)?;
+        Ok(())
+    }
+
+    /// Accept a list of candidate changes: score each, keep the ones that
+    /// help, then re-score the kept ones together. Returns (accepted,
+    /// rejected).
+    pub fn accept_each(
+        &mut self,
+        changes: Vec<(Vec<Op>, Vec<String>)>,
+        source: &str,
+    ) -> Result<(u32, u32)> {
+        let mut good: Vec<(i128, Vec<Op>, Vec<String>)> = Vec::new();
+        let mut rejected = 0;
+        for (ops_, forms) in changes {
+            match self.evaluate(&ops_, Some(&forms)) {
+                Ok(e) if e.delta < 0 => good.push((e.delta, ops_, forms)),
+                Ok(_) => rejected += 1,
+                Err(_) => rejected += 1,
+            }
+        }
+        good.sort_by_key(|g| g.0);
+        if good.is_empty() {
+            return Ok((0, rejected));
+        }
+        // Together.
+        let all_ops: Vec<Op> = good.iter().flat_map(|g| g.1.clone()).collect();
+        let all_forms: Vec<String> = good.iter().flat_map(|g| g.2.clone()).collect();
+        if let Ok(e) = self.evaluate(&all_ops, Some(&all_forms))
+            && e.delta < 0
+        {
+            let n = good.len() as u32;
+            self.commit(e, &all_ops, source)?;
+            return Ok((n, rejected));
+        }
+        // Otherwise greedily, best first.
+        let mut accepted = 0;
+        for (_, ops_, forms) in good {
+            match self.evaluate(&ops_, Some(&forms)) {
+                Ok(e) if e.delta < 0 => {
+                    self.commit(e, &ops_, source)?;
+                    accepted += 1;
+                }
+                _ => rejected += 1,
+            }
+        }
+        Ok((accepted, rejected))
+    }
+
+    /// Add many entries as one change; if it does not pay, split it in two
+    /// and try each half, recursively. Returns entries accepted.
+    pub fn accept_bulk(&mut self, ops_: Vec<Op>, source: &str, depth: u32) -> Result<(u32, u32)> {
+        if ops_.is_empty() {
+            return Ok((0, 0));
+        }
+        let forms: Vec<String> = ops_
+            .iter()
+            .filter_map(|o| match o {
+                Op::AddEntry { form, .. } => Some(form.clone()),
+                _ => None,
+            })
+            .collect();
+        let e = self.evaluate(&ops_, Some(&forms))?;
+        eprintln!(
+            "  bulk of {} entries: delta {:.0} bits",
+            ops_.len(),
+            e.delta as f64 / cost::ONE_BIT as f64
+        );
+        if e.delta < 0 {
+            let n = ops_.len() as u32;
+            self.commit(e, &ops_, source)?;
+            return Ok((n, 0));
+        }
+        if ops_.len() == 1 || depth >= 6 {
+            return Ok((0, ops_.len() as u32));
+        }
+        let mid = ops_.len() / 2;
+        let (a, b) = ops_.split_at(mid);
+        let (x1, y1) = self.accept_bulk(a.to_vec(), source, depth + 1)?;
+        let (x2, y2) = self.accept_bulk(b.to_vec(), source, depth + 1)?;
+        Ok((x1 + x2, y1 + y2))
+    }
+
+    /// One round: (full EM pass), teacher wave, learning from context,
+    /// pruning, the BLiMP gate, metrics, checkpoint.
+    pub fn round(&mut self) -> Result<Metrics> {
+        let started = Instant::now();
+        let round = self.state.round + 1;
+        let mut m = Metrics {
+            round,
+            stage: self.state.stage.clone(),
+            cost_hash: COST_HASH.to_string(),
+            ..Metrics::default()
+        };
+        let snapshot = (
+            self.program.clone(),
+            self.stats.clone(),
+            self.program_bits,
+            self.data_bits,
+        );
+        if round.is_multiple_of(self.cfg.em_every) {
+            self.full_em(1)?;
+        }
+        // Medium tier: the teacher.
+        if self.cfg.teacher {
+            let batches = self.teacher_wave()?;
+            m.units = batches
+                .iter()
+                .filter(|b| !b.double)
+                .map(|b| b.valid.len() as u32)
+                .sum();
+            m.units_dropped = batches
+                .iter()
+                .filter(|b| !b.double)
+                .map(|b| b.dropped.len() as u32)
+                .sum();
+            let (ops_, _ok, bad) = self.genlex(&batches);
+            m.units_unconverted = bad;
+            eprintln!(
+                "round {round}: {} units, {} candidate entries",
+                m.units,
+                ops_.len()
+            );
+            let (a, r) = self.accept_bulk(ops_, "teacher", 0)?;
+            m.from_teacher = a;
+            m.accepted += a;
+            m.rejected += r;
+        }
+        // Fast tier: words from context.
+        let ctx = self.context_candidates();
+        if !ctx.is_empty() {
+            let changes: Vec<(Vec<Op>, Vec<String>)> = ctx
+                .into_iter()
+                .map(|ops_| {
+                    let forms = ops_
+                        .iter()
+                        .filter_map(|o| match o {
+                            Op::AddEntry { form, .. } => Some(form.clone()),
+                            _ => None,
+                        })
+                        .collect();
+                    (ops_, forms)
+                })
+                .collect();
+            eprintln!("round {round}: {} context candidates", changes.len());
+            let (a, r) = self.accept_each(changes, "context")?;
+            m.from_context = a;
+            m.accepted += a;
+            m.rejected += r;
+        }
+        // Pruning rarely used entries.
+        let prune = self.prune_candidates(1);
+        let mut pruned = 0;
+        for (id, form) in prune.into_iter().take(200) {
+            let ops_ = vec![Op::RemoveEntry { id }];
+            if let Ok(e) = self.evaluate(&ops_, Some(std::slice::from_ref(&form)))
+                && e.delta < 0
+            {
+                self.commit(e, &ops_, "prune")?;
+                pruned += 1;
+            }
+        }
+        m.pruned = pruned;
+        // The BLiMP gate.
+        let model = Model::new(Arc::new(self.program.clone()));
+        let gate_now = blimp::evaluate(&model, &self.blimp, true);
+        if let Some(before) = &self.gate
+            && let Some(why) = blimp::gate_fails(before, &gate_now, 2.0)
+        {
+            eprintln!("round {round} rejected by the BLiMP gate: {why}");
+            (self.program, self.stats, self.program_bits, self.data_bits) = snapshot;
+            m.rejected += m.accepted;
+            m.accepted = 0;
+        } else {
+            self.gate = Some(gate_now);
+        }
+        // Metrics.
+        let (hb, hu) = self.heldout_scores();
+        m.heldout_bpb = hb;
+        m.heldout_unknown = hu;
+        let model = Model::new(Arc::new(self.program.clone()));
+        let b = blimp::evaluate(&model, &self.blimp, false);
+        m.blimp = b
+            .reported
+            .iter()
+            .map(|(k, v)| (k.clone(), v.acc()))
+            .collect();
+        m.blimp_overall = b.overall.acc();
+        m.blimp_clean = 100.0 * b.overall.clean_correct / f64::from(b.overall.clean_n.max(1));
+        m.blimp_unknown_share = f64::from(b.overall.with_unknown) / f64::from(b.overall.n.max(1));
+        m.blimp_fragment_share =
+            f64::from(b.overall.bad_fragmented) / f64::from(b.overall.n.max(1));
+        let bytes = self.stats.bytes().max(1) as f64;
+        m.train_bpb = float(self.data_bits) / bytes;
+        m.program_bits = float(self.program_bits);
+        m.data_bits = float(self.data_bits);
+        m.tokens = self.tokens();
+        m.lines_per_sec = self.lines_per_sec;
+        m.entries = self.program.entries.len();
+        m.concepts = self.program.concepts.len();
+        m.rules = self.program.rules.len();
+        m.unknown_rate = self.stats.unknown_rate();
+        m.ts = now();
+        self.state.round = round;
+        self.append_metrics(&m)?;
+        self.checkpoint()?;
+        eprintln!(
+            "round {round} done in {:.0}s: held-out {:?}, train total {:.4} bpb, BLiMP {:.1}, entries {}, concepts {}",
+            started.elapsed().as_secs_f64(),
+            m.heldout_bpb,
+            self.total_bpb(),
+            m.blimp_overall,
+            m.entries,
+            m.concepts
+        );
+        Ok(m)
+    }
+}
+
+/// Print a meaning with the `Unknown` head replaced by a concept name.
+fn replace_unknown(sem: &Term, concept: &str, p: &Program) -> String {
+    // Build with a placeholder concept ID that prints as the new name.
+    fn go(t: &Term) -> Term {
+        match t {
+            Term::Lam(b) => Term::Lam(Arc::new(go(b))),
+            Term::App(a, b) => Term::App(Arc::new(go(a)), Arc::new(go(b))),
+            Term::Add(a, r, b) => Term::Add(Arc::new(go(a)), *r, Arc::new(go(b))),
+            Term::Feat(a, f, v) => Term::Feat(Arc::new(go(a)), *f, *v),
+            Term::Node(n) => {
+                let mut m: Node = (**n).clone();
+                if m.head == Head::Unknown {
+                    m.head = Head::Concept(u32::MAX);
+                }
+                for (_, c) in &mut m.roles {
+                    *c = go(c);
+                }
+                Term::node(m)
+            }
+            Term::Var(_) => t.clone(),
+        }
+    }
+    go(sem).show(p).replace("c4294967295?", concept)
+}
+
+/// Run directory helper.
+pub fn run_dir(run: &str) -> PathBuf {
+    Path::new("runs").join(run)
+}

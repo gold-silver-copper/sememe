@@ -157,7 +157,10 @@ impl Opus {
 
     fn write_row(&self, row: &LedgerRow) {
         if let Ok(line) = serde_json::to_string(row)
-            && let Ok(mut f) = std::fs::OpenOptions::new().create(true).append(true).open(&self.ledger)
+            && let Ok(mut f) = std::fs::OpenOptions::new()
+                .create(true)
+                .append(true)
+                .open(&self.ledger)
         {
             let _ = writeln!(f, "{line}");
         }
@@ -165,6 +168,7 @@ impl Opus {
 
     /// A single-turn structured call with no tools: the teacher's kind of
     /// call. Retries with backoff on errors; waits out usage limits.
+    #[allow(clippy::too_many_arguments)]
     pub fn structured(
         &self,
         tier: Tier,
@@ -192,17 +196,47 @@ impl Opus {
             };
             match out {
                 Ok(v) => {
-                    let usage = &v["usage"];
-                    row.input = usage["input_tokens"].as_u64().unwrap_or(0);
-                    row.cache_write = usage["cache_creation_input_tokens"].as_u64().unwrap_or(0);
-                    row.cache_read = usage["cache_read_input_tokens"].as_u64().unwrap_or(0);
-                    row.output = usage["output_tokens"].as_u64().unwrap_or(0);
-                    let is_error = v["is_error"].as_bool().unwrap_or(false);
-                    let text = v["result"].as_str().unwrap_or_default().to_string();
+                    let usage = &v.get("usage").unwrap_or(&Value::Null);
+                    row.input = usage
+                        .get("input_tokens")
+                        .unwrap_or(&Value::Null)
+                        .as_u64()
+                        .unwrap_or(0);
+                    row.cache_write = usage
+                        .get("cache_creation_input_tokens")
+                        .unwrap_or(&Value::Null)
+                        .as_u64()
+                        .unwrap_or(0);
+                    row.cache_read = usage
+                        .get("cache_read_input_tokens")
+                        .unwrap_or(&Value::Null)
+                        .as_u64()
+                        .unwrap_or(0);
+                    row.output = usage
+                        .get("output_tokens")
+                        .unwrap_or(&Value::Null)
+                        .as_u64()
+                        .unwrap_or(0);
+                    let is_error = v
+                        .get("is_error")
+                        .unwrap_or(&Value::Null)
+                        .as_bool()
+                        .unwrap_or(false);
+                    let text = v
+                        .get("result")
+                        .unwrap_or(&Value::Null)
+                        .as_str()
+                        .unwrap_or_default()
+                        .to_string();
                     if is_error {
                         let limited = text.to_lowercase().contains("limit")
-                            || v["api_error_status"].as_u64() == Some(429);
-                        row.outcome = if limited { "limit".into() } else { "error".into() };
+                            || v.get("api_error_status").unwrap_or(&Value::Null).as_u64()
+                                == Some(429);
+                        row.outcome = if limited {
+                            "limit".into()
+                        } else {
+                            "error".into()
+                        };
                         self.write_row(&row);
                         if limited {
                             self.pause(reset_secs(&text).unwrap_or(3600));
@@ -210,19 +244,27 @@ impl Opus {
                             std::thread::sleep(Duration::from_secs(backoff));
                             backoff = (backoff * 2).min(900);
                         }
-                        eprintln!("opus: {purpose} attempt {attempt} failed: {}", text.chars().take(300).collect::<String>());
+                        eprintln!(
+                            "opus: {purpose} attempt {attempt} failed: {}",
+                            text.chars().take(300).collect::<String>()
+                        );
                         continue;
                     }
                     let value = match v.get("structured_output") {
                         Some(s) if !s.is_null() => s.clone(),
-                        _ => serde_json::from_str(&text).map_err(|e| anyhow!("unparsable reply: {e}"))?,
+                        _ => serde_json::from_str(&text)
+                            .map_err(|e| anyhow!("unparsable reply: {e}"))?,
                     };
                     row.outcome = "ok".into();
                     self.write_row(&row);
                     return Ok(Reply { value, row });
                 }
                 Err(e) => {
-                    row.outcome = if e.to_string().contains("timeout") { "timeout".into() } else { "error".into() };
+                    row.outcome = if e.to_string().contains("timeout") {
+                        "timeout".into()
+                    } else {
+                        "error".into()
+                    };
                     self.write_row(&row);
                     eprintln!("opus: {purpose} attempt {attempt}: {e}");
                     std::thread::sleep(Duration::from_secs(backoff));
@@ -250,7 +292,13 @@ fn reset_secs(text: &str) -> Option<u64> {
     None
 }
 
-fn run_claude(workdir: &Path, system: &str, prompt: &str, schema: &Value, timeout: Duration) -> Result<Value> {
+fn run_claude(
+    workdir: &Path,
+    system: &str,
+    prompt: &str,
+    schema: &Value,
+    timeout: Duration,
+) -> Result<Value> {
     let mut child = Command::new("claude")
         .current_dir(workdir)
         .args([
@@ -284,8 +332,18 @@ fn run_claude(workdir: &Path, system: &str, prompt: &str, schema: &Value, timeou
             buf
         })
     };
-    let out_t = drain(child.stdout.take().map(|p| Box::new(p) as Box<dyn std::io::Read + Send>));
-    let err_t = drain(child.stderr.take().map(|p| Box::new(p) as Box<dyn std::io::Read + Send>));
+    let out_t = drain(
+        child
+            .stdout
+            .take()
+            .map(|p| Box::new(p) as Box<dyn std::io::Read + Send>),
+    );
+    let err_t = drain(
+        child
+            .stderr
+            .take()
+            .map(|p| Box::new(p) as Box<dyn std::io::Read + Send>),
+    );
     let started = Instant::now();
     loop {
         if child.try_wait()?.is_some() {
@@ -301,12 +359,19 @@ fn run_claude(workdir: &Path, system: &str, prompt: &str, schema: &Value, timeou
     let stdout_bytes = out_t.join().unwrap_or_default();
     let stderr_bytes = err_t.join().unwrap_or_default();
     let stdout = String::from_utf8_lossy(&stdout_bytes);
-    let json_line = stdout.lines().rev().find(|l| l.trim_start().starts_with('{')).unwrap_or_default();
+    let json_line = stdout
+        .lines()
+        .rev()
+        .find(|l| l.trim_start().starts_with('{'))
+        .unwrap_or_default();
     serde_json::from_str(json_line).map_err(|e| {
         anyhow!(
             "bad CLI output ({e}): {} {}",
             stdout.chars().take(300).collect::<String>(),
-            String::from_utf8_lossy(&stderr_bytes).chars().take(300).collect::<String>()
+            String::from_utf8_lossy(&stderr_bytes)
+                .chars()
+                .take(300)
+                .collect::<String>()
         )
     })
 }
@@ -323,7 +388,7 @@ pub fn self_test(opus: &Opus) -> Result<()> {
         &schema,
         Duration::from_secs(120),
     )?;
-    if r.value["ok"].as_bool() == Some(true) {
+    if r.value.get("ok").unwrap_or(&Value::Null).as_bool() == Some(true) {
         Ok(())
     } else {
         Err(anyhow!("self-test returned {}", r.value))

@@ -59,6 +59,13 @@ impl Stats {
         s
     }
 
+    /// Add one document's analysis at the end.
+    pub fn push(&mut self, p: &Program, r: DocResult) {
+        let d = self.intern_doc(p, r);
+        self.add(&d);
+        self.docs.push(d);
+    }
+
     fn intern_doc(&mut self, p: &Program, r: DocResult) -> DocStats {
         for (k, sym) in &r.syms {
             if !self.syms.contains_key(k) {
@@ -150,11 +157,24 @@ fn spelled_word(e: &Event) -> bool {
 /// the last level if it was used at all; the rest escape to the next level.
 /// Spelled words are never stored.
 pub fn m_step(p: &Program, stats: &Stats) -> Counts {
+    m_step_events(
+        p,
+        stats.events.iter().zip(stats.counts.iter().copied()),
+        &stats.syms,
+    )
+}
+
+/// The M-step over any event counts.
+pub fn m_step_events<'a>(
+    p: &Program,
+    events: impl Iterator<Item = (&'a Event, u64)>,
+    syms: &FxHashMap<u64, String>,
+) -> Counts {
     // Pending (table, context, outcome) -> count, starting at level 0.
     let mut pending: FxHashMap<(Table, [u64; 2], u64), u64> = FxHashMap::default();
     let mut spelled: FxHashMap<(Table, [u64; 2]), u64> = FxHashMap::default();
-    for (e, n) in stats.events.iter().zip(stats.counts.iter()) {
-        if *n == 0 {
+    for (e, n) in events {
+        if n == 0 {
             continue;
         }
         if spelled_word(e) {
@@ -207,7 +227,7 @@ pub fn m_step(p: &Program, stats: &Stats) -> Counts {
     let mut counts = Counts::default();
     for ((t, ctx), cc) in stored {
         for k in [ctx[0], ctx[1]].into_iter().chain(cc.outs.keys().copied()) {
-            if let Some(s) = stats.syms.get(&k) {
+            if let Some(s) = syms.get(&k) {
                 counts.syms.insert(k, s.clone());
             }
         }
@@ -246,4 +266,78 @@ pub fn bits_by_table(p: &Program, stats: &Stats) -> Vec<(Table, Bits)> {
     let mut v: Vec<_> = by.into_iter().collect();
     v.sort_by_key(|x| std::cmp::Reverse(x.1));
     v
+}
+
+/// Event counts with some documents' analyses replaced: the base counts
+/// plus a delta, as a flat list (for scoring a candidate change).
+pub struct Overlay {
+    /// Events and their counts.
+    pub events: Vec<(Event, u64)>,
+    /// Fixed bits.
+    pub fixed: Bits,
+}
+
+impl Stats {
+    /// The counts that would result from replacing documents `ids` with
+    /// `results`, without changing `self`.
+    pub fn overlay(
+        &self,
+        p: &Program,
+        ids: &[usize],
+        results: &[DocResult],
+    ) -> (Overlay, FxHashMap<u64, String>) {
+        let mut delta: FxHashMap<Event, i64> = FxHashMap::default();
+        let mut fixed = self.fixed as i128;
+        let mut syms: FxHashMap<u64, String> = FxHashMap::default();
+        for (&i, r) in ids.iter().zip(results) {
+            if let Some(d) = self.docs.get(i) {
+                for id in &d.events {
+                    if let Some(e) = self.events.get(*id as usize) {
+                        *delta.entry(*e).or_default() -= 1;
+                    }
+                }
+                fixed -= d.fixed as i128;
+            }
+            for e in &r.events {
+                *delta.entry(*e).or_default() += 1;
+            }
+            fixed += r.fixed as i128;
+            for (k, s) in &r.syms {
+                if !self.syms.contains_key(k) && !syms.contains_key(k) {
+                    syms.insert(*k, s.text(p));
+                }
+            }
+        }
+        let mut events: Vec<(Event, u64)> = Vec::with_capacity(self.events.len() + delta.len());
+        for (e, n) in self.events.iter().zip(self.counts.iter()) {
+            let d = delta.remove(e).unwrap_or(0);
+            let v = (*n as i64 + d).max(0) as u64;
+            if v > 0 {
+                events.push((*e, v));
+            }
+        }
+        for (e, d) in delta {
+            if d > 0 {
+                events.push((e, d as u64));
+            }
+        }
+        (
+            Overlay {
+                events,
+                fixed: fixed.max(0) as Bits,
+            },
+            syms,
+        )
+    }
+}
+
+/// Exact data bits of overlay counts under a program.
+pub fn overlay_bits(p: &Program, o: &Overlay) -> Bits {
+    let sizes = Sizes::of(p);
+    let table: Bits = o
+        .events
+        .par_iter()
+        .map(|(e, n)| n * cost::event_bits(p, &sizes, e))
+        .sum();
+    table + o.fixed
 }

@@ -347,6 +347,9 @@ dependencies = [
 [[package]]
 name = "sememe-model"
 version = "0.1.0"
+dependencies = [
+ "sememe-engine",
+]
 
 [[package]]
 name = "serde"

@@ -19,7 +19,7 @@ A meaning is a tree of **nodes**. Each node has:
 - an **entity ID** (`e1`, `e2`, ...) that is the same for every mention of
   the same thing in the passage ("Lily ... she ... the girl" are all `e1`);
 - optionally a **name** for proper names ("Lily"), lowercased;
-- the **words** that express it (word indices).
+- the **words** that express it (word indices, written as anchors `^i`).
 
 Each sentence unit has one root node. Events and states are the usual roots.
 
@@ -74,10 +74,9 @@ range.
 ## Recurring cases
 
 - **Pronouns and other references.** "I", "me", "my" refer to the speaker,
-  "you" to the addressee: write a reference node `{"ref": "@speaker"}` or
-  `{"ref": "@addressee"}`. "she", "it", "they", "this" refer to an entity
-  already in the passage: `{"ref": "e3"}`. If the referent is not in the
-  passage, use `{"ref": "@other"}`.
+  "you" to the addressee: write `@speaker` or `@addressee`. "she", "it",
+  "they", "this" refer to an entity already in the passage: write its ID
+  alone, `e3`. If the referent is not in the passage, write `@other`.
 - **"X is ADJ", "X is a N".** The property or class is the root, with the
   thing as `theme`: "the cat is big" = `Big(theme: Cat[def=yes])`; "it is a
   dog" = `Dog(theme: ref)`. Add `time=` to the root if tense is expressed.
@@ -86,7 +85,7 @@ range.
   `Possess(theme: Ball[def=no], possessor: Tom)`... use `Possess` with
   `possessor` and `theme`.
 - **Questions.** Yes/no question: `mood=ask` on the root. Wh-question: the
-  questioned slot is a `Query` node (`{"concept": "Query"}`), and the root
+  questioned slot is a `Query` node, and the root
   gets `mood=ask`: "what did you eat?" = `Eat(agent: @addressee, patient:
   Query, time=past, mood=ask)`.
 - **Commands.** `mood=order` on the root; the doer is `@addressee` if not
@@ -108,9 +107,8 @@ range.
   one-word unit is just that node.
 - **Numbers** are concepts: `Two`, `Ten`; "two cats" = `Cat[num=many]
   (quantity: Two)`.
-- **Names** are a node of the right concept with a `name`: "Lily" =
-  `{"concept": "Girl", "name": "lily"}` or `Person` when nothing more is
-  known.
+- **Names** are a node of the right concept with a name: "Lily" =
+  `Girl^0#e1"lily"`, or `Person` when nothing more is known.
 - **Shared arguments** ("I want to go": who goes is the speaker): write the
   inner event without repeating the argument: `Want(experiencer: @speaker,
   content: Go)`.
@@ -128,23 +126,39 @@ Useful top levels: `Thing` (the root), `Event` (things that happen),
 `Animal`, `Object`, `Place`, `Substance`, `Time`, `Quantity`, `Discourse`
 (interjections and speech acts).
 
+## Notation
+
+Write each unit's meaning in this compact form (it is the program's own term
+syntax plus word anchors and entity IDs):
+
+```text
+node     := head anchor? entity? name? feats? roles?
+head     := Concept | Query | @speaker | @addressee | @other | eN   (eN alone: a pronoun-like reference to entity eN)
+anchor   := ^i or ^i,j,...        the word indices that express this node, feature or role
+entity   := #eN                   the entity ID (same for every mention of the same thing)
+name     := "lowercased name"
+feats    := [feature=value anchor?, ...]
+roles    := (role anchor?: node, ...)
+```
+
+- An anchor on a feature (`def=yes^3`) names the word that expresses it
+  ("the"). A feature without an anchor is expressed by the node's own word
+  (an inflection: "walked", "cats") or by nothing.
+- An anchor on a role (`location^3: ...`) names the word that marks the role
+  (a preposition).
+- One word can anchor several features (`time=past^0, mood=ask^0`).
+- Words that express nothing are simply not anchored anywhere.
+
 ## Example
 
-"*MOT: did you see the big dog?" (words: 0 did, 1 you, 2 see, 3 the, 4 big,
-5 dog):
+"did you see the big dog?" (words: 0 did, 1 you, 2 see, 3 the, 4 big, 5 dog):
 
-```json
-{"start": 0, "end": 6, "root": "n1",
- "nodes": [
-   {"id": "n1", "concept": "See", "entity": "e1", "features": {"time": "past", "mood": "ask"}, "words": [2]},
-   {"id": "n2", "ref": "@addressee", "words": [1]},
-   {"id": "n3", "concept": "Dog", "entity": "e2", "features": {"def": "yes"}, "words": [5]},
-   {"id": "n4", "concept": "Big", "entity": "e3", "words": [4]}],
- "edges": [
-   {"from": "n1", "role": "experiencer", "to": "n2"},
-   {"from": "n1", "role": "stimulus", "to": "n3"},
-   {"from": "n3", "role": "attr", "to": "n4"}],
- "feature_words": [
-   {"node": "n1", "features": ["time", "mood"], "words": [0]},
-   {"node": "n3", "features": ["def"], "words": [3]}]}
+```text
+See^2#e1[time=past^0, mood=ask^0](experiencer: @addressee^1, stimulus: Dog^5#e2[def=yes^3](attr: Big^4#e3))
+```
+
+"she put it in the box" after "Lily found a ball" (Lily is e1, the ball e2):
+
+```text
+Put^1#e4[time=past](agent: e1^0, patient: e2^2, goal^3: Box^5#e5[def=yes^4])
 ```

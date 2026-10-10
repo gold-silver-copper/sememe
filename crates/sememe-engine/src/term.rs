@@ -446,6 +446,12 @@ impl Term {
     }
 }
 
+/// The canonical order of a node's children: by role, then by the child's
+/// meaning key (so equal meanings are equal however they were built).
+pub fn sort_roles(roles: &mut [(u32, Term)]) {
+    roles.sort_by_cached_key(|(r, c)| (*r, crate::cost::meaning_key(c)));
+}
+
 fn add_feats(n: &Node, feats: &[(u32, u16)]) -> Option<Node> {
     let mut m = n.clone();
     for (f, v) in feats {
@@ -518,10 +524,13 @@ fn head_var(t: &Term) -> Option<u32> {
     }
 }
 
+/// The variable at the base of a chain of `Add`/`Feat` (looking through
+/// applications of it, as in a lifted modifier `\P z. (P z) + r: u`).
 fn base_var(t: &Term) -> Option<u32> {
     match t {
         Term::Var(i) => Some(*i),
         Term::Add(b, _, _) | Term::Feat(b, _, _) => base_var(b),
+        Term::App(f, _) => head_var(f),
         _ => None,
     }
 }
@@ -556,7 +565,10 @@ fn norm(t: &Term, fuel: &mut u32) -> Option<Term> {
             match base {
                 Term::Node(n) => {
                     let mut m = (*n).clone();
-                    let at = m.roles.partition_point(|(x, _)| *x <= *r);
+                    let k = crate::cost::meaning_key(&u);
+                    let at = m
+                        .roles
+                        .partition_point(|(x, c)| (*x, crate::cost::meaning_key(c)) <= (*r, k));
                     m.roles.insert(at, (*r, u));
                     Some(Term::node(m))
                 }
@@ -940,7 +952,7 @@ impl Parser<'_> {
                 }
                 self.expect_sym(',')?;
             }
-            node.roles.sort_by_key(|(r, _)| *r);
+            sort_roles(&mut node.roles);
         }
         Ok(Term::node(node))
     }

@@ -1,0 +1,14 @@
+# sememe program: the ontology (concepts, roles, meaning features).
+
+/// Anything at all: the top of the type hierarchy.
+c0 concept Thing < Thing  @0 seed
+/// A participant in a conversation, introduced by a speaker tag or as the narrator of written text.
+c1 concept Speaker < Thing  @0 seed
+
+/// An argument of a word whose meaning is not known yet.
+r0 role arg : Thing -> Thing  @0 seed
+/// Something an unknown modifier word adds.
+r1 role mod : Thing -> Thing  @0 seed
+/// One of the things joined by a coordination.
+r2 role op : Thing -> Thing  @0 seed
+

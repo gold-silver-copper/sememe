@@ -89,3 +89,80 @@ fn a_hand_written_lexicon_lowers_the_cost() {
         "known {known} vs empty {empty}"
     );
 }
+
+#[test]
+fn what_the_engine_speaks_it_understands_back() {
+    use sememe_engine::generate::speak;
+    let mut p = Program::seed();
+    for (id, name) in [(10, "Girl"), (11, "Cake"), (12, "Eat"), (13, "Big")] {
+        p.concepts.insert(
+            id,
+            Concept {
+                name: name.into(),
+                parent: 0,
+                meta: Meta::default(),
+            },
+        );
+    }
+    for (id, name) in [(5, "agent"), (6, "patient"), (7, "attr")] {
+        p.roles.insert(
+            id,
+            sememe_engine::program::Role {
+                name: name.into(),
+                domain: 0,
+                range: 0,
+                meta: Meta::default(),
+            },
+        );
+    }
+    p.feats.insert(
+        0,
+        sememe_engine::program::Feature {
+            name: "def".into(),
+            domain: 0,
+            values: vec!["yes".into(), "no".into()],
+            meta: Meta::default(),
+        },
+    );
+    p.reindex();
+    let cn = p.cat_names();
+    for (id, form, cat, sem) in [
+        (0, "girl", "N", "Girl"),
+        (1, "cake", "N", "Cake"),
+        (2, "ate", "(S\\NP)/NP", "\\y x. Eat(agent: x, patient: y)"),
+        (3, "the", "NP/N", "\\x. x + def=yes"),
+        (4, "a", "NP/N", "\\x. x + def=no"),
+        (5, "big", "N/N", "\\x. x + attr: Big"),
+    ] {
+        let cat = sememe_engine::category::Cat::parse(cat, &cn).unwrap();
+        let sem = Term::parse(sem, &p).unwrap();
+        let mut cc = CtxCounts::default();
+        cc.outs.insert(TAG_ENTRY | id as u64, 1);
+        p.counts
+            .tables
+            .insert((Table::Lex as u8, [cat_key(&cat), sem_key(&sem)]), cc);
+        p.entries.insert(
+            id,
+            Entry {
+                form: form.into(),
+                cat,
+                sem,
+                meta: Meta::default(),
+            },
+        );
+    }
+    let meaning = Term::parse(
+        "Eat(agent: Girl[def=yes], patient: Cake[def=no](attr: Big))",
+        &p,
+    )
+    .unwrap()
+    .normalize()
+    .unwrap();
+    let m = Model::new(Arc::new(p));
+    let phrase = speak(&m, &meaning).expect("speakable");
+    assert_eq!(phrase.words.join(" "), "the girl ate a big cake");
+    let mut parser = Parser::new(&m);
+    let a = parser.parse_line(&mut Context::new(), &phrase.words.join(" "));
+    assert_eq!(a.fragments.len(), 1);
+    assert_eq!(a.fragments[0].meaning, meaning);
+}

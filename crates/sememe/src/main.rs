@@ -2,9 +2,16 @@
 #![allow(dead_code)]
 
 mod analyze;
+mod annotate;
+mod blimp;
 mod corpus;
 mod em;
+mod genlex;
+mod learn;
+mod ops;
+mod opus;
 mod store;
+mod trainer;
 
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -28,6 +35,58 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Cmd {
+    /// Run (or resume) the training loop.
+    Run {
+        /// Run name (directory under runs/).
+        #[arg(long)]
+        run: String,
+        /// Stage name.
+        #[arg(long, default_value = "babylm-10M")]
+        stage: String,
+        /// Training set.
+        #[arg(long, default_value = "data/prepared/babylm/train10M")]
+        train: PathBuf,
+        /// Held-out sample.
+        #[arg(long, default_value = "data/prepared/babylm/dev-sample")]
+        heldout: PathBuf,
+        /// Rounds to run in this session (then stop with a checkpoint).
+        #[arg(long, default_value_t = 1)]
+        rounds: u32,
+        /// Teacher calls per wave.
+        #[arg(long, default_value_t = 8)]
+        calls: usize,
+        /// Passages per call.
+        #[arg(long, default_value_t = 20)]
+        passages: usize,
+        /// Disable the teacher.
+        #[arg(long)]
+        no_teacher: bool,
+    },
+    /// Convert stored annotations to candidate entries and report.
+    GenlexTrial {
+        /// Annotation batch directory.
+        batches: PathBuf,
+    },
+    /// Send a sample of passages to the teacher once and report.
+    TeachSample {
+        /// Training set.
+        set: PathBuf,
+        /// Program (seed if omitted).
+        #[arg(long)]
+        program: Option<PathBuf>,
+        /// Passages.
+        #[arg(long, default_value_t = 10)]
+        passages: usize,
+        /// Lines per passage.
+        #[arg(long, default_value_t = 4)]
+        lines: usize,
+        /// Sampling seed.
+        #[arg(long, default_value_t = 0)]
+        seed: u64,
+        /// Where to store the batch.
+        #[arg(long)]
+        out: PathBuf,
+    },
     /// Score a document set with a program and report bits per byte.
     Score {
         /// Program directory (the seed program if omitted).
@@ -56,6 +115,12 @@ enum Cmd {
         #[arg(long)]
         limit: Option<usize>,
     },
+}
+
+/// Where model calls run: outside the repo, so no project instructions load.
+fn dirs_workdir() -> PathBuf {
+    let home = std::env::var("HOME").unwrap_or_else(|_| ".".into());
+    PathBuf::from(home).join(".cache/claude-tmp/sememe-calls")
 }
 
 fn load_program(p: &Option<PathBuf>) -> Result<Program> {
@@ -97,6 +162,133 @@ fn main() -> Result<()> {
                 lines as f64 / secs
             );
         }
+        Cmd::Run {
+            run,
+            stage,
+            train,
+            heldout,
+            rounds,
+            calls,
+            passages,
+            no_teacher,
+        } => {
+            let mut held = std::collections::BTreeMap::new();
+            held.insert(
+                stage.split('-').next().unwrap_or("heldout").to_string(),
+                heldout,
+            );
+            let cfg = trainer::Config {
+                run,
+                stage,
+                train,
+                heldout: held,
+                blimp: PathBuf::from("data/prepared/blimp"),
+                calls,
+                passages_per_call: passages,
+                lines_per_passage: 3,
+                em_every: 5,
+                max_rounds: u32::MAX,
+                teacher: !no_teacher,
+            };
+            let teacher = cfg.teacher;
+            let mut t = trainer::Trainer::open(cfg)?;
+            if teacher {
+                opus::self_test(&t.opus)?;
+                eprintln!("self-test ok");
+            }
+            for _ in 0..rounds {
+                t.round()?;
+            }
+        }
+        Cmd::GenlexTrial { batches } => {
+            let mut p = Program::seed();
+            let bs = annotate::load_batches(&batches)?;
+            let mut ok = 0;
+            let mut fails: std::collections::BTreeMap<String, usize> = Default::default();
+            let mut cands: std::collections::BTreeMap<genlex::Cand, usize> = Default::default();
+            for b in &bs {
+                for r in &b.replies {
+                    learn::apply_proposals(&mut p, r, b.round);
+                }
+                for u in &b.valid {
+                    let Some(pass) = b.passages.iter().find(|x| x.id == u.passage) else {
+                        continue;
+                    };
+                    let Some(raw) = pass.lines.get(u.line) else {
+                        continue;
+                    };
+                    let line = sememe_engine::text::Line::parse(raw);
+                    let ann = match annotate::parse_meaning(&u.meaning) {
+                        Ok(a) => a,
+                        Err(e) => {
+                            *fails.entry(e).or_default() += 1;
+                            continue;
+                        }
+                    };
+                    match genlex::convert(&p, u, &ann, &line) {
+                        Ok(c) => {
+                            ok += 1;
+                            for e in c.entries {
+                                *cands.entry(e).or_default() += 1;
+                            }
+                        }
+                        Err(e) => {
+                            println!("FAIL {}: {e}\n  {raw}\n  {}", u.passage, u.meaning);
+                            *fails.entry(e.to_string()).or_default() += 1;
+                        }
+                    }
+                }
+            }
+            println!("converted {ok}; failures: {fails:?}");
+            for (c, n) in &cands {
+                println!("{n:3} {} := {} : {}", c.form, c.cat, c.sem);
+            }
+        }
+        Cmd::TeachSample {
+            set,
+            program,
+            passages,
+            lines,
+            seed,
+            out,
+        } => {
+            let p = load_program(&program)?;
+            let corpus = corpus::Corpus::load(&set)?;
+            let mut chosen = Vec::new();
+            let n = corpus.docs.len().max(1);
+            for k in 0..passages {
+                let d = (sememe_data::hash64(seed, &k.to_le_bytes()) as usize) % n;
+                let Some(doc) = corpus.docs.get(d) else {
+                    continue;
+                };
+                let start = (sememe_data::hash64(seed + 1, &k.to_le_bytes()) as usize)
+                    % doc.lines.len().max(1);
+                let ls: Vec<String> = doc.lines.iter().skip(start).take(lines).cloned().collect();
+                chosen.push(annotate::Passage {
+                    id: format!("p{k}"),
+                    doc: d,
+                    first_line: start,
+                    lines: ls,
+                });
+            }
+            let guide = std::fs::read_to_string("docs/meaning-guide.md")?;
+            let opus = opus::Opus::new(&out.join("ledger.jsonl"), &dirs_workdir())?;
+            let t = Instant::now();
+            let b = annotate::annotate(&opus, &p, &guide, 0, 0, chosen, false, &out)?;
+            println!(
+                "{} valid units, {} dropped, {} replies, {:.0}s",
+                b.valid.len(),
+                b.dropped.len(),
+                b.replies.len(),
+                t.elapsed().as_secs_f64()
+            );
+            for (u, e) in &b.dropped {
+                println!(
+                    "DROPPED {} {} {}..{}: {} -- {e}",
+                    u.passage, u.line, u.start, u.end, u.meaning
+                );
+            }
+        }
         Cmd::Em {
             program,
             set,
@@ -114,11 +306,16 @@ fn main() -> Result<()> {
                 let stats = em::Stats::build(&model, &docs);
                 let parse_secs = t.elapsed().as_secs_f64();
                 let bytes = stats.bytes();
+                let t1 = Instant::now();
                 let before_data = em::data_bits(&p, &stats);
                 let before_prog = cost::program_bits(&p).total();
+                let t_bits = t1.elapsed().as_secs_f64();
+                let t2 = Instant::now();
                 p.counts = em::m_step(&p, &stats);
+                let t_m = t2.elapsed().as_secs_f64();
                 let after_data = em::data_bits(&p, &stats);
                 let after_prog = cost::program_bits(&p);
+                println!("timing: data+program bits {t_bits:.2}s, m-step {t_m:.2}s");
                 println!(
                     "iter {it}: parse {parse_secs:.0}s; before: data {:.4} + program {:.4} bpb; after M-step: data {:.4} + program {:.4} = {:.4} bpb (counts {:.0} KB); unknown {:.1}%; {} distinct events",
                     float(before_data) / bytes as f64,

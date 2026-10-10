@@ -4,9 +4,11 @@
 pub mod category;
 pub mod context;
 pub mod cost;
+pub mod generate;
 pub mod model;
 pub mod parse;
 pub mod program;
+pub mod reason;
 pub mod term;
 pub mod text;
 pub mod world;
