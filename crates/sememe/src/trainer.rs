@@ -1148,6 +1148,115 @@ impl Trainer {
         Ok((x1 + x2, y1 + y2 + invalid))
     }
 
+    /// The name map from the operations log: concept merges and renames
+    /// (followed to their final name), and role renames.
+    pub fn name_maps(&self) -> (BTreeMap<String, String>, BTreeMap<String, String>) {
+        let mut concepts: BTreeMap<String, String> = BTreeMap::new();
+        let mut roles: BTreeMap<String, String> = BTreeMap::new();
+        for l in ops::read_log(&self.dir.join("ops.jsonl")).unwrap_or_default() {
+            match l.op {
+                Op::MergeConcepts { from, into } => {
+                    concepts.insert(from, into);
+                }
+                Op::Rename { kind, from, to } if kind == "concept" => {
+                    concepts.insert(from, to);
+                }
+                Op::Rename { kind, from, to } if kind == "role" => {
+                    roles.insert(from, to);
+                }
+                _ => {}
+            }
+        }
+        // Follow chains (A -> B -> C) to the final name.
+        let follow = |m: &BTreeMap<String, String>, k: &str| {
+            let mut cur = k.to_string();
+            for _ in 0..32 {
+                match m.get(&cur) {
+                    Some(n) if *n != cur => cur = n.clone(),
+                    _ => break,
+                }
+            }
+            cur
+        };
+        let c2 = concepts
+            .keys()
+            .map(|k| (k.clone(), follow(&concepts, k)))
+            .collect();
+        let r2 = roles
+            .keys()
+            .map(|k| (k.clone(), follow(&roles, k)))
+            .collect();
+        (c2, r2)
+    }
+
+    /// Rebuild: replace every entry that came from the teacher with the
+    /// entries GENLEX makes from all stored annotations under the current
+    /// ontology, as one change, kept only if the total cost goes down.
+    /// Removing early mistakes one at a time cannot undo a set of them that
+    /// depend on each other; a rebuild can.
+    pub fn rebuild(&mut self) -> Result<i128> {
+        let (cmap, rmap) = self.name_maps();
+        let batches =
+            annotate::load_batches(&PathBuf::from("data/annotations").join(&self.cfg.run))?;
+        let mut cands: BTreeSet<genlex::Cand> = BTreeSet::new();
+        for b in batches.iter().filter(|b| !b.double) {
+            for u in &b.valid {
+                let Some(pass) = b.passages.iter().find(|x| x.id == u.passage) else {
+                    continue;
+                };
+                let Some(raw) = pass.lines.get(u.line) else {
+                    continue;
+                };
+                let Ok(mut ann) = annotate::parse_meaning(&u.meaning) else {
+                    continue;
+                };
+                annotate::rename(&mut ann, &cmap, &rmap);
+                if let Ok(c) = genlex::convert(&self.program, u, &ann, &Line::parse(raw)) {
+                    cands.extend(c.entries);
+                }
+            }
+        }
+        // Entries that came from the teacher (by the operations log).
+        let teacher_forms: FxHashSet<(String, String)> = ops::read_log(&self.dir.join("ops.jsonl"))
+            .unwrap_or_default()
+            .into_iter()
+            .filter(|l| l.source == "teacher")
+            .filter_map(|l| match l.op {
+                Op::AddEntry { form, sem, .. } => Some((form, sem)),
+                _ => None,
+            })
+            .collect();
+        let mut ops_: Vec<Op> = self
+            .program
+            .entries
+            .iter()
+            .filter(|(_, e)| teacher_forms.contains(&(e.form.clone(), e.sem.show(&self.program))))
+            .map(|(id, _)| Op::RemoveEntry { id: *id })
+            .collect();
+        let removed = ops_.len();
+        ops_.extend(cands.into_iter().map(|c| Op::AddEntry {
+            form: c.form,
+            cat: c.cat,
+            sem: c.sem,
+            doc: String::new(),
+        }));
+        // Drop additions that do not apply (and keep the rest).
+        let mut probe = self.program.clone();
+        ops_.retain(|op| ops::apply(&mut probe, op, self.state.round + 1).is_ok());
+        let e = self.evaluate(&ops_, None)?;
+        eprintln!(
+            "  rebuild: {} teacher entries replaced by {}: delta {:.0} bits",
+            removed,
+            ops_.len() - removed,
+            e.delta as f64 / cost::ONE_BIT as f64
+        );
+        let d = e.delta;
+        if d < 0 {
+            self.commit(e, &ops_, "rebuild")?;
+        }
+        Ok(d)
+    }
+
     /// The slow tier: run agents in parallel (at most four), then score
     /// their operation groups. Returns (accepted, rejected).
     pub fn slow_tier(&mut self, tasks: &[crate::agents::Task]) -> Result<(u32, u32)> {
@@ -1321,6 +1430,14 @@ impl Trainer {
             eprintln!("round {round}: slow tier accepted {a} groups, rejected {r}");
             m.accepted += a;
             m.rejected += r;
+        }
+        // Rebuild the teacher's part of the lexicon every ten rounds.
+        if round.is_multiple_of(10) && self.cfg.teacher {
+            match self.rebuild() {
+                Ok(d) if d < 0 => m.accepted += 1,
+                Ok(_) => m.rejected += 1,
+                Err(e) => eprintln!("rebuild failed: {e:#}"),
+            }
         }
         // Pruning rarely used entries, as one change (bisected if it fails).
         let prune: Vec<Vec<Op>> = self

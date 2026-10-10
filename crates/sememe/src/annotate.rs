@@ -848,6 +848,25 @@ pub fn load_batches(dir: &Path) -> Result<Vec<Batch>> {
     Ok(out)
 }
 
+/// Apply a name map (from logged merges and renames) to an annotation.
+pub fn rename(
+    n: &mut AnnNode,
+    concepts: &std::collections::BTreeMap<String, String>,
+    roles: &std::collections::BTreeMap<String, String>,
+) {
+    if let AnnHead::Concept(c) = &mut n.head
+        && let Some(to) = concepts.get(c.as_str())
+    {
+        *c = to.clone();
+    }
+    for (r, _, k) in &mut n.roles {
+        if let Some(to) = roles.get(r.as_str()) {
+            *r = to.clone();
+        }
+        rename(k, concepts, roles);
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
