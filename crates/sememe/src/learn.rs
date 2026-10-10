@@ -84,6 +84,7 @@ pub fn apply_proposals(p: &mut Program, r: &Reply, round: u32) -> Vec<Op> {
 /// Cat` and "cats" `N : Cat[num=many]`). A candidate adds the inflection
 /// and removes the full forms it makes derivable; it is kept only if the
 /// total cost goes down. At least `min_pairs` supporting pairs.
+#[allow(clippy::type_complexity)]
 pub fn infl_candidates(p: &Program, min_pairs: usize) -> Vec<Vec<Op>> {
     use sememe_engine::term::TermNames;
     use std::collections::BTreeMap;
