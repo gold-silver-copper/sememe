@@ -649,10 +649,18 @@ fn norm(t: &Term, fuel: &mut u32) -> Option<Term> {
             match base {
                 Term::Node(n) => {
                     let mut m = (*n).clone();
-                    let k = crate::cost::meaning_key(&u);
-                    let at = m
-                        .roles
-                        .partition_point(|(x, c)| (*x, crate::cost::meaning_key(c)) <= (*r, k));
+                    // Insert in canonical order: by role, then (only among
+                    // children with the same role) by meaning key.
+                    let lo = m.roles.partition_point(|(x, _)| *x < *r);
+                    let hi = m.roles.partition_point(|(x, _)| *x <= *r);
+                    let at = if lo == hi {
+                        lo
+                    } else {
+                        let k = crate::cost::meaning_key(&u);
+                        lo + m.roles.get(lo..hi).map_or(0, |same| {
+                            same.partition_point(|(_, c)| crate::cost::meaning_key(c) <= k)
+                        })
+                    };
                     m.roles.insert(at, (*r, u));
                     Some(Term::node(m))
                 }
