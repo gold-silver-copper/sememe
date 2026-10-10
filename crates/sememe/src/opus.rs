@@ -53,8 +53,6 @@ pub struct LedgerRow {
 }
 
 struct Slots {
-    teacher: usize,
-    agent: usize,
     paused_until: Option<Instant>,
 }
 
@@ -94,56 +92,51 @@ impl Opus {
         Ok(Opus {
             ledger: ledger.to_path_buf(),
             workdir: workdir.to_path_buf(),
-            slots: Mutex::new(Slots {
-                teacher: 0,
-                agent: 0,
-                paused_until: None,
-            }),
+            slots: Mutex::new(Slots { paused_until: None }),
             cv: Condvar::new(),
             max_teacher: 8,
             max_agent: 4,
         })
     }
 
-    fn acquire(&self, tier: Tier) {
-        let Ok(mut s) = self.slots.lock() else { return };
+    /// Take a call slot. Slots are lock files shared by every sememe
+    /// process on the machine, so the limits (8 teacher calls, 4 agents)
+    /// hold globally. Waits while calls are paused for a usage limit.
+    fn acquire(&self, tier: Tier) -> Option<std::fs::File> {
+        let (prefix, n) = match tier {
+            Tier::Agent => ("agent", self.max_agent),
+            _ => ("teacher", self.max_teacher),
+        };
+        let dir = self.workdir.join("slots");
+        let _ = std::fs::create_dir_all(&dir);
         loop {
-            if let Some(until) = s.paused_until {
-                let now = Instant::now();
-                if now < until {
-                    let wait = until - now;
-                    match self.cv.wait_timeout(s, wait) {
-                        Ok((g, _)) => s = g,
-                        Err(_) => return,
+            let paused = self
+                .slots
+                .lock()
+                .ok()
+                .and_then(|s| s.paused_until)
+                .is_some_and(|u| Instant::now() < u);
+            if !paused {
+                for i in 0..n {
+                    let path = dir.join(format!("{prefix}-{i}.lock"));
+                    if let Ok(f) = std::fs::OpenOptions::new()
+                        .create(true)
+                        .truncate(false)
+                        .write(true)
+                        .open(&path)
+                        && f.try_lock().is_ok()
+                    {
+                        return Some(f);
                     }
-                    continue;
                 }
-                s.paused_until = None;
             }
-            let free = match tier {
-                Tier::Agent => s.agent < self.max_agent,
-                _ => s.teacher < self.max_teacher,
-            };
-            if free {
-                match tier {
-                    Tier::Agent => s.agent += 1,
-                    _ => s.teacher += 1,
-                }
-                return;
-            }
-            match self.cv.wait(s) {
-                Ok(g) => s = g,
-                Err(_) => return,
-            }
+            std::thread::sleep(Duration::from_millis(500));
         }
     }
 
-    fn release(&self, tier: Tier) {
-        if let Ok(mut s) = self.slots.lock() {
-            match tier {
-                Tier::Agent => s.agent = s.agent.saturating_sub(1),
-                _ => s.teacher = s.teacher.saturating_sub(1),
-            }
+    fn release(&self, slot: Option<std::fs::File>) {
+        if let Some(f) = slot {
+            let _ = f.unlock();
         }
         self.cv.notify_all();
     }
@@ -194,10 +187,10 @@ impl Opus {
         }
         let mut backoff = 30u64;
         for attempt in 0..6 {
-            self.acquire(tier);
+            let slot = self.acquire(tier);
             let started = Instant::now();
             let out = run_claude(&self.workdir, system, prompt, schema, timeout);
-            self.release(tier);
+            self.release(slot);
             let secs = started.elapsed().as_secs_f64();
             let mut row = LedgerRow {
                 ts: now_secs(),
@@ -320,10 +313,10 @@ impl Opus {
             self.write_row(&row);
             return Ok(row);
         }
-        self.acquire(Tier::Agent);
+        let slot = self.acquire(Tier::Agent);
         let started = Instant::now();
         let out = run_agent(workdir, settings, prompt, timeout);
-        self.release(Tier::Agent);
+        self.release(slot);
         let mut row = LedgerRow {
             ts: now_secs(),
             tier: "agent".into(),

@@ -113,8 +113,13 @@ pub fn extract(input: &Path, output: &Path, name: &str) -> Result<EnwikOutput> {
                     titles.write_all(title.as_bytes())?;
                     titles.write_all(b"\n")?;
                     let mut lines = vec![title.clone()];
-                    lines.extend(clean_wikitext(&text));
-                    lines.retain(|l| l != SEPARATOR);
+                    // Entities can decode to newlines: split them into lines.
+                    lines.extend(clean_wikitext(&text).iter().flat_map(|l| {
+                        l.split(['\n', '\r'])
+                            .map(str::to_string)
+                            .collect::<Vec<_>>()
+                    }));
+                    lines.retain(|l| l != SEPARATOR && !l.contains('\u{1e}'));
                     clean.write_doc(&lines)?;
                 }
                 body.clear();
