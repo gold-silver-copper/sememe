@@ -541,6 +541,46 @@ impl Trainer {
 
     /// Lines the program explains worst, weighted by how often their
     /// unknown words occur in the training set, grouped into passages.
+    /// Lines the program explains expensively although it knows their
+    /// words: re-parse a fixed-size sample of documents and rank lines with
+    /// few unknown words by bits per byte. Returns `(doc, line)`.
+    pub fn expensive_known_lines(&self, n: usize) -> Vec<(usize, usize)> {
+        let model = Model::new(Arc::new(self.program.clone()));
+        let k = self.corpus.docs.len().max(1);
+        let ids: Vec<usize> = (0..2000u64)
+            .map(|i| {
+                (sememe_data::hash64(u64::from(self.state.round) + 7, &i.to_le_bytes()) as usize)
+                    % k
+            })
+            .collect();
+        let docs: Vec<&sememe_data::Doc> = ids
+            .iter()
+            .filter_map(|i| self.corpus.docs.get(*i))
+            .collect();
+        let results = analyze::analyze(&model, &docs, true);
+        let mut scored: Vec<(u64, usize, usize)> = Vec::new();
+        for (d, r) in ids.iter().zip(results.iter()) {
+            for (li, a) in r.lines.iter().enumerate() {
+                let words = a.words.len();
+                if !(3..=20).contains(&words) || a.unknowns() * 5 > words {
+                    continue;
+                }
+                if self.state.annotated.contains(&format!("{d}:{li}")) {
+                    continue;
+                }
+                let bytes = self
+                    .corpus
+                    .docs
+                    .get(*d)
+                    .and_then(|x| x.lines.get(li))
+                    .map_or(1, |l| l.len() + 1);
+                scored.push(((cost::float(a.bits) / bytes as f64 * 1000.0) as u64, *d, li));
+            }
+        }
+        scored.sort_unstable_by(|a, b| b.cmp(a));
+        scored.into_iter().take(n).map(|(_, d, l)| (d, l)).collect()
+    }
+
     pub fn select_passages(&self, n: usize) -> Vec<Passage> {
         let model_forms: FxHashSet<&str> = self
             .program
@@ -573,9 +613,23 @@ impl Trainer {
             }
         }
         scored.sort_unstable_by(|a, b| b.cmp(a));
+        // Half the wave: lines the program knows but explains expensively.
+        let known = self.expensive_known_lines(n / 2);
+        let mut ranked: Vec<(usize, usize)> = Vec::new();
+        let mut unknown_side = scored.into_iter().map(|(_, d, l)| (d, l));
+        let mut known_side = known.into_iter();
+        loop {
+            let a = unknown_side.next();
+            let b = known_side.next();
+            if a.is_none() && b.is_none() {
+                break;
+            }
+            ranked.extend(a);
+            ranked.extend(b);
+        }
         let mut out = Vec::new();
         let mut used_docs: FxHashSet<usize> = FxHashSet::default();
-        for (_, di, li) in scored {
+        for (di, li) in ranked {
             if out.len() >= n {
                 break;
             }
