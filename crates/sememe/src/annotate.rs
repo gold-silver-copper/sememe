@@ -762,6 +762,9 @@ fn check_reply(
     batch: &mut Batch,
 ) -> Vec<(Unit, String)> {
     let onto = Onto::new(p, r);
+    // The ontology with this reply's proposals, for type checking.
+    let mut typed = p.clone();
+    crate::learn::apply_proposals(&mut typed, r, 0);
     let mut bad = Vec::new();
     let prop_errs = onto.check_proposals();
     for pass in passages {
