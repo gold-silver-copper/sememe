@@ -1074,14 +1074,19 @@ impl Trainer {
         let groups: Vec<Vec<Op>> = groups
             .into_iter()
             .filter(|g| {
-                let mut p2 = probe.clone();
-                let ok = g
-                    .iter()
-                    .all(|op| ops::apply(&mut p2, op, self.state.round + 1).is_ok());
-                if ok {
-                    probe = p2;
+                // Validate in place: a failed operation leaves the program as
+                // it was, and earlier operations of a failed group are harmless
+                // for validating the rest.
+                for op in g {
+                    if let Err(e) = ops::apply(&mut probe, op, self.state.round + 1) {
+                        eprintln!(
+                            "  does not apply: {}",
+                            format!("{op:?}: {e}").chars().take(300).collect::<String>()
+                        );
+                        return false;
+                    }
                 }
-                ok
+                true
             })
             .collect();
         let invalid = (total - groups.len()) as u32;
