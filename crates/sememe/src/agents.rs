@@ -286,7 +286,7 @@ pub fn run(t: &Trainer, task: Task, k: usize) -> Result<Vec<AgentOp>> {
         &format!("agent-{task:?}"),
         &dir,
         &settings,
-        &prompt,
+        prompt,
         Duration::from_secs(7200),
     )?;
     eprintln!("agent {name}: {} ({:.0}s)", row.outcome, row.secs);
