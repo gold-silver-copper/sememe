@@ -1035,6 +1035,7 @@ impl Trainer {
             .iter()
             .filter_map(|o| match o {
                 Op::AddEntry { form, .. } => Some(form.clone()),
+                Op::RemoveEntry { id } => self.program.entries.get(id).map(|e| e.form.clone()),
                 _ => None,
             })
             .collect();
@@ -1232,18 +1233,13 @@ impl Trainer {
             m.accepted += a;
             m.rejected += r;
         }
-        // Pruning rarely used entries.
-        let prune = self.prune_candidates(1);
-        let mut pruned = 0;
-        for (id, form) in prune.into_iter().take(200) {
-            let ops_ = vec![Op::RemoveEntry { id }];
-            if let Ok(e) = self.evaluate(&ops_, Some(std::slice::from_ref(&form)))
-                && e.delta < 0
-            {
-                self.commit(e, &ops_, "prune")?;
-                pruned += 1;
-            }
-        }
+        // Pruning rarely used entries, as one change (bisected if it fails).
+        let prune: Vec<Op> = self
+            .prune_candidates(1)
+            .into_iter()
+            .map(|(id, _)| Op::RemoveEntry { id })
+            .collect();
+        let (pruned, _) = if prune.is_empty() { (0, 0) } else { self.accept_bulk(prune, "prune", 3)? };
         m.pruned = pruned;
         self.finish_round(m, started, snapshot)
     }

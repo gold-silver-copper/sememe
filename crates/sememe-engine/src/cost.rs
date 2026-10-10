@@ -117,6 +117,8 @@ pub const BEAM: usize = 12;
 pub const BEAM_DELTA: Bits = 24 * ONE_BIT;
 /// Categories tried for an unknown word.
 pub const UNKNOWN_CATS: usize = 10;
+/// Categories tried as an unknown reading of a word that has entries.
+pub const UNKNOWN_CATS_KNOWN: usize = 3;
 /// Largest category arity considered in derivations.
 pub const MAX_ARITY: usize = 3;
 /// Longest document in a training set, in lines.

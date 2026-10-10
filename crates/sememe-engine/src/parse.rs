@@ -654,7 +654,8 @@ impl<'m> Parser<'m> {
                 );
             }
         }
-        for u in &m.unknown_cats {
+        let n_unknown = if m.by_form.contains_key(form) { cost::UNKNOWN_CATS_KNOWN } else { usize::MAX };
+        for u in m.unknown_cats.iter().take(n_unknown) {
             push(
                 u.cat.clone(),
                 u.sem.clone(),
