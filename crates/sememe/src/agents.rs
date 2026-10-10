@@ -276,13 +276,11 @@ pub fn run(t: &Trainer, task: Task, k: usize) -> Result<Vec<AgentOp>> {
     write_brief(t, &dir, task)?;
     let data = std::fs::canonicalize("data")?;
     let settings = settings(&dir, &data)?;
-    let prompt = format!(
-        "You are a slow-tier agent improving sememe's learned program. Read agent/README.md first: it says your \
+    let prompt = "You are a slow-tier agent improving sememe's learned program. Read agent/README.md first: it says your \
          task, where everything is, and the exact format of the operations to write to agent/ops.jsonl. You cannot \
          run commands. Work through the program text and the usage tables, then write your operations. Aim for \
          changes that make the program smaller or explain more text, and that a person reading the program would \
-         recognize as right. Write at most 300 operations."
-    );
+         recognize as right. Write at most 300 operations.";
     let row = t.opus.agent(
         round,
         &format!("agent-{task:?}"),
