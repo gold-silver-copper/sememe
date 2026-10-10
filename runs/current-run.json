@@ -1,5 +1,5 @@
 {
  "run": "main",
- "cost_hash": "1c4b419ed8fe8867",
- "note": "The active run and the frozen cost-code hash it was started with. Changing crates/sememe-engine/src/cost.rs or charmodel.tsv requires starting a new run (and updating this file)."
+ "cost_hash": "7049467e0fdc6754",
+ "note": "The active run and the frozen cost-code hash it was started with (cost.rs, charmodel.tsv and text.rs). Changing them requires starting a new run and updating this file; tests/fixture/expected-bits.txt guards the rest of the engine."
 }
