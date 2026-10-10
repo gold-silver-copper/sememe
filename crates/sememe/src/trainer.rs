@@ -138,6 +138,9 @@ pub struct Trainer {
     pub probe: Vec<Batch>,
     /// Paraphrase pairs written by the teacher.
     pub paraphrases: Vec<crate::meaning::Paraphrase>,
+    /// Accepted changes checked on held-out text this round, and how many
+    /// still helped there.
+    pub generalize: (u32, u32),
 }
 
 /// A metrics row.
@@ -201,6 +204,9 @@ pub struct Metrics {
     pub pruned: u32,
     /// Meaning metrics.
     pub meaning: crate::meaning::MeaningMetrics,
+    /// Accepted changes checked on held-out text, and how many helped there.
+    #[serde(default)]
+    pub generalize: (u32, u32),
 }
 
 fn now() -> u64 {
@@ -292,6 +298,7 @@ impl Trainer {
             lines_per_sec: 0.0,
             probe: Vec::new(),
             paraphrases: Vec::new(),
+            generalize: (0, 0),
         };
         t.load_meaning_sets();
         t.full_em(1)?;
@@ -449,7 +456,33 @@ impl Trainer {
     }
 
     /// Keep an evaluated change.
+    /// Held-out bits of a program on the first held-out set.
+    fn heldout_bits(&self, p: &Program) -> Bits {
+        let Some(c) = self.heldout.values().next() else {
+            return 0;
+        };
+        let model = Model::new(Arc::new(p.clone()));
+        let docs: Vec<&sememe_data::Doc> = c.docs.iter().collect();
+        analyze::analyze(&model, &docs, false)
+            .iter()
+            .map(|r| r.bits)
+            .sum()
+    }
+
     pub fn commit(&mut self, mut eval: Eval, ops: &[Op], source: &str) -> Result<()> {
+        // Check that a sample of accepted changes also helps on held-out
+        // text: every bulk change, and one in five small ones.
+        let sample = ops.len() > 2
+            || sememe_data::hash64(u64::from(self.state.round), format!("{ops:?}").as_bytes())
+                .is_multiple_of(5);
+        if sample {
+            let before = self.heldout_bits(&self.program);
+            let after = self.heldout_bits(&eval.program);
+            self.generalize.0 += 1;
+            if after < before {
+                self.generalize.1 += 1;
+            }
+        }
         // Refresh the single-unknown lines of the re-parsed documents.
         let touched: FxHashSet<usize> = eval.ids.iter().copied().collect();
         self.singles.retain(|(d, _)| !touched.contains(d));
@@ -853,7 +886,7 @@ impl Trainer {
                 }
             }
         }
-        m.probe_f1 = total.f1();
+        m.probe_f1 = if m.probe_units == 0 { 0.0 } else { total.f1() };
         m.probe_by_source = by_src.into_iter().map(|(k, v)| (k, v.f1())).collect();
         let (mut same, mut f1sum) = (0u32, 0f64);
         for pp in &self.paraphrases {
@@ -1294,6 +1327,7 @@ impl Trainer {
         m.blimp_fragment_share =
             f64::from(b.overall.bad_fragmented) / f64::from(b.overall.n.max(1));
         m.meaning = self.meaning_metrics();
+        m.generalize = std::mem::take(&mut self.generalize);
         let bytes = self.stats.bytes().max(1) as f64;
         m.train_bpb = float(self.data_bits) / bytes;
         m.program_bits = float(self.program_bits);
