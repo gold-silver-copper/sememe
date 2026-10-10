@@ -358,6 +358,35 @@ impl Trainer {
         float(self.program_bits + self.data_bits) / self.stats.bytes().max(1) as f64
     }
 
+    /// The word forms whose documents a change can affect, or `None` if it
+    /// can affect any document (rules, names, hierarchy and merges change
+    /// how everything is read or what it costs).
+    pub fn affected_forms(&self, ops_: &[Op]) -> Option<Vec<String>> {
+        let mut forms = Vec::new();
+        for o in ops_ {
+            match o {
+                Op::AddEntry { form, .. } => forms.push(form.clone()),
+                Op::RemoveEntry { id } => {
+                    forms.extend(self.program.entries.get(id).map(|e| e.form.clone()))
+                }
+                Op::AddInfl { add, .. } => forms.extend(
+                    self.freq
+                        .keys()
+                        .filter(|w| w.ends_with(add.as_str()))
+                        .cloned(),
+                ),
+                Op::AddConcept { .. }
+                | Op::AddRole { .. }
+                | Op::AddFeature { .. }
+                | Op::AddValue { .. }
+                | Op::SetDoc { .. }
+                | Op::Rename { .. } => {}
+                _ => return None,
+            }
+        }
+        Some(forms)
+    }
+
     /// Documents a set of word forms can affect.
     pub fn affected(&self, forms: &[String]) -> Vec<usize> {
         let mut out: BTreeSet<usize> = BTreeSet::new();
@@ -1097,15 +1126,8 @@ impl Trainer {
             return Ok((0, invalid));
         }
         let ops_: Vec<Op> = groups.iter().flatten().cloned().collect();
-        let forms: Vec<String> = ops_
-            .iter()
-            .filter_map(|o| match o {
-                Op::AddEntry { form, .. } => Some(form.clone()),
-                Op::RemoveEntry { id } => self.program.entries.get(id).map(|e| e.form.clone()),
-                _ => None,
-            })
-            .collect();
-        let e = self.evaluate(&ops_, Some(&forms))?;
+        let forms = self.affected_forms(&ops_);
+        let e = self.evaluate(&ops_, forms.as_deref())?;
         eprintln!(
             "  bulk of {} {source} changes: delta {:.0} bits",
             groups.len(),
@@ -1158,55 +1180,40 @@ impl Trainer {
                     None => groups.push((o.group, vec![o.op])),
                 }
             }
+            let mut scored = Vec::new();
             for (_, g) in groups {
                 let free = g
                     .iter()
                     .all(|op| matches!(op, Op::Rename { .. } | Op::SetDoc { .. }));
-                if free {
-                    let mut p = self.program.clone();
-                    if g.iter()
-                        .all(|op| ops::apply(&mut p, op, self.state.round + 1).is_ok())
-                    {
-                        self.program = p;
-                        let logged: Vec<Logged> = g
-                            .iter()
-                            .map(|op| Logged {
-                                round: self.state.round + 1,
-                                source: "agent".into(),
-                                op: op.clone(),
-                            })
-                            .collect();
-                        ops::log(&self.dir.join("ops.jsonl"), &logged)?;
-                        renamed |= g.iter().any(|op| matches!(op, Op::Rename { .. }));
-                        acc += 1;
-                    } else {
-                        rej += 1;
-                    }
+                if !free {
+                    scored.push(g);
                     continue;
                 }
-                let only_entries = g
-                    .iter()
-                    .all(|op| matches!(op, Op::AddEntry { .. } | Op::AddConcept { .. }));
-                let forms: Vec<String> = g
-                    .iter()
-                    .filter_map(|op| match op {
-                        Op::AddEntry { form, .. } => Some(form.clone()),
-                        _ => None,
-                    })
-                    .collect();
-                let e = if only_entries {
-                    self.evaluate(&g, Some(&forms))
+                let mut p = self.program.clone();
+                if g.iter()
+                    .all(|op| ops::apply(&mut p, op, self.state.round + 1).is_ok())
+                {
+                    self.program = p;
+                    let logged: Vec<Logged> = g
+                        .iter()
+                        .map(|op| Logged {
+                            round: self.state.round + 1,
+                            source: "agent".into(),
+                            op: op.clone(),
+                        })
+                        .collect();
+                    ops::log(&self.dir.join("ops.jsonl"), &logged)?;
+                    renamed |= g.iter().any(|op| matches!(op, Op::Rename { .. }));
+                    acc += 1;
                 } else {
-                    self.evaluate(&g, None)
-                };
-                match e {
-                    Ok(e) if e.delta < 0 => {
-                        self.commit(e, &g, "agent")?;
-                        acc += 1;
-                    }
-                    _ => rej += 1,
+                    rej += 1;
                 }
             }
+            eprintln!("  agent output: {} scored groups", scored.len());
+            // Agent changes may re-parse everything: bisect at most twice.
+            let (a, r) = self.accept_bulk(scored, "agent", 4)?;
+            acc += a;
+            rej += r;
         }
         if renamed {
             // Printed symbols mention names: recount from fresh analyses.

@@ -272,6 +272,15 @@ pub fn remove_worktree(dir: &Path) {
 pub fn run(t: &Trainer, task: Task, k: usize) -> Result<Vec<AgentOp>> {
     let round = t.state.round + 1;
     let name = format!("{}-r{round}-{task:?}-{k}", t.cfg.run).to_lowercase();
+    let keep = t.dir.join("agents").join(&name);
+    // A round interrupted after its agents ran reuses their output.
+    if let Ok(text) = std::fs::read_to_string(keep.join("ops.jsonl")) {
+        eprintln!("agent {name}: reusing stored operations");
+        return Ok(text
+            .lines()
+            .filter_map(|l| serde_json::from_str(l).ok())
+            .collect());
+    }
     let dir = worktree(&name)?;
     write_brief(t, &dir, task)?;
     let data = std::fs::canonicalize("data")?;
@@ -299,7 +308,6 @@ pub fn run(t: &Trainer, task: Task, k: usize) -> Result<Vec<AgentOp>> {
         }
     }
     // Keep the agent's output with the run, then clean up.
-    let keep = t.dir.join("agents").join(&name);
     std::fs::create_dir_all(&keep)?;
     let _ = std::fs::copy(dir.join("agent/ops.jsonl"), keep.join("ops.jsonl"));
     remove_worktree(&dir);
