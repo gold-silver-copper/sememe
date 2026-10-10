@@ -1278,3 +1278,88 @@ fn split_tail(rest: &str, doc: String) -> Result<(&str, Meta), String> {
 
 /// Shared pointer to an immutable program version.
 pub type ProgramRef = Arc<Program>;
+
+impl Program {
+    /// Type-check a meaning term against the ontology: every role child's
+    /// parent must be a kind of the role's domain and the child a kind of
+    /// its range; every feature's node a kind of the feature's domain.
+    /// Unknown, missing, reference and query nodes fit any type. Returns
+    /// the errors found.
+    pub fn type_errors(&self, t: &Term) -> Vec<String> {
+        let mut errs = Vec::new();
+        self.check_term(t, &mut errs);
+        errs
+    }
+
+    fn concept_of(&self, h: &Head) -> Option<u32> {
+        match h {
+            Head::Concept(c) => Some(*c),
+            Head::Entity(e) => self.entities.get(e).map(|x| x.concept),
+            _ => None,
+        }
+    }
+
+    fn check_term(&self, t: &Term, errs: &mut Vec<String>) {
+        match t {
+            Term::Node(n) => {
+                let here = self.concept_of(&n.head);
+                for (f, v) in &n.feats {
+                    match self.feats.get(f) {
+                        None => errs.push(format!("unknown feature {f}")),
+                        Some(fd) => {
+                            if usize::from(*v) >= fd.values.len() {
+                                errs.push(format!("feature {} has no value {v}", fd.name));
+                            }
+                            if let Some(c) = here
+                                && !self.is_a(c, fd.domain)
+                            {
+                                errs.push(format!(
+                                    "{} cannot have feature {}: it is not a kind of {}",
+                                    self.concept_name(c),
+                                    fd.name,
+                                    self.concept_name(fd.domain)
+                                ));
+                            }
+                        }
+                    }
+                }
+                for (r, child) in &n.roles {
+                    match self.roles.get(r) {
+                        None => errs.push(format!("unknown role {r}")),
+                        Some(rd) => {
+                            if let Some(c) = here
+                                && !self.is_a(c, rd.domain)
+                            {
+                                errs.push(format!(
+                                    "{} cannot have role {}: it is not a kind of {}",
+                                    self.concept_name(c),
+                                    rd.name,
+                                    self.concept_name(rd.domain)
+                                ));
+                            }
+                            if let Some(cn) = child.as_node()
+                                && let Some(c) = self.concept_of(&cn.head)
+                                && !self.is_a(c, rd.range)
+                            {
+                                errs.push(format!(
+                                    "{} cannot fill role {}: it is not a kind of {}",
+                                    self.concept_name(c),
+                                    rd.name,
+                                    self.concept_name(rd.range)
+                                ));
+                            }
+                        }
+                    }
+                    self.check_term(child, errs);
+                }
+            }
+            Term::Lam(b) => self.check_term(b, errs),
+            Term::App(a, b) | Term::Add(a, _, b) => {
+                self.check_term(a, errs);
+                self.check_term(b, errs);
+            }
+            Term::Feat(a, _, _) => self.check_term(a, errs),
+            Term::Var(_) => {}
+        }
+    }
+}

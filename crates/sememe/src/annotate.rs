@@ -781,7 +781,17 @@ fn check_reply(
             let mut ok_units = Vec::new();
             for u in &units {
                 match validate(&onto, u, &line, &mut entities) {
-                    Ok(_) => ok_units.push((*u).clone()),
+                    Ok(ann) => {
+                        let errs = crate::genlex::target_meaning(&typed, &ann)
+                            .map(|t| typed.type_errors(&t))
+                            .unwrap_or_default();
+                        if errs.is_empty() {
+                            ok_units.push((*u).clone());
+                        } else {
+                            line_errs
+                                .push(((*u).clone(), format!("type error: {}", errs.join("; "))));
+                        }
+                    }
                     Err(e) => line_errs.push(((*u).clone(), e)),
                 }
             }

@@ -293,7 +293,10 @@ fn build(p: &Program, g: &GNode, core: &[u32], top: bool) -> Result<Built> {
         .kids
         .iter()
         .any(|(r, m, k)| m.is_empty() && core.contains(r) && expressed(k));
-    let clause = is_clause(p, g) || (top && has_core);
+    // Predicates are clauses: an event or state, or anything with an
+    // expressed core argument ("that's not my house" = House(theme: that)).
+    let clause = is_clause(p, g) || has_core;
+    let _ = top;
     let mut heads = g.anchors.clone();
     heads.sort_unstable();
     heads.dedup();
@@ -555,6 +558,36 @@ fn build(p: &Program, g: &GNode, core: &[u32], top: bool) -> Result<Built> {
 pub fn convert(p: &Program, unit: &Unit, ann: &AnnNode, line: &Line) -> Result<Converted> {
     let mut g = to_gnode(p, ann)?;
     tidy(&mut g);
+    // A word-less coordination at the root ("no, you can't") is a sequence
+    // of fragments: convert each conjunct on its own.
+    let op = p.role_by_name("op");
+    if g.anchors.is_empty()
+        && !g.kids.is_empty()
+        && g.kids
+            .iter()
+            .all(|(r, m, _)| Some(*r) == op && m.is_empty())
+    {
+        let mut entries = Vec::new();
+        for (_, _, k) in &g.kids {
+            let Some((a, b)) = span(k) else { continue };
+            let sub = Unit {
+                start: a,
+                end: b + 1,
+                ..unit.clone()
+            };
+            let mut k = k.clone();
+            k.loose.clear();
+            entries.extend(convert_node(p, &sub, k, line)?.entries);
+        }
+        let meaning = meaning_of(&g)
+            .normalize()
+            .ok_or_else(|| anyhow!("ill-formed target meaning"))?;
+        return Ok(Converted { meaning, entries });
+    }
+    convert_node(p, unit, g, line)
+}
+
+fn convert_node(p: &Program, unit: &Unit, mut g: GNode, line: &Line) -> Result<Converted> {
     attach_loose(p, &mut g, unit.start, unit.end);
     let core: Vec<u32> = CORE_ROLES
         .iter()
@@ -596,6 +629,13 @@ pub fn convert(p: &Program, unit: &Unit, ann: &AnnNode, line: &Line) -> Result<C
         });
     }
     Ok(Converted { meaning, entries })
+}
+
+/// The target meaning of an annotation, as a program term.
+pub fn target_meaning(p: &Program, ann: &AnnNode) -> Result<Term> {
+    meaning_of(&to_gnode(p, ann)?)
+        .normalize()
+        .ok_or_else(|| anyhow!("ill-formed meaning"))
 }
 
 #[cfg(test)]

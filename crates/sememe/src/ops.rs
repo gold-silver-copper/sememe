@@ -485,6 +485,9 @@ pub fn apply(p: &mut Program, op: &Op, round: u32) -> Result<Option<u32>> {
             if !t.is_tree() {
                 bail!("a fact must be a closed meaning tree");
             }
+            if let Some(err) = p.type_errors(&t).into_iter().next() {
+                bail!("ill-typed fact: {err}");
+            }
             let id = p.alloc("fact");
             p.facts.insert(
                 id,
