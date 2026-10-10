@@ -1,0 +1,4 @@
+{"name": "babylm-dev-sample", "heldout_bytes": 1038480,
+ "gzip_9": 2.9382, "xz_9e": 2.5179, "zstd_19": 2.5629,
+ "zstd_19_dict_from_train": 2.4244, "zstd_dict_bytes": 1000000,
+ "xz_conditional_on_train": 2.1236}

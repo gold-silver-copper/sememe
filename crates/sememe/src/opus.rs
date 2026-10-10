@@ -375,6 +375,8 @@ fn run_agent(workdir: &Path, settings: &Path, prompt: &str, timeout: Duration) -
     let settings_s = settings.to_string_lossy().to_string();
     let mut child = Command::new("claude")
         .current_dir(workdir)
+        // Use the Claude Code login, not an API key from the environment.
+        .env_remove("ANTHROPIC_API_KEY")
         .args([
             "-p",
             "--model",
@@ -462,6 +464,8 @@ fn run_claude(
 ) -> Result<Value> {
     let mut child = Command::new("claude")
         .current_dir(workdir)
+        // Use the Claude Code login, not an API key from the environment.
+        .env_remove("ANTHROPIC_API_KEY")
         .args([
             "-p",
             "--model",
