@@ -1,1 +1,5 @@
 full pass: 22s (52830 lines/s), train 4.7013 bpb (program 0.0066 + data 4.6947), unknown 100.0%
+self-test ok
+round 1: reusing 9 stored teacher batches
+round 1: 866 units, 1635 candidate entries
+  dropped 68 operations that do not apply

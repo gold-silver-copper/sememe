@@ -1,1 +1,5 @@
-{"run": "dev", "cost_hash": "ddfa9e62f6c07327", "note": "The active run and the frozen cost-code hash it was started with. Changing crates/sememe-engine/src/cost.rs or charmodel.tsv requires starting a new run (and updating this file)."}
+{
+ "run": "dev1",
+ "cost_hash": "a10b8909f8ecf375",
+ "note": "The active run and the frozen cost-code hash it was started with. Changing crates/sememe-engine/src/cost.rs or charmodel.tsv requires starting a new run (and updating this file)."
+}
