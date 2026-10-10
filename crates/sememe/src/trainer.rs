@@ -264,6 +264,7 @@ impl Trainer {
                 Program::seed(),
             )
         };
+        std::fs::write(dir.join("pid"), std::process::id().to_string())?;
         let corpus =
             Corpus::load(&cfg.train).with_context(|| format!("loading {}", cfg.train.display()))?;
         let (index, freq) = word_index(&corpus);
@@ -760,11 +761,14 @@ impl Trainer {
             let g = groups.entry(key).or_insert((0, s.sem.clone()));
             g.0 += 1;
         }
+        // The most frequent first, at most 2,000 per round.
+        let mut groups: Vec<((String, String), (u32, Term))> =
+            groups.into_iter().filter(|(_, (n, _))| *n >= 2).collect();
+        groups.sort_by(|a, b| b.1.0.cmp(&a.1.0).then_with(|| a.0.cmp(&b.0)));
+        groups.truncate(2000);
         let mut out = Vec::new();
-        for ((form, cat), (n, sem)) in groups {
-            if n < 2 {
-                continue;
-            }
+        let mut taken: FxHashSet<String> = FxHashSet::default();
+        for ((form, cat), (_n, sem)) in groups {
             let base: String = form
                 .chars()
                 .filter(|c| c.is_ascii_alphanumeric())
@@ -776,10 +780,11 @@ impl Trainer {
             }
             let mut name = format!("Ctx{base}");
             let mut k = 2;
-            while self.program.concept_by_name(&name).is_some() {
+            while self.program.concept_by_name(&name).is_some() || taken.contains(&name) {
                 name = format!("Ctx{base}{k}");
                 k += 1;
             }
+            taken.insert(name.clone());
             let Some(c) = self.program.concept_by_name("Thing") else {
                 continue;
             };
@@ -1057,21 +1062,36 @@ impl Trainer {
 
     /// Add many entries as one change; if it does not pay, split it in two
     /// and try each half, recursively. Returns entries accepted.
-    pub fn accept_bulk(&mut self, ops_: Vec<Op>, source: &str, depth: u32) -> Result<(u32, u32)> {
-        // Drop operations that do not apply to the current program.
+    pub fn accept_bulk(
+        &mut self,
+        groups: Vec<Vec<Op>>,
+        source: &str,
+        depth: u32,
+    ) -> Result<(u32, u32)> {
+        // Drop groups that do not apply to the current program.
         let mut probe = self.program.clone();
-        let total = ops_.len();
-        let ops_: Vec<Op> = ops_
+        let total = groups.len();
+        let groups: Vec<Vec<Op>> = groups
             .into_iter()
-            .filter(|op| ops::apply(&mut probe, op, self.state.round + 1).is_ok())
+            .filter(|g| {
+                let mut p2 = probe.clone();
+                let ok = g
+                    .iter()
+                    .all(|op| ops::apply(&mut p2, op, self.state.round + 1).is_ok());
+                if ok {
+                    probe = p2;
+                }
+                ok
+            })
             .collect();
-        let invalid = (total - ops_.len()) as u32;
+        let invalid = (total - groups.len()) as u32;
         if invalid > 0 {
-            eprintln!("  dropped {invalid} operations that do not apply");
+            eprintln!("  dropped {invalid} changes that do not apply");
         }
-        if ops_.is_empty() {
+        if groups.is_empty() {
             return Ok((0, invalid));
         }
+        let ops_: Vec<Op> = groups.iter().flatten().cloned().collect();
         let forms: Vec<String> = ops_
             .iter()
             .filter_map(|o| match o {
@@ -1082,23 +1102,23 @@ impl Trainer {
             .collect();
         let e = self.evaluate(&ops_, Some(&forms))?;
         eprintln!(
-            "  bulk of {} entries: delta {:.0} bits",
-            ops_.len(),
+            "  bulk of {} {source} changes: delta {:.0} bits",
+            groups.len(),
             e.delta as f64 / cost::ONE_BIT as f64
         );
         if e.delta < 0 {
-            let n = ops_.len() as u32;
+            let n = groups.len() as u32;
             self.commit(e, &ops_, source)?;
-            return Ok((n, 0));
+            return Ok((n, invalid));
         }
-        if ops_.len() == 1 || depth >= 6 {
-            return Ok((0, ops_.len() as u32));
+        if groups.len() == 1 || depth >= 6 {
+            return Ok((0, groups.len() as u32 + invalid));
         }
-        let mid = ops_.len() / 2;
-        let (a, b) = ops_.split_at(mid);
+        let mid = groups.len() / 2;
+        let (a, b) = groups.split_at(mid);
         let (x1, y1) = self.accept_bulk(a.to_vec(), source, depth + 1)?;
         let (x2, y2) = self.accept_bulk(b.to_vec(), source, depth + 1)?;
-        Ok((x1 + x2, y1 + y2))
+        Ok((x1 + x2, y1 + y2 + invalid))
     }
 
     /// The slow tier: run agents in parallel (at most four), then score
@@ -1236,7 +1256,8 @@ impl Trainer {
                 m.units,
                 ops_.len()
             );
-            let (a, r) = self.accept_bulk(ops_, "teacher", 0)?;
+            let groups = ops_.into_iter().map(|o| vec![o]).collect();
+            let (a, r) = self.accept_bulk(groups, "teacher", 0)?;
             m.from_teacher = a;
             m.accepted += a;
             m.rejected += r;
@@ -1244,21 +1265,8 @@ impl Trainer {
         // Fast tier: words from context.
         let ctx = self.context_candidates();
         if !ctx.is_empty() {
-            let changes: Vec<(Vec<Op>, Vec<String>)> = ctx
-                .into_iter()
-                .map(|ops_| {
-                    let forms = ops_
-                        .iter()
-                        .filter_map(|o| match o {
-                            Op::AddEntry { form, .. } => Some(form.clone()),
-                            _ => None,
-                        })
-                        .collect();
-                    (ops_, forms)
-                })
-                .collect();
-            eprintln!("round {round}: {} context candidates", changes.len());
-            let (a, r) = self.accept_each(changes, "context")?;
+            eprintln!("round {round}: {} context candidates", ctx.len());
+            let (a, r) = self.accept_bulk(ctx, "context", 0)?;
             m.from_context = a;
             m.accepted += a;
             m.rejected += r;
@@ -1275,10 +1283,10 @@ impl Trainer {
             m.rejected += r;
         }
         // Pruning rarely used entries, as one change (bisected if it fails).
-        let prune: Vec<Op> = self
+        let prune: Vec<Vec<Op>> = self
             .prune_candidates(1)
             .into_iter()
-            .map(|(id, _)| Op::RemoveEntry { id })
+            .map(|(id, _)| vec![Op::RemoveEntry { id }])
             .collect();
         let (pruned, _) = if prune.is_empty() {
             (0, 0)
