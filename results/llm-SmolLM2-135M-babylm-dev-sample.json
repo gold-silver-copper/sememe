@@ -1,0 +1,14 @@
+{
+ "model": "HuggingFaceTB/SmolLM2-135M",
+ "set": "babylm-dev-sample",
+ "bytes": 1038480,
+ "tokens": 322003,
+ "bits": 1182392.3,
+ "bits_per_byte": 1.1386,
+ "context": 1024,
+ "stride": 512,
+ "seconds": 577.8,
+ "docs": 486,
+ "start_token": "<|endoftext|>",
+ "roundtrip_mismatched_docs": 0
+}

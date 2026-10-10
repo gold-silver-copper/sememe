@@ -511,10 +511,37 @@ impl Trainer {
         };
         let mut results = Vec::new();
         let mut overlay = None;
-        for _ in 0..iters {
+        // When a change touches very many documents, the guiding iterations
+        // run on a fixed sample of them; the last iteration always re-parses
+        // every affected document, so the total is exact for its analyses.
+        let sample: Vec<usize> = if ids.len() > 20_000 {
+            ids.iter()
+                .copied()
+                .filter(|d| {
+                    sememe_data::hash64(u64::from(self.state.round), &d.to_le_bytes())
+                        .is_multiple_of((ids.len() as u64 / 4000).max(1))
+                })
+                .collect()
+        } else {
+            ids.clone()
+        };
+        for it in 0..iters {
+            let last = it + 1 == iters;
+            let (these, these_docs): (Vec<usize>, Vec<&sememe_data::Doc>) =
+                if last || sample.len() == ids.len() {
+                    (ids.clone(), docs.clone())
+                } else {
+                    (
+                        sample.clone(),
+                        sample
+                            .iter()
+                            .filter_map(|i| self.corpus.docs.get(*i))
+                            .collect(),
+                    )
+                };
             let model = Model::new(Arc::new(p.clone()));
-            results = analyze::analyze(&model, &docs, false);
-            let (o, new_syms) = self.stats.overlay(&p, &ids, &results);
+            results = analyze::analyze(&model, &these_docs, false);
+            let (o, new_syms) = self.stats.overlay(&p, &these, &results);
             let mut syms = self.stats.syms.clone();
             syms.extend(new_syms);
             p.counts = em::m_step_events(&p, o.events.iter().map(|(e, n)| (e, *n)), &syms);
